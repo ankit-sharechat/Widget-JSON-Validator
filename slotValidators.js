@@ -64,7 +64,7 @@ function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, acti
     //Css Refs
     validateCssRef(cssSource, chipWidget.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, chipWidget.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, dataObject, chipWidget.cActionRef, referrer)
 }
 
 function validatePlayableWidget(playableWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
@@ -80,7 +80,7 @@ function validateImageWidget(imageWidget, dataObject, cssSource, eventSource, ac
     //Css Refs
     validateCssRef(cssSource, imageWidget.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, imageWidget.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, dataObject, imageWidget.cActionRef, referrer)
 }
 
 function validateTextWidget(textWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
@@ -121,6 +121,6 @@ function validateTextWidget(textWidget, dataObject, cssSource, eventSource, acti
 
     //Action Refs
     if (textWidget.cActionRef !== undefined) {
-        validateClickActionRef(actionSource, eventSource, dataObject, textWidget.cActionRef, referrer+" | ActionNode: actionSource.click." + textWidget.cActionRef)
+        validateClickActionRef(actionSource, eventSource, dataObject, textWidget.cActionRef, referrer)
     }
 }

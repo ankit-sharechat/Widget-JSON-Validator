@@ -43,7 +43,7 @@ function validateEventRef(eventSource, eventRef, dataObject, referrer) {
     if (eventRef !== undefined) {
         //Validate event Ref is a list
         if (eventSource[eventRef] === undefined) {
-            error("EventNotFound: `" + eventRef + "` in eventSource")
+            error("EventNotFound: `" + eventRef + "` in eventSource | Info: "+referrer)
         } else {
             //validate placeholder
             validatePlaceHolder(eventSource[eventRef], dataObject, referrer)
@@ -57,7 +57,7 @@ function validatePlaceHolder(jsonObject, dataObject, referrer) {
         const isPlaceholder = jsonObject[key].toString().startsWith("@")
         if (isPlaceholder) {
             const placeholderKey = jsonObject[key].substring(1)
-            validateDataRef(dataObject, placeholderKey, referrer)
+            validateDataRef(dataObject, placeholderKey, "(Placehodler cannot be filled for-> "+placeholderKey+") "+referrer)
         }
     })
 }
@@ -65,7 +65,7 @@ function validatePlaceHolder(jsonObject, dataObject, referrer) {
 function validateEventObject(eventSource, dataObject, eventRef, referrer) {
     if (eventRef !== undefined) {
         if (eventSource[eventRef] !== undefined) {
-            validatePlaceHolder(eventSource[eventRef], dataObject, referrer)
+            validatePlaceHolder(eventSource[eventRef], dataObject, referrer+" | EventNode: eventSource."+eventRef)
         }
     }
 }
@@ -74,7 +74,7 @@ function validateDataRef(dataSource, dataRef, referrer) {
     if (dataRef !== undefined) {
         //Validate Css Ref is a list
         if (dataSource[dataRef] === undefined) {
-            error("DataNotFound: `" + dataRef + "` in dataSource. Info: { " + referrer + " }")
+            error("DataNotFound: `" + dataRef + "` in dataSource. Info: " + referrer)
         }
     }
 }
@@ -86,7 +86,7 @@ function validateViewActionRef(actionSource, eventSource, dataObject, actionRef,
             error("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
         } else {
             const actionObject = actionSource.view[actionRef]
-            validateEventObject(eventSource, dataObject, actionObject.eventRef, referrer)
+            validateEventObject(eventSource, dataObject, actionObject.eventRef, referrer+"."+actionRef)
         }
     }
 }
@@ -106,10 +106,10 @@ function validateClickActionRef(actionSource, eventSource, dataObject, actionRef
                 error("MissingObject: webCard | Info: " + referrer)
             } else {
                 //validate placeholders
-                validatePlaceHolder(clickActionObject.webCard, dataObject, referrer + ".webCard")
+                validatePlaceHolder(clickActionObject.webCard, dataObject, referrer)
             }
 
-            validateEventRef(eventSource, clickActionObject.eventRef, dataObject, referrer)
+            validateEventRef(eventSource, clickActionObject.eventRef, dataObject, referrer+" | ActionNode: actionSource.click."+actionRef+"."+clickActionObject.eventRef)
         }
     }
 }

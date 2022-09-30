@@ -4,8 +4,6 @@ const json = JSON.parse(fs.readFileSync("./template.json", "utf8"));
 const utils = require('./utils');
 const error = utils.error
 
-//todo: validate event --> datasource
-
 //todo: Unused css
 //todo: Unused data
 //todo: Unused events
@@ -102,13 +100,15 @@ function validateItemReference(itemReference, referrer) {
     const clickActionRef = itemReference.cActionRef
     const viewActionRef = itemReference.vActionRef
 
+    referrer = "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef
+
     validateItemSource(getItemSource(), itemRef, itemDefinition => {
-        validateDataRef(getDatasourceObject(), dataRef, "DataSourceKey: " + dataRef + " | UINode: " + referrer + "." + itemRef)
-        validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], "DataSourceKey: " + dataRef + " | UINode: " + referrer + "." + itemRef)
+        validateDataRef(getDatasourceObject(), dataRef, referrer)
+        validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], referrer)
     })
 
-    validateViewActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], viewActionRef, "items." + itemRef)
-    validateClickActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], clickActionRef, "items." + itemRef)
+    validateViewActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], viewActionRef, referrer)
+    validateClickActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], clickActionRef, referrer)
 }
 
 function validateItems(items) {
@@ -153,11 +153,11 @@ function validDataSourceKey(dataSourceObject, objectKey, referringObject) {
 
 function validateTemplateHeader(header) {
     validateHeaderType(header.type)
-    validDataSourceKey(getDatasourceObject(), header.dataRef, "DataSourceKey: " + header.dataRef + " | UINode: header")
-    validateSlot(header.left, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | UINode: header.left")
-    validateSlot(header.right, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | UINode: header.right")
+    validDataSourceKey(getDatasourceObject(), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+    validateSlot(header.left, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.left")
+    validateSlot(header.right, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.right")
     validateCssRef(getCssSource(), header.cssRefs, "header")
-    validateClickActionRef(getActionSource(), getEventSource(), header.cActionRef, "header")
+    validateClickActionRef(getActionSource(), getEventSource(), getDatasourceObject()[header.dataRef], header.cActionRef, "DataSourceKey: " + header.dataRef + " | Node: header")
 }
 
 function validateSlotDefinition(slot, dataObject, referrer) {

@@ -422,12 +422,15 @@
     ]
   },
   "eventSource": {
+    "event2" : {
+      "uniId" : "@ankit"
+    },
     "event1": {
       "eventId": 810,
       "eventType": 3,
-      "eventName": "@topStart",
-      "referrer": "@topBottom",
-      "postId": "@postId"
+      "eventName": "topStart",
+      "referrer": "topBottom",
+      "postId": "postId"
     }
   },
   "actionSource": {
@@ -439,7 +442,7 @@
           "subType": "generic_widget_feed",
           "url": "generic_v2/v2/images",
           "offset": "1,2,3,4,5,6,7,8",
-          "postId": "@postId"
+          "postId": "postId"
         },
         "eventRef": "event1"
       },
@@ -448,9 +451,9 @@
         "webCard": {
           "type": "video_immersive",
           "subType": "generic_widget_feed",
-          "url": "@anchorUrl",
-          "offset": "@offset",
-          "postId": "@postId"
+          "url": "anchorUrl",
+          "offset": "asdf",
+          "postId": "postId"
         },
         "eventRef": "event2"
       },
@@ -461,7 +464,7 @@
           "subType": "generic_widget_feed",
           "url": "generic_v2/v2/videos",
           "offset": "3,4,5,6,7,8",
-          "postId": "@postId"
+          "postId": "postId"
         },
         "eventRef": "event2"
       },
@@ -472,12 +475,32 @@
           "subType": "generic_widget_feed",
           "url": "generic_v2/v2/videos",
           "offset": "4,5,6,7,8",
+          "postId": "postId"
+        },
+        "eventRef": "event2"
+      },
+      "clickAction2" : {
+        "type": "webCardNav",
+        "webCard": {
+          "type": "video_immersive",
+          "subType": "generic_widget_feed",
+          "url": "generic_v2/v2/videos",
+          "offset": "4,5,6,7,8",
           "postId": "@postId"
         },
         "eventRef": "event2"
       },
-      "clickAction2" : {},
-      "cAction2" : {}
+      "cAction2" : {
+        "type": "webCardNav",
+        "webCard": {
+          "type": "video_immersive",
+          "subType": "generic_widget_feed",
+          "url": "generic_v2/v2/videos",
+          "offset": "4,5,6,7,8",
+          "postId": "postId"
+        },
+        "eventRef": "event2"
+      }
     },
     "view": {
       "vAction1": {
