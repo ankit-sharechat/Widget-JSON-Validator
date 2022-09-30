@@ -35,7 +35,7 @@ If placeholder is not satisfied with value.
 
 ### Nested Reference Validation
 For e.g. : `view` --> `action` --> `event` --> `data`
- - `view` is not able to location `action`
+ - `view` is not able to locate `action`
  - `action` is not able to locate `event`
  - `event` is not able to locate data for its placeholders (if any)
  - `action` is not able to locate data for its placeholders (if any)
