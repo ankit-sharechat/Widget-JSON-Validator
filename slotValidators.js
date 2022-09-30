@@ -8,7 +8,7 @@ var {
     validateViewActionRef,
     validateCssRef,
     validateEventRef,
-    validateDataRef, validateWebCard, validateClickActionObject
+    validateDataRef, validateWebCard
 } = require('./utils')
 
 module.exports = {
@@ -121,7 +121,6 @@ function validateTextWidget(textWidget, dataObject, cssSource, eventSource, acti
 
     //Action Refs
     if (textWidget.cActionRef !== undefined) {
-        validateClickActionRef(actionSource, eventSource, textWidget.cActionRef, referrer)
-        validateClickActionObject(actionSource.click[textWidget.cActionRef], dataObject, eventSource, referrer+" | ActionNode: actionSource.click." + textWidget.cActionRef)
+        validateClickActionRef(actionSource, eventSource, dataObject, textWidget.cActionRef, referrer+" | ActionNode: actionSource.click." + textWidget.cActionRef)
     }
 }
