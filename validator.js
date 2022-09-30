@@ -6,7 +6,8 @@ var {
     validate_SLOT_LOT,
     validate_SLOT_IMG,
     validate_SLOT_PLAY,
-    validate_SLOT_CHIP
+    validate_SLOT_CHIP,
+    validateItemSource
 } = require('./slotValidators')
 const ok = utils.ok
 const error = utils.error
@@ -22,7 +23,20 @@ var {
 } = require('./utils')
 
 
-const {validSlotTypes, validTemplateKeys, validTemplateTypes} = require('./constants')
+const {
+    validSlotTypes,
+    validTemplateKeys,
+    validTemplateTypes,
+    SLOT_TXT,
+    SLOT_2_LINE,
+    SLOT_IMG,
+    SLOT_LOT,
+    SLOT_CHIP,
+    SLOT_PLAY,
+    HEAD,
+    ITEM_CARD,
+    ITEM_STACK
+} = require('./constants')
 var json = JSON.parse(fs.readFileSync("./template.json", "utf8"))
 
 validateWidget(json.template)
@@ -47,14 +61,6 @@ function validateWidget(template) {
     validateCssRef(getCssSource(), template.cssRefs, "template")
 }
 
-function validateItemReferencePresentInItemSource(itemSource, itemRef, onFound) {
-    if (itemSource[itemRef] === undefined) {
-        error("ItemSourceValidation: `" + itemRef + "` is not found in itemSource")
-        return
-    }
-    onFound(itemSource[itemRef])
-}
-
 function validateItemCard(itemDefinition, dataObject, referrer) {
     validateSlot(itemDefinition.topStart, dataObject, referrer + ".topStart")
     validateSlot(itemDefinition.topCenter, dataObject, referrer + ".topCenter")
@@ -67,11 +73,11 @@ function validateItemCard(itemDefinition, dataObject, referrer) {
 }
 
 function validateItemDefinition(itemDefinition, dataObject, referrer) {
-    if (itemDefinition.type === 'ITEM_CARD') {
+    if (itemDefinition.type === ITEM_CARD) {
         validateItemCard(itemDefinition, dataObject, referrer)
-    } else if (itemDefinition.type === 'ITEM_STACK') {
-        validateItemCard(itemDefinition.top, dataObject.top, referrer+".top")
-        validateItemCard(itemDefinition.bottom, dataObject.bottom, referrer+".bottom")
+    } else if (itemDefinition.type === ITEM_STACK) {
+        validateItemCard(itemDefinition.top, dataObject.top, referrer + ".top")
+        validateItemCard(itemDefinition.bottom, dataObject.bottom, referrer + ".bottom")
     }
 }
 
@@ -84,7 +90,7 @@ function validateItemReference(itemReference, referrer) {
     var clickActionRef = itemReference.cActionRef
     var viewActionRef = itemReference.vActionRef
 
-    validateItemReferencePresentInItemSource(getItemSource(), itemRef, itemDefinition => {
+    validateItemSource(getItemSource(), itemRef, itemDefinition => {
         var dataPresent = validateDataRef(getDatasourceObject(), dataRef, "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef)
         if (dataPresent) {
             validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef)
@@ -123,9 +129,7 @@ function getActionSource() {
 }
 
 function validateHeaderType(type) {
-    if (['HEAD'].includes(type)) {
-        ok("Header Type OK!")
-    } else {
+    if (![HEAD].includes(type)) {
         error("Invalid Header Type")
     }
 }
@@ -148,23 +152,23 @@ function validateTemplateHeader(header) {
 
 function validateSlotDefinition(slot, dataObject, referrer) {
     switch (slot.type) {
-        case 'SLOT_TXT' :
-            validate_SLOT_TXT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + ".SLOT_TXT")
+        case SLOT_TXT :
+            validate_SLOT_TXT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_TXT)
             break
-        case 'SLOT_2_LINE' :
-            validate_SLOT_2_LINE(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + ".SLOT_2_LINE")
+        case SLOT_2_LINE :
+            validate_SLOT_2_LINE(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_2_LINE)
             break
-        case 'SLOT_LOT':
-            validate_SLOT_LOT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + ".SLOT_LOT")
+        case SLOT_LOT:
+            validate_SLOT_LOT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_LOT)
             break
-        case 'SLOT_IMG':
-            validate_SLOT_IMG(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + ".SLOT_IMG")
+        case SLOT_IMG:
+            validate_SLOT_IMG(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_IMG)
             break
-        case 'SLOT_PLAY':
-            validate_SLOT_PLAY(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + ".SLOT_PLAY")
+        case SLOT_PLAY:
+            validate_SLOT_PLAY(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_PLAY)
             break
-        case 'SLOT_CHIP':
-            validate_SLOT_CHIP(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + ".SLOT_CHIP")
+        case SLOT_CHIP:
+            validate_SLOT_CHIP(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_CHIP)
             break
         default:
             break

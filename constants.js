@@ -1,3 +1,12 @@
 exports.validSlotTypes = ['SLOT_TXT', 'SLOT_2_LINE', 'SLOT_LOT', 'SLOT_IMG', 'SLOT_PLAY', 'SLOT_CHIP']
 exports.validTemplateKeys = ['type', 'header', 'sctv', 'items', 'autoPlay', 'sctvConfig', 'itemsConfig', 'itemSource', 'cssRefs']
 exports.validTemplateTypes = ['SctvTemplate', 'VideoTemplate']
+exports.SLOT_TXT = 'SLOT_TXT'
+exports.SLOT_2_LINE = 'SLOT_2_LINE'
+exports.SLOT_LOT = 'SLOT_LOT'
+exports.SLOT_IMG = 'SLOT_IMG'
+exports.SLOT_PLAY = 'SLOT_PLAY'
+exports.SLOT_CHIP = 'SLOT_CHIP'
+exports.HEAD = 'HEAD'
+exports.ITEM_STACK = 'ITEM_STACK'
+exports.ITEM_CARD = 'ITEM_CARD'
