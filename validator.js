@@ -66,15 +66,12 @@ function validateItemCard(itemDefinition, dataObject, referrer) {
     validateSlot(itemDefinition.content, dataObject, referrer + ".content")
 }
 
-function validateItemStack(itemDefinition) {
-
-}
-
 function validateItemDefinition(itemDefinition, dataObject, referrer) {
     if (itemDefinition.type == 'ITEM_CARD') {
         validateItemCard(itemDefinition, dataObject, referrer)
     } else if (itemDefinition.type == 'ITEM_STACK') {
-        validateItemStack(itemDefinition, dataObject, referrer)
+        validateItemCard(itemDefinition.top, dataObject.top, referrer+".top")
+        validateItemCard(itemDefinition.bottom, dataObject.bottom, referrer+".bottom")
     }
 }
 
@@ -88,9 +85,9 @@ function validateItemReference(itemReference, referrer) {
     var viewActionRef = itemReference.vActionRef
 
     validateItemReferencePresentInItemSource(getItemSource(), itemRef, itemDefinition => {
-        var dataPresent = validateDataRef(getDatasourceObject(), dataRef, referrer + "." + itemRef)
+        var dataPresent = validateDataRef(getDatasourceObject(), dataRef, "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef)
         if (dataPresent) {
-            validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], referrer + "." + itemRef)
+            validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef)
         }
     })
 

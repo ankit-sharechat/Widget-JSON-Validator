@@ -53,8 +53,8 @@
         "vActionRef": "vAction1"
       },
       {
-        "itemRef": "imageItem",
-        "dataRef": "item1",
+        "itemRef": "stackItem",
+        "dataRef": "stackItemDataRef",
         "cActionRef": "item3Nav",
         "vActionRef": "vAction1"
       },
@@ -216,10 +216,7 @@
               "style": "caption",
               "ld": {},
               "rd": {},
-              "cssRefs": [
-                "1aspectRatio1",
-                "1bgGradient4"
-              ]
+              "cssRefs": []
             }
           },
           "bottomEnd": {
@@ -267,10 +264,7 @@
               "style": "caption",
               "ld": {},
               "rd": {},
-              "cssRefs": [
-                "1aspectRatio1",
-                "1bgGradient4"
-              ]
+              "cssRefs": []
             }
           },
           "bottomEnd": {
@@ -326,7 +320,7 @@
       "bottomEnd": "# Test Image",
       "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json",
       "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
-      "gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
+      "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
       "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
     },
     "item2": {
@@ -348,6 +342,8 @@
         "postId": "7763449784",
         "topStart": "Viral",
         "topEnd": "4:12",
+        "profileUrl" : "",
+        "handle" : "",
         "grad": "#00A5364A #852B3B",
         "bottomStart": "# Colourful",
         "bottomEnd": "#FeelGood",
@@ -357,6 +353,8 @@
         "postId": "7763449784",
         "topStart": "Viral",
         "topEnd": "4:12",
+        "profileUrl" : "",
+        "handle" : "",
         "grad": "#00A5364A #852B3B",
         "bottomStart": "# Colourful",
         "bottomEnd": "#FeelGood",
