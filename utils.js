@@ -23,7 +23,7 @@ module.exports = {
         if (dataRef !== undefined) {
             //Validate Css Ref is a list
             if (dataSource[dataRef] === undefined) {
-                console.log("DataSourceValidation: `"+dataRef + "` Is not in dataSource, Tree: "+referrer)
+                console.log("DataNotFound: `" + dataRef + "` in dataSource. Info: { " + referrer + " }")
             } else {
                 return true
             }
@@ -35,7 +35,7 @@ module.exports = {
         if (cssRef !== undefined) {
             //Validate Css Ref is a list
             if (cssSource[cssRef] === undefined) {
-                console.log("CSSValidation: `"+cssRef + "` Is not in cssSource, Tree: "+referrer)
+                console.log("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
             }
         }
     },
@@ -44,7 +44,7 @@ module.exports = {
         if (actionRef !== undefined) {
             //Validate Css Ref is a list
             if (actionSource.view[actionRef] === undefined) {
-                console.log("ViewActionValidation: `"+actionRef + "` Is not in actionSource.view{}. Tree: "+referrer)
+                console.log("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
             }
         }
     },
@@ -53,7 +53,7 @@ module.exports = {
         if (actionRef !== undefined) {
             //Validate Css Ref is a list
             if (actionSource.click[actionRef] === undefined) {
-                console.log("ClickActionValidation: `"+actionRef + "` Is not in actionSource.click{}. Tree: "+referrer)
+                console.log("ClickActionNotFound: `" + actionRef + "` in actionSource.click. Info: { " + referrer + " }")
             }
         }
     },
@@ -62,7 +62,7 @@ module.exports = {
         if (eventRef !== undefined) {
             //Validate Css Ref is a list
             if (eventSource[eventRef] === undefined) {
-                console.log("EventValidation: `"+eventRef + "` Is not in eventSource")
+                console.log("EventNotFound: `" + eventRef + "` in eventSource")
             }
         }
     }

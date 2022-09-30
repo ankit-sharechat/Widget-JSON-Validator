@@ -142,9 +142,9 @@ function validDataSourceKey(dataSourceObject, objectKey, referringObject) {
 
 function validateTemplateHeader(header) {
     validateHeaderType(header.type)
-    validDataSourceKey(getDatasourceObject(), header.dataRef, "header")
-    validateSlot(header.left, getDatasourceObject()[header.dataRef], "header.left")
-    validateSlot(header.right, getDatasourceObject()[header.dataRef], "header.right")
+    validDataSourceKey(getDatasourceObject(), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+    validateSlot(header.left, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.left")
+    validateSlot(header.right, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.right")
     validateCssRef(getCssSource(), header.cssRefs, "header")
     validateClickActionRef(getActionSource(), getEventSource(), header.cActionRef, "header")
 }
