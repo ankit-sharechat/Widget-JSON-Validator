@@ -67,9 +67,9 @@ function validateItemCard(itemDefinition, dataObject, referrer) {
 }
 
 function validateItemDefinition(itemDefinition, dataObject, referrer) {
-    if (itemDefinition.type == 'ITEM_CARD') {
+    if (itemDefinition.type === 'ITEM_CARD') {
         validateItemCard(itemDefinition, dataObject, referrer)
-    } else if (itemDefinition.type == 'ITEM_STACK') {
+    } else if (itemDefinition.type === 'ITEM_STACK') {
         validateItemCard(itemDefinition.top, dataObject.top, referrer+".top")
         validateItemCard(itemDefinition.bottom, dataObject.bottom, referrer+".bottom")
     }
