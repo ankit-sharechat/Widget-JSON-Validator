@@ -8,7 +8,7 @@ var {
     validateViewActionRef,
     validateCssRef,
     validateEventRef,
-    validateDataRef
+    validateDataRef, validateWebCard, validateClickActionObject
 } = require('./utils')
 
 module.exports = {
@@ -94,7 +94,7 @@ function validateTextWidget(textWidget, dataObject, cssSource, eventSource, acti
     //Left Drawable
     if (textWidget.ld !== undefined) {
         if (Object.keys(textWidget.ld).length === 0) {
-            error("EmptyObject | "+referrer+".ld")
+            error("EmptyObject | " + referrer + ".ld")
             return
         }
         validateDataRef(dataObject, textWidget.ld.dataRef, referrer + ".ld")
@@ -104,11 +104,11 @@ function validateTextWidget(textWidget, dataObject, cssSource, eventSource, acti
     //Right Drawable
     if (textWidget.rd !== undefined) {
         if (Object.keys(textWidget.rd).length === 0) {
-            error("EmptyObject | "+referrer+".rd")
+            error("EmptyObject | " + referrer + ".rd")
             return
         }
         validateDataRef(dataObject, textWidget.rd.dataRef, referrer + ".rd")
-        validateCssRef(cssSource, textWidget.rd.cssRefs, referrer+".rd")
+        validateCssRef(cssSource, textWidget.rd.cssRefs, referrer + ".rd")
     }
 
     //Css Refs
@@ -122,5 +122,6 @@ function validateTextWidget(textWidget, dataObject, cssSource, eventSource, acti
     //Action Refs
     if (textWidget.cActionRef !== undefined) {
         validateClickActionRef(actionSource, eventSource, textWidget.cActionRef, referrer)
+        validateClickActionObject(actionSource.click[textWidget.cActionRef], dataObject, eventSource, referrer+" | ActionNode: actionSource.click." + textWidget.cActionRef)
     }
 }

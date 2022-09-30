@@ -11,5 +11,6 @@ exports.SLOT_CHIP = 'SLOT_CHIP'
 exports.HEAD = 'HEAD'
 exports.ITEM_STACK = 'ITEM_STACK'
 exports.ITEM_CARD = 'ITEM_CARD'
+exports.WebCardNavigation = 'webCardNav'
 exports.validColors = ['primary', 'secondary', 'systemBg', 'secondaryBg', 'tertiaryBg', 'separator', 'link', 'overlaySc', 'selectionOverlay', 'error', 'success', 'transparent']
 exports.validTextStyle = ['heading', 'subHeader', 'title', 'body', 'bodyBold', 'subhead', 'subheadBold', 'footnote', 'footnoteBold', 'caption', 'captionBold']

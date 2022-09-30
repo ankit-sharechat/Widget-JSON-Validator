@@ -103,9 +103,7 @@
           "top": {
             "dataRef": "viewCount",
             "color": "secondaryBg",
-            "style": "caption",
-            "ld": {},
-            "rd": {}
+            "style": "caption"
           },
           "bottom": {
             "dataRef": "handle",
@@ -113,8 +111,7 @@
             "style": "subheadBold",
             "ld": {
               "dataRef": "playIcon"
-            },
-            "rd": {}
+            }
           }
         },
         "bottomEnd": {
@@ -153,8 +150,7 @@
             "dataRef": "topStart",
             "color": "secondaryBg",
             "style": "caption",
-            "ld": {},
-            "rd": {}
+            "cActionRef" : "item1Nav"
           }
         },
         "bottomStart": {
@@ -162,9 +158,7 @@
           "text": {
             "dataRef": "bottomStart",
             "color": "secondaryBg",
-            "style": "caption",
-            "ld": {},
-            "rd": {}
+            "style": "caption"
           }
         },
         "bottomEnd": {
@@ -203,9 +197,7 @@
             "text": {
               "dataRef": "topStart",
               "color": "secondaryBg",
-              "style": "caption",
-              "ld": {},
-              "rd": {}
+              "style": "caption"
             }
           },
           "bottomStart": {
@@ -214,8 +206,6 @@
               "dataRef": "bottomStart",
               "color": "secondaryBg",
               "style": "caption",
-              "ld": {},
-              "rd": {},
               "cssRefs": []
             }
           },
@@ -251,9 +241,7 @@
             "text": {
               "dataRef": "topStart",
               "color": "secondaryBg",
-              "style": "caption",
-              "ld": {},
-              "rd": {}
+              "style": "caption"
             }
           },
           "bottomStart": {
@@ -262,8 +250,6 @@
               "dataRef": "bottomStart",
               "color": "secondaryBg",
               "style": "caption",
-              "ld": {},
-              "rd": {},
               "cssRefs": []
             }
           },
@@ -455,7 +441,7 @@
           "offset": "1,2,3,4,5,6,7,8",
           "postId": "@postId"
         },
-        "eventRef": "event2"
+        "eventRef": "event1"
       },
       "item2Nav": {
         "type": "webCardNav",
