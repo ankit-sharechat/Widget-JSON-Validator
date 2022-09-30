@@ -103,10 +103,8 @@ function validateItemReference(itemReference, referrer) {
     const viewActionRef = itemReference.vActionRef
 
     validateItemSource(getItemSource(), itemRef, itemDefinition => {
-        const dataPresent = validateDataRef(getDatasourceObject(), dataRef, "DataSourceKey: " + dataRef + " | UINode: " + referrer + "." + itemRef)
-        if (dataPresent) {
-            validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], "DataSourceKey: " + dataRef + " | UINode: " + referrer + "." + itemRef)
-        }
+        validateDataRef(getDatasourceObject(), dataRef, "DataSourceKey: " + dataRef + " | UINode: " + referrer + "." + itemRef)
+        validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], "DataSourceKey: " + dataRef + " | UINode: " + referrer + "." + itemRef)
     })
 
     validateViewActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], viewActionRef, "items." + itemRef)
