@@ -10,11 +10,33 @@ function logOk(msg) {
 
 const colorHexRegex = '^#[A-Fa-f0-9]+$'
 
-function validateEventRef(eventSource, eventRef) {
+function validateEventRef(eventSource, eventRef, dataObject, referrer) {
     if (eventRef !== undefined) {
         //Validate event Ref is a list
         if (eventSource[eventRef] === undefined) {
             logError("EventNotFound: `" + eventRef + "` in eventSource")
+        } else {
+            //validate placeholder
+            validatePlaceHolder(eventSource[eventRef], dataObject, referrer)
+        }
+    }
+}
+
+function validatePlaceHolder(jsonObject, dataObject, referrer) {
+    const keys = Object.keys(jsonObject)
+    keys.forEach(key => {
+        const isPlaceholder = jsonObject[key].toString().startsWith("@")
+        if (isPlaceholder) {
+            const placeholderKey = jsonObject[key].substring(1)
+            validateDataRef(dataObject, placeholderKey, referrer)
+        }
+    })
+}
+
+function validateEventObject(eventSource, dataObject, eventRef, referrer) {
+    if (eventRef !== undefined) {
+        if (eventSource[eventRef] !== undefined) {
+            validatePlaceHolder(eventSource[eventRef], dataObject, referrer)
         }
     }
 }
@@ -31,14 +53,16 @@ function validateDataRef(dataSource, dataRef, referrer) {
     return false
 }
 
-function validateViewActionRef(actionSource, eventSource, actionRef, referrer) {
+function validateViewActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
     if (actionRef !== undefined) {
         //Validate Css Ref is a list
         if (actionSource.view[actionRef] === undefined) {
             logError("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
             return false
+        } else {
+            const actionObject = actionSource.view[actionRef]
+            validateEventObject(eventSource, dataObject, actionObject.eventRef, referrer)
         }
-        //todo: validate event placeholders
         return true
     }
 }
@@ -88,14 +112,12 @@ module.exports = {
             if (clickAction === undefined) {
                 logError("ClickActionNotFound: `" + actionRef + "` in actionSource.click. Info: { " + referrer + " }")
                 return false
+            } else {
+                //todo validate placeholders
             }
             return true
         }
     }, validateEventRef,
-
-    validateWebCard: function (webcardObject, referrer) {
-        //todo
-    },
 
     validateClickActionObject: function (clickActionObject, dataObject, eventSource, referrer) {
         if (clickActionObject === undefined)
@@ -109,16 +131,9 @@ module.exports = {
             logError("MissingObject: webCard | Info: " + referrer)
         } else {
             //validate placeholders
-            const keys = Object.keys(clickActionObject.webCard)
-            keys.forEach(key => {
-                const isPlaceholder = clickActionObject.webCard[key].startsWith("@")
-                if (isPlaceholder) {
-                    const placeholderKey = clickActionObject.webCard[key].substring(1)
-                    validateDataRef(dataObject, placeholderKey, referrer+".webCard")
-                }
-            })
+            validatePlaceHolder(clickActionObject.webCard, dataObject, referrer + ".webCard")
         }
 
-        validateEventRef(eventSource, clickActionObject.eventRef)
+        validateEventRef(eventSource, clickActionObject.eventRef, dataObject, referrer)
     }
 }

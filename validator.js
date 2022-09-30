@@ -109,8 +109,8 @@ function validateItemReference(itemReference, referrer) {
         }
     })
 
-    validateViewActionRef(getActionSource(), getEventSource(), viewActionRef, "items." + itemRef)
-    validateClickActionRef(getActionSource(), getEventSource(), clickActionRef, "items." + itemRef)
+    validateViewActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], viewActionRef, "items." + itemRef)
+    validateClickActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], clickActionRef, "items." + itemRef)
 }
 
 function validateItems(items) {
