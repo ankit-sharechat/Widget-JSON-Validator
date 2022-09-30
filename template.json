@@ -60,9 +60,9 @@
       },
       {
         "itemRef": "playItem",
-        "dataRef": "item2",
-        "cActionRef": "item4Nav",
-        "vActionRef": "vAction1"
+        "dataRef": "item2d",
+        "cActionRef": "item4Navd",
+        "vActionRef": "vAction1d"
       }
     ],
     "autoPlay": true,

@@ -1,10 +1,19 @@
+function logError(msg) {
+    console.log('\x1b[31m', msg);  //Red
+}
+
+function logOk(msg) {
+    console.log('\x1b[32m', msg);  //Green
+}
+
 module.exports = {
     ok: function (msg) {
-        //console.log(msg)
+        logOk(msg)
     },
 
     error: function (msg) {
-        console.log(msg)
+        noErrorFound = false
+        logError(msg)
     },
 
     validateColor: function (color) {
@@ -23,7 +32,7 @@ module.exports = {
         if (dataRef !== undefined) {
             //Validate Css Ref is a list
             if (dataSource[dataRef] === undefined) {
-                console.log("DataNotFound: `" + dataRef + "` in dataSource. Info: { " + referrer + " }")
+                logError("DataNotFound: `" + dataRef + "` in dataSource. Info: { " + referrer + " }")
             } else {
                 return true
             }
@@ -35,7 +44,7 @@ module.exports = {
         if (cssRef !== undefined) {
             //Validate Css Ref is a list
             if (cssSource[cssRef] === undefined) {
-                console.log("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
+                logError("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
             }
         }
     },
@@ -44,7 +53,7 @@ module.exports = {
         if (actionRef !== undefined) {
             //Validate Css Ref is a list
             if (actionSource.view[actionRef] === undefined) {
-                console.log("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
+                logError("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
             }
         }
     },
@@ -53,7 +62,7 @@ module.exports = {
         if (actionRef !== undefined) {
             //Validate Css Ref is a list
             if (actionSource.click[actionRef] === undefined) {
-                console.log("ClickActionNotFound: `" + actionRef + "` in actionSource.click. Info: { " + referrer + " }")
+                logError("ClickActionNotFound: `" + actionRef + "` in actionSource.click. Info: { " + referrer + " }")
             }
         }
     },
@@ -62,7 +71,7 @@ module.exports = {
         if (eventRef !== undefined) {
             //Validate Css Ref is a list
             if (eventSource[eventRef] === undefined) {
-                console.log("EventNotFound: `" + eventRef + "` in eventSource")
+                logError("EventNotFound: `" + eventRef + "` in eventSource")
             }
         }
     }

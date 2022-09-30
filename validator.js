@@ -11,6 +11,7 @@ var {
 } = require('./slotValidators')
 const ok = utils.ok
 const error = utils.error
+const noErrorFound = utils.noErrorFound
 
 var {
     validateColor,
@@ -26,6 +27,7 @@ var {
 const {
     validSlotTypes,
     validTemplateKeys,
+    validItemsConfigKeys,
     validTemplateTypes,
     SLOT_TXT,
     SLOT_2_LINE,
@@ -41,23 +43,29 @@ var json = JSON.parse(fs.readFileSync("./template.json", "utf8"))
 
 validateWidget(json.template)
 
-function validateTemplateKeys(template) {
-    var keys = Object.keys(template)
+function validateKeys(keys, validKeys, referrer) {
     keys.forEach(key => {
-        if (!validTemplateKeys.includes(key)) {
-            error("Invalid Template Key: " + key + ", It must be one of [" + validTemplateKeys + "]")
+        if (!validKeys.includes(key)) {
+            error("Invalid Key: " + key + ", It must be one of [" + validKeys + "] | Info: " + referrer)
         }
     })
 }
 
+function validateItemsConfig(itemsConfig, referrer) {
+    if (itemsConfig === undefined)
+        return
+
+    validateKeys(Object.keys(itemsConfig), validItemsConfigKeys, referrer)
+}
+
 function validateWidget(template) {
-    validateTemplateKeys(template)
+    validateKeys(Object.keys(template), validTemplateKeys, "template")
     validateTemplateType(template.type)
     validateTemplateHeader(template.header)
     validateItems(template.items)
     validateItemReference(template.sctv, "sctv")
-    //todo: validate sctvConfig
-    //todo: validate itemsConfig
+    validateItemsConfig(template.itemsConfig, "itemsConfig")
+    validateItemsConfig(template.sctvConfig, "sctvConfig")
     validateCssRef(getCssSource(), template.cssRefs, "template")
 }
 
@@ -153,22 +161,22 @@ function validateTemplateHeader(header) {
 function validateSlotDefinition(slot, dataObject, referrer) {
     switch (slot.type) {
         case SLOT_TXT :
-            validate_SLOT_TXT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_TXT)
+            validate_SLOT_TXT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_TXT)
             break
         case SLOT_2_LINE :
-            validate_SLOT_2_LINE(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_2_LINE)
+            validate_SLOT_2_LINE(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_2_LINE)
             break
         case SLOT_LOT:
-            validate_SLOT_LOT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_LOT)
+            validate_SLOT_LOT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_LOT)
             break
         case SLOT_IMG:
-            validate_SLOT_IMG(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_IMG)
+            validate_SLOT_IMG(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_IMG)
             break
         case SLOT_PLAY:
-            validate_SLOT_PLAY(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_PLAY)
+            validate_SLOT_PLAY(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_PLAY)
             break
         case SLOT_CHIP:
-            validate_SLOT_CHIP(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "."+SLOT_CHIP)
+            validate_SLOT_CHIP(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_CHIP)
             break
         default:
             break
