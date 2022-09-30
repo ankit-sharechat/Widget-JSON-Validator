@@ -1,6 +1,10 @@
-var fs = require('fs');
-var utils = require('./utils')
-var {
+const fs = require('fs');
+const json = JSON.parse(fs.readFileSync("./template.json", "utf8"));
+
+const utils = require('./utils');
+const error = utils.error
+
+const {
     validate_SLOT_2_LINE,
     validate_SLOT_TXT,
     validate_SLOT_LOT,
@@ -8,15 +12,14 @@ var {
     validate_SLOT_PLAY,
     validate_SLOT_CHIP,
     validateItemSource
-} = require('./slotValidators')
-const error = utils.error
+} = require('./slotValidators');
 
-var {
+const {
     validateClickActionRef,
     validateViewActionRef,
     validateCssRef,
     validateDataRef
-} = require('./utils')
+} = require('./utils');
 
 
 const {
@@ -34,7 +37,6 @@ const {
     ITEM_CARD,
     ITEM_STACK
 } = require('./constants')
-var json = JSON.parse(fs.readFileSync("./template.json", "utf8"))
 
 validateWidget(json.template)
 
@@ -88,13 +90,13 @@ function validateItemReference(itemReference, referrer) {
     if (itemReference === undefined)
         return
 
-    var itemRef = itemReference.itemRef
-    var dataRef = itemReference.dataRef
-    var clickActionRef = itemReference.cActionRef
-    var viewActionRef = itemReference.vActionRef
+    const itemRef = itemReference.itemRef
+    const dataRef = itemReference.dataRef
+    const clickActionRef = itemReference.cActionRef
+    const viewActionRef = itemReference.vActionRef
 
     validateItemSource(getItemSource(), itemRef, itemDefinition => {
-        var dataPresent = validateDataRef(getDatasourceObject(), dataRef, "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef)
+        const dataPresent = validateDataRef(getDatasourceObject(), dataRef, "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef)
         if (dataPresent) {
             validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef)
         }
