@@ -423,7 +423,7 @@
   },
   "eventSource": {
     "event2" : {
-      "uniId" : "@ankit"
+      "uniId" : "ankit"
     },
     "event1": {
       "eventId": 810,

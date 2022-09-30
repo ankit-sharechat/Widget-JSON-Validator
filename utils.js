@@ -75,7 +75,9 @@ function validateDataRef(dataSource, dataRef, referrer) {
         //Validate Css Ref is a list
         if (dataSource[dataRef] === undefined) {
             error("DataNotFound: `" + dataRef + "` in dataSource. Info: " + referrer)
+            return false
         }
+        return true
     }
 }
 
