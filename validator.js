@@ -4,6 +4,16 @@ const json = JSON.parse(fs.readFileSync("./template.json", "utf8"));
 const utils = require('./utils');
 const error = utils.error
 
+//todo: validate drawable
+//todo: validate action --> event validation
+//todo: validate action --> datasource
+//todo: validate action --> event --> datasource
+
+//todo: Unused css
+//todo: Unused data
+//todo: Unused events
+//todo: Unused actions
+
 const {
     validate_SLOT_2_LINE,
     validate_SLOT_TXT,

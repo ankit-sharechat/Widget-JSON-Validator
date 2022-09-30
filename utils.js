@@ -36,11 +36,6 @@ module.exports = {
             logError("InvalidResource: TextStyle " + style + ", It must be one of " + validTextStyle + " Info: " + referrer)
         }
     },
-
-    validateTextDrawable: function (textDrawable) {
-
-    },
-
     validateDataRef: function (dataSource, dataRef, referrer) {
         if (dataRef !== undefined) {
             //Validate Css Ref is a list
@@ -53,12 +48,14 @@ module.exports = {
         return false
     },
 
-    validateCssRef: function (cssSource, cssRef, referrer) {
-        if (cssRef !== undefined) {
+    validateCssRef: function (cssSource, cssRefs, referrer) {
+        if (cssRefs !== undefined) {
             //Validate Css Ref is a list
-            if (cssSource[cssRef] === undefined) {
-                logError("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
-            }
+            cssRefs.forEach(cssRef => {
+                if (cssSource[cssRef] === undefined) {
+                    logError("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
+                }
+            })
         }
     },
 

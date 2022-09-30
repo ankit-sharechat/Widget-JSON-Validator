@@ -37,7 +37,7 @@ module.exports = {
     validate_SLOT_CHIP: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
         validateChipWidget(slot.chip, dataObject, cssSource, eventSource, actionSource, referrer + ".chip")
     },
-    validateItemSource : function (itemSource, itemRef, onFound) {
+    validateItemSource: function (itemSource, itemRef, onFound) {
         validateItemReferencePresentInItemSource(itemSource, itemRef, onFound)
     }
 }
@@ -53,31 +53,22 @@ function validateItemReferencePresentInItemSource(itemSource, itemRef, onFound) 
 
 
 function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
-    //DataSource
+    //Image Data
     validateDataRef(dataObject, chipWidget.imageRef, referrer)
+    //Text Data
     validateDataRef(dataObject, chipWidget.textRef, referrer)
-
-    //Colors
+    //Color
     validateColor(chipWidget.color, referrer)
     //Style
     validateStyle(chipWidget.style, referrer)
-
     //Css Refs
-    if (chipWidget.cssRefs !== undefined) {
-        //Validate Css Ref is a list
-        chipWidget.cssRefs.forEach(cssRef => {
-            validateCssRef(cssSource, cssRef, referrer)
-        })
-    }
-
-    //Action Refs
-    if (chipWidget.cActionRef !== undefined) {
-        validateClickActionRef(actionSource, eventSource, chipWidget.cActionRef, referrer)
-    }
+    validateCssRef(cssSource, chipWidget.cssRefs, referrer)
+    //Action Ref
+    validateClickActionRef(actionSource, eventSource, chipWidget.cActionRef, referrer)
 }
 
 function validatePlayableWidget(playableWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
-    //DataSource
+    //DataSources
     validateDataRef(dataObject, playableWidget.gifRef, referrer)
     validateDataRef(dataObject, playableWidget.thumbRef, referrer)
     validateDataRef(dataObject, playableWidget.videoRef, referrer)
@@ -86,38 +77,38 @@ function validatePlayableWidget(playableWidget, dataObject, cssSource, eventSour
 function validateImageWidget(imageWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
     //DataSource
     validateDataRef(dataObject, imageWidget.dataRef, referrer)
-
     //Css Refs
-    if (imageWidget.cssRefs !== undefined) {
-        //Validate Css Ref is a list
-        imageWidget.cssRefs.forEach(cssRef => {
-            validateCssRef(cssSource, cssRef, referrer)
-        })
-    }
-
-    //Action Refs
-    if (imageWidget.cActionRef !== undefined) {
-        validateClickActionRef(actionSource, eventSource, imageWidget.cActionRef, referrer)
-    }
+    validateCssRef(cssSource, imageWidget.cssRefs, referrer)
+    //Action Ref
+    validateClickActionRef(actionSource, eventSource, imageWidget.cActionRef, referrer)
 }
 
 function validateTextWidget(textWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
     //DataSource
     validateDataRef(dataObject, textWidget.dataRef, referrer)
-
-    //Colors
+    //Color
     validateColor(textWidget.color, referrer)
     //Style
     validateStyle(textWidget.style, referrer)
 
     //Left Drawable
     if (textWidget.ld !== undefined) {
-        validateTextDrawable(textWidget.ld)
+        if (Object.keys(textWidget.ld).length === 0) {
+            error("EmptyObject | "+referrer+".ld")
+            return
+        }
+        validateDataRef(dataObject, textWidget.ld.dataRef, referrer + ".ld")
+        validateCssRef(cssSource, textWidget.ld.cssRefs, referrer + ".ld")
     }
 
     //Right Drawable
     if (textWidget.rd !== undefined) {
-        validateTextDrawable(textWidget.rd)
+        if (Object.keys(textWidget.rd).length === 0) {
+            error("EmptyObject | "+referrer+".rd")
+            return
+        }
+        validateDataRef(dataObject, textWidget.rd.dataRef, referrer + ".rd")
+        validateCssRef(cssSource, textWidget.rd.cssRefs, referrer+".rd")
     }
 
     //Css Refs
