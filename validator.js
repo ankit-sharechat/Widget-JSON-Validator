@@ -11,7 +11,6 @@ var {
 } = require('./slotValidators')
 const ok = utils.ok
 const error = utils.error
-const noErrorFound = utils.noErrorFound
 
 var {
     validateColor,

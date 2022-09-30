@@ -58,9 +58,9 @@ function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, acti
     validateDataRef(dataObject, chipWidget.textRef, referrer)
 
     //Colors
-    var validColor = validateColor(chipWidget.color)
+    validateColor(chipWidget.color, referrer)
     //Style
-    var validStyle = validateStyle(chipWidget.style)
+    validateStyle(chipWidget.style, referrer)
 
     //Css Refs
     if (chipWidget.cssRefs !== undefined) {
@@ -106,9 +106,9 @@ function validateTextWidget(textWidget, dataObject, cssSource, eventSource, acti
     validateDataRef(dataObject, textWidget.dataRef, referrer)
 
     //Colors
-    var validColor = validateColor(textWidget.color)
+    validateColor(textWidget.color, referrer)
     //Style
-    var validStyle = validateStyle(textWidget.style)
+    validateStyle(textWidget.style, referrer)
 
     //Left Drawable
     if (textWidget.ld !== undefined) {

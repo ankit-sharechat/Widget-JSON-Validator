@@ -60,9 +60,9 @@
       },
       {
         "itemRef": "playItem",
-        "dataRef": "item2d",
-        "cActionRef": "item4Navd",
-        "vActionRef": "vAction1d"
+        "dataRef": "item2",
+        "cActionRef": "item1Nav",
+        "vActionRef": "vAction1"
       }
     ],
     "autoPlay": true,
@@ -109,7 +109,7 @@
           },
           "bottom": {
             "dataRef": "handle",
-            "color": "secondaryBg",
+            "color": "#009988",
             "style": "subheadBold",
             "ld": {
               "dataRef": "playIcon"

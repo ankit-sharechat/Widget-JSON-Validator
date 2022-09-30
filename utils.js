@@ -1,3 +1,5 @@
+const {validColors, validTextStyle} = require("./constants");
+
 function logError(msg) {
     console.log('\x1b[31m', msg);  //Red
 }
@@ -6,6 +8,7 @@ function logOk(msg) {
     console.log('\x1b[32m', msg);  //Green
 }
 
+const colorHexRegex = '^#[A-Fa-f0-9]+$'
 module.exports = {
     ok: function (msg) {
         logOk(msg)
@@ -16,12 +19,22 @@ module.exports = {
         logError(msg)
     },
 
-    validateColor: function (color) {
+    validateColor: function (color, referrer) {
+        if (color === undefined)
+            return
 
+        if (!(color.match(colorHexRegex) || validColors.includes(color))) {
+            logError("InvalidResource: Color " + color + ", It must be a valid color hex, or one of " + validColors + " Info: " + referrer)
+        }
     },
 
-    validateStyle: function (style) {
+    validateStyle: function (style, referrer) {
+        if (style === undefined)
+            return
 
+        if (!(validTextStyle.includes(style))) {
+            logError("InvalidResource: TextStyle " + style + ", It must be one of " + validTextStyle + " Info: " + referrer)
+        }
     },
 
     validateTextDrawable: function (textDrawable) {
