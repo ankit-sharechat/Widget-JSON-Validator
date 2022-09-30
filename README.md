@@ -40,4 +40,7 @@ For e.g. : `view` --> `action` --> `event` --> `data`
  - `event` is not able to locate data for its placeholders (if any)
  - `action` is not able to locate data for its placeholders (if any)
  
+Sample error
+<img width="1852" alt="Screenshot 2022-09-30 at 6 10 06 PM" src="https://user-images.githubusercontent.com/81750369/193273826-1ad8abc1-ffbc-4fe5-b80e-373f4077dcd9.png">
+
 
