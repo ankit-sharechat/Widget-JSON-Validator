@@ -9,17 +9,13 @@ var {
     validate_SLOT_CHIP,
     validateItemSource
 } = require('./slotValidators')
-const ok = utils.ok
 const error = utils.error
 
 var {
-    validateColor,
-    validateStyle,
-    validateTextDrawable,
     validateClickActionRef,
     validateViewActionRef,
     validateCssRef,
-    validateEventRef, validateDataRef
+    validateDataRef
 } = require('./utils')
 
 
