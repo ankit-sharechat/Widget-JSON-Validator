@@ -1,14 +1,5 @@
-const fs = require('fs');
-const feedJson = JSON.parse(fs.readFileSync("./feedItem.json", "utf8"));
-const exploreJson = JSON.parse(fs.readFileSync("./exploreItem.json", "utf8"));
-
 const utils = require('./utils');
 const error = utils.error
-
-//todo: Unused css
-//todo: Unused data
-//todo: Unused events
-//todo: Unused actions
 
 const {
     validate_SLOT_2_LINE,
@@ -41,12 +32,8 @@ const {
     SLOT_PLAY,
     HEAD,
     ITEM_CARD,
-    ITEM_STACK, GENERIC_V2
+    ITEM_STACK, GENERIC_V2, validColors, validTextStyle, WebCardNavigation
 } = require('./constants')
-
-validateFeedItem(feedJson)
-
-validateExploreItem(exploreJson)
 
 function validateFeedItem(feedJson) {
     if (feedJson.t !== GENERIC_V2) {
@@ -228,3 +215,4 @@ function validateTemplateType(type) {
         error("Invalid Template Type: " + type)
     }
 }
+module.exports = { validateFeedItem, validateExploreItem}
