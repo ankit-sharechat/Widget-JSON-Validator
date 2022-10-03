@@ -7,11 +7,11 @@
       "left": {
         "type": "SLOT_2_LINE",
         "top": {
-          "dataRef": "title",
-          "style": "body",
-          "color": "primary",
+          "dataRef": "titl_e",
+          "style": "body2",
+          "color": "primary1",
           "rd": {
-            "dataRef": "rd"
+            "dataRef": "rightDrawable"
           }
         },
         "bottom": {
@@ -189,7 +189,7 @@
         }
       },
       "stackItem": {
-        "type": "ITEM_STACK",
+        "type": "ITEM_STACK_",
         "top": {
           "type": "ITEM_CARD",
           "topStart": {
@@ -241,7 +241,7 @@
             "text": {
               "dataRef": "topStart",
               "color": "secondaryBg",
-              "style": "caption"
+              "style": "caption_"
             }
           },
           "bottomStart": {
@@ -274,7 +274,7 @@
           "content": {
             "type": "SLOT_IMG",
             "image": {
-              "dataRef": "url"
+              "dataRef": "ur_l"
             }
           }
         }
@@ -497,14 +497,14 @@
           "subType": "generic_widget_feed",
           "url": "generic_v2/v2/videos",
           "offset": "4,5,6,7,8",
-          "postId": "postId"
+          "postId": "@postId"
         },
-        "eventRef": "event2"
+        "eventRef": "event_2"
       }
     },
     "view": {
       "vAction1": {
-        "eventRef": "event1"
+        "eventRef": "event_1"
       }
     }
   }
