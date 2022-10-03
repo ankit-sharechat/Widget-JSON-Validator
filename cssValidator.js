@@ -1,4 +1,4 @@
-const {error} = require("./utils");
+const {error} = require("./index");
 
 function validateCssRef(cssSource, cssRefs, referrer) {
     if (cssRefs !== undefined) {

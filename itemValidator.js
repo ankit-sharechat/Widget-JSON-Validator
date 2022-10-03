@@ -2,7 +2,7 @@ const {ITEM_CARD, ITEM_STACK, validItemsConfigKeys} = require("./constants");
 
 const { error, getActionSource, getEventSource,
     getDatasourceObject, getItemSource, validateKeys
-} = require("./utils");
+} = require("./index");
 
 const {validateSlot} = require("./slotValidators");
 const {validateDataRef} = require("./dataValidator");

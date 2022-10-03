@@ -1,5 +1,5 @@
 const {GENERIC_V2} = require("./constants");
-const {error} = require("./utils");
+const {error} = require("./index");
 const {validateWidget} = require("./widgetValidator");
 
 function validateExploreItem(exploreJson) {

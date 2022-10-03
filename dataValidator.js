@@ -1,4 +1,4 @@
-const {error} = require("./utils");
+const {error} = require("./index");
 
 function validateDataRef(dataSource, dataRef, referrer) {
     if (dataRef !== undefined) {

@@ -2,7 +2,7 @@ const {validTemplateKeys, validTemplateTypes} = require("./constants");
 const {
     validateKeys, getCssSource,
     error
-} = require("./utils");
+} = require("./index");
 const {validateTemplateHeader} = require("./headerValidator");
 const {validateItems, validateItemReference, validateItemsConfig} = require("./itemValidator");
 const {validateCssRef} = require("./cssValidator");

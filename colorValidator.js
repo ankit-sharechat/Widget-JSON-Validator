@@ -1,5 +1,5 @@
 const { validColors } = require("./constants");
-const {error} = require("./utils");
+const {error} = require("./index");
 
 const colorHexRegex = '^#[A-Fa-f0-9]+$'
 

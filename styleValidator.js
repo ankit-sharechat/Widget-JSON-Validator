@@ -1,5 +1,5 @@
 const {validTextStyle} = require("./constants");
-const {error} = require("./utils");
+const {error} = require("./index");
 
 function validateStyle(style, referrer) {
     if (style === undefined)

@@ -4,7 +4,7 @@ const {
     getCssSource,
     getActionSource,
     getEventSource, error
-} = require("./utils");
+} = require("./index");
 const {validateSlot} = require("./slotValidators");
 const {validateCssRef} = require("./cssValidator");
 const {validateClickActionRef} = require("./actionValidator");

@@ -1,4 +1,4 @@
-const {error} = require("./utils");
+const {error} = require("./index");
 const {validatePlaceHolder} = require("./dataValidator");
 
 function validateEventObject(eventSource, dataObject, eventRef, referrer) {
