@@ -5,9 +5,9 @@ const feedJson = JSON.parse(fs.readFileSync("./feedItem.json", "utf8"));
 const exploreJson = JSON.parse(fs.readFileSync("./exploreItem.json", "utf8"));
 
 
-//todo: Unused css
-//todo: Unused data
-//todo: Unused events
-//todo: Unused actions
+//todo: Add Checks for Unused css
+//todo: Add Checks for Unused data
+//todo: Add Checks for Unused events
+//todo: Add Checks for Unused actions
 validateFeedItem(feedJson)
 validateExploreItem(exploreJson)
