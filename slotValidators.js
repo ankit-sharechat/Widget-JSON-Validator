@@ -1,14 +1,10 @@
 var {
-    ok,
     error,
     validateColor,
     validateStyle,
-    validateTextDrawable,
     validateClickActionRef,
-    validateViewActionRef,
     validateCssRef,
-    validateEventRef,
-    validateDataRef, validateWebCard
+    validateDataRef
 } = require('./utils')
 
 module.exports = {
