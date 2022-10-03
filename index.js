@@ -1,47 +1,13 @@
-function error(msg) {
-    console.log('\x1b[31m', msg);  //Red
-}
-
-function ok(msg) {
-    console.log('\x1b[32m', msg);  //Green
-}
+const fs = require('fs');
+const {validateFeedItem} = require("./feedValidator");
+const {validateExploreItem} = require("./exploreItemValidator");
+const feedJson = JSON.parse(fs.readFileSync("./feedItem.json", "utf8"));
+const exploreJson = JSON.parse(fs.readFileSync("./exploreItem.json", "utf8"));
 
 
-function getDatasourceObject(json) {
-    return json.dataSource
-}
-
-function getCssSource(json) {
-    return json.cssSource
-}
-
-function getEventSource(json) {
-    return json.eventSource
-}
-
-function getItemSource(json) {
-    return json.template.itemSource
-}
-
-function getActionSource(json) {
-    return json.actionSource
-}
-
-function validateKeys(keys, validKeys, referrer) {
-    keys.forEach(key => {
-        if (!validKeys.includes(key)) {
-            error("Invalid Key: " + key + ", It must be one of [" + validKeys + "] | Info: " + referrer)
-        }
-    })
-}
-
-module.exports = {
-    ok,
-    error,
-    getDatasourceObject,
-    getCssSource,
-    getEventSource,
-    getItemSource,
-    getActionSource,
-    validateKeys
-}
+//todo: Unused css
+//todo: Unused data
+//todo: Unused events
+//todo: Unused actions
+validateFeedItem(feedJson)
+validateExploreItem(exploreJson)

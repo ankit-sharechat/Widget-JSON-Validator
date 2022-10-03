@@ -1,5 +1,5 @@
 const {SLOT_TXT, SLOT_2_LINE, SLOT_LOT, SLOT_IMG, SLOT_PLAY, SLOT_CHIP, validSlotTypes} = require("./constants");
-const {getCssSource, getEventSource, getActionSource, error} = require("./index");
+const {getCssSource, getEventSource, getActionSource, error} = require("./helpers");
 const {validateDataRef} = require("./dataValidator");
 const {validateColor} = require("./colorValidator");
 const {validateStyle} = require("./styleValidator");

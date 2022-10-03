@@ -1,5 +1,5 @@
 const {WebCardNavigation} = require("./constants");
-const {error} = require("./index");
+const {error} = require("./helpers");
 const {validatePlaceHolder} = require("./dataValidator");
 const { validateEventRef } = require("./eventValidator");
 const { validateEventObject } = require("./eventValidator");
