@@ -32,21 +32,8 @@ module.exports = {
     },
     validate_SLOT_CHIP: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
         validateChipWidget(slot.chip, dataObject, cssSource, eventSource, actionSource, referrer + ".chip")
-    },
-    validateItemSource: function (itemSource, itemRef, onFound) {
-        validateItemReferencePresentInItemSource(itemSource, itemRef, onFound)
     }
 }
-
-
-function validateItemReferencePresentInItemSource(itemSource, itemRef, onFound) {
-    if (itemSource[itemRef] === undefined) {
-        error("ItemDefinitionNotFound: `" + itemRef + "` in itemSource")
-        return
-    }
-    onFound(itemSource[itemRef])
-}
-
 
 function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
     //Image Data

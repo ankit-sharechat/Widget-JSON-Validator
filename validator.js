@@ -7,8 +7,7 @@ const {
     validate_SLOT_LOT,
     validate_SLOT_IMG,
     validate_SLOT_PLAY,
-    validate_SLOT_CHIP,
-    validateItemSource
+    validate_SLOT_CHIP
 } = require('./slotValidators');
 
 const {
@@ -208,6 +207,14 @@ function validateSlotType(slotType, referrer) {
     if (!validSlotTypes.includes(slotType)) {
         error("Invalid Slot Type:" + slotType + ", It must be one of [" + validSlotTypes + "], Tree: " + referrer)
     }
+}
+
+function validateItemSource(itemSource, itemRef, onFound) {
+    if (itemSource[itemRef] === undefined) {
+        error("ItemDefinitionNotFound: `" + itemRef + "` in itemSource")
+        return
+    }
+    onFound(itemSource[itemRef])
 }
 
 function validateTemplateType(type) {
