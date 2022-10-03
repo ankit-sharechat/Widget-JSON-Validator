@@ -2,6 +2,12 @@
 A JS tool to validate JSON for Widget.
 ## Checks supported
 
+### Usage:
+ - `index.js` file is the start point
+ - There are two main methods.
+    - `validateFeedItem` : Validates Widgets for feed. It expects complete Post Model object for feed.
+    - `validateExploreItem` :  Validates Widgets for Explore. It expects complete object for explore screen.
+
 ### Type Checkings
  - Header Type
  - Slot Type
