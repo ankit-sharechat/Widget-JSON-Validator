@@ -1,0 +1,515 @@
+{
+  "component": {
+    "template": {
+      "type": "SctvTemplate",
+      "header": {
+        "type": "HEAD",
+        "dataRef": "listHeader",
+        "left": {
+          "type": "SLOT_2_LINE",
+          "top": {
+            "dataRef": "title",
+            "style": "body",
+            "color": "primary",
+            "rd": {
+              "dataRef": "rd"
+            }
+          },
+          "bottom": {
+            "dataRef": "sub-title",
+            "style": "footnote"
+          }
+        },
+        "right": {
+          "type": "SLOT_LOT",
+          "lottie": {
+            "dataRef": "lotRef",
+            "cssRefs": [
+              "webpsize"
+            ]
+          }
+        },
+        "cActionRef": "cAction2",
+        "cssRefs": [
+          "header"
+        ]
+      },
+      "sctv": {
+        "itemRef": "imageItem",
+        "dataRef": "item1",
+        "cActionRef": "item1Nav",
+        "vActionRef": "vAction1"
+      },
+      "items": [
+        {
+          "itemRef": "imageItem",
+          "dataRef": "item1",
+          "cActionRef": "item1Nav",
+          "vActionRef": "vAction1"
+        },
+        {
+          "itemRef": "playItem",
+          "dataRef": "item2",
+          "cActionRef": "item2Nav",
+          "vActionRef": "vAction1"
+        },
+        {
+          "itemRef": "stackItem",
+          "dataRef": "stackItemDataRef",
+          "cActionRef": "item3Nav",
+          "vActionRef": "vAction1"
+        },
+        {
+          "itemRef": "playItem",
+          "dataRef": "item2",
+          "cActionRef": "item1Nav",
+          "vActionRef": "vAction1"
+        }
+      ],
+      "autoPlay": true,
+      "sctvConfig": {
+        "s": 8,
+        "sp": 16,
+        "tp": 16,
+        "ep": 16,
+        "bp": 4,
+        "wp": 1,
+        "w2hr": 0.56,
+        "c": 4
+      },
+      "itemsConfig": {
+        "s": 8,
+        "sp": 16,
+        "tp": 4,
+        "ep": 16,
+        "bp": 16,
+        "wp": 0.4,
+        "w2hr": 0.6,
+        "c": 4
+      },
+      "itemSource": {
+        "imageItem": {
+          "type": "ITEM_CARD",
+          "topStart": {
+            "type": "SLOT_LOT",
+            "lottie": {
+              "dataRef": "lotRef",
+              "cssRefs": [
+                "webpsize"
+              ]
+            }
+          },
+          "bottomStart": {
+            "type": "SLOT_2_LINE",
+            "top": {
+              "dataRef": "viewCount",
+              "color": "secondaryBg",
+              "style": "caption"
+            },
+            "bottom": {
+              "dataRef": "handle",
+              "color": "#009988",
+              "style": "subheadBold",
+              "ld": {
+                "dataRef": "playIcon"
+              }
+            }
+          },
+          "bottomEnd": {
+            "type": "SLOT_CHIP",
+            "chip": {
+              "imageRef": "profileUrl",
+              "b": {
+                "width": 0.5,
+                "color": "secondaryBg"
+              },
+              "textRef": "handle",
+              "s": 20,
+              "color": "secondaryBg",
+              "style": "footnoteBold",
+              "cssRefs": [
+                "bottomEnd4"
+              ],
+              "clickActionRef": "action4"
+            }
+          },
+          "content": {
+            "type": "SLOT_IMG",
+            "image": {
+              "dataRef": "url",
+              "cssRefs": [
+                "cardOverlay"
+              ]
+            }
+          }
+        },
+        "playItem": {
+          "type": "ITEM_CARD",
+          "topStart": {
+            "type": "SLOT_TXT",
+            "text": {
+              "dataRef": "topStart",
+              "color": "secondaryBg",
+              "style": "caption",
+              "cActionRef" : "item1Nav"
+            }
+          },
+          "bottomStart": {
+            "type": "SLOT_TXT",
+            "text": {
+              "dataRef": "bottomStart",
+              "color": "secondaryBg",
+              "style": "caption"
+            }
+          },
+          "bottomEnd": {
+            "type": "SLOT_CHIP",
+            "chip": {
+              "imageRef": "profileUrl",
+              "b": {
+                "width": 0.5,
+                "color": "secondaryBg"
+              },
+              "textRef": "handle",
+              "s": 20,
+              "color": "secondaryBg",
+              "style": "footnoteBold",
+              "cssRefs": [
+                "bottomEnd4"
+              ],
+              "clickActionRef": "action4"
+            }
+          },
+          "content": {
+            "type": "SLOT_PLAY",
+            "playable": {
+              "gifRef": "gifRef",
+              "thumbRef": "thumbRef",
+              "videoRef": "videoRef"
+            }
+          }
+        },
+        "stackItem": {
+          "type": "ITEM_STACK",
+          "top": {
+            "type": "ITEM_CARD",
+            "topStart": {
+              "type": "SLOT_TXT",
+              "text": {
+                "dataRef": "topStart",
+                "color": "secondaryBg",
+                "style": "caption"
+              }
+            },
+            "bottomStart": {
+              "type": "SLOT_TXT",
+              "text": {
+                "dataRef": "bottomStart",
+                "color": "secondaryBg",
+                "style": "caption",
+                "cssRefs": []
+              }
+            },
+            "bottomEnd": {
+              "type": "SLOT_CHIP",
+              "chip": {
+                "imageRef": "profileUrl",
+                "b": {
+                  "width": 0.5,
+                  "color": "secondaryBg"
+                },
+                "textRef": "handle",
+                "s": 20,
+                "color": "secondaryBg",
+                "style": "footnoteBold",
+                "cssRefs": [
+                  "bottomEnd4"
+                ],
+                "clickActionRef": "action4"
+              }
+            },
+            "content": {
+              "type": "SLOT_IMG",
+              "image": {
+                "dataRef": "url"
+              }
+            }
+          },
+          "bottom": {
+            "type": "ITEM_CARD",
+            "topStart": {
+              "type": "SLOT_TXT",
+              "text": {
+                "dataRef": "topStart",
+                "color": "secondaryBg",
+                "style": "caption"
+              }
+            },
+            "bottomStart": {
+              "type": "SLOT_TXT",
+              "text": {
+                "dataRef": "bottomStart",
+                "color": "secondaryBg",
+                "style": "caption",
+                "cssRefs": []
+              }
+            },
+            "bottomEnd": {
+              "type": "SLOT_CHIP",
+              "chip": {
+                "imageRef": "profileUrl",
+                "b": {
+                  "width": 0.5,
+                  "color": "secondaryBg"
+                },
+                "textRef": "handle",
+                "s": 20,
+                "color": "secondaryBg",
+                "style": "footnoteBold",
+                "cssRefs": [
+                  "bottomEnd4"
+                ],
+                "clickActionRef": "action4"
+              }
+            },
+            "content": {
+              "type": "SLOT_IMG",
+              "image": {
+                "dataRef": "url"
+              }
+            }
+          }
+        }
+      },
+      "cssRefs": [
+        "solidBg"
+      ]
+    },
+    "dataSource": {
+      "listHeader": {
+        "title": "Most Viral Videos",
+        "rd": "lo:https://assets2.lottiefiles.com/packages/lf20_kynojnn7.json",
+        "sub-title": "Check them out!!",
+        "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json"
+      },
+      "item1": {
+        "offset": "2,3,4,5,6,7,8",
+        "anchorUrl": "generic_v2/v2/videos",
+        "postId": "7763449784-item1",
+        "topStart": "Viral",
+        "topEnd": "Trending",
+        "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+        "handle": " 10M Views",
+        "playIcon": "https://cdn-icons-png.flaticon.com/128/3039/3039386.png",
+        "viewCount": "",
+        "grad": "#00A5364A #852B3B",
+        "bottomStart": "# Colourful",
+        "bottomEnd": "# Test Image",
+        "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json",
+        "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+        "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
+        "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
+      },
+      "item2": {
+        "postId": "7763449784-item2",
+        "topStart": "Viral",
+        "topEnd": "4:12",
+        "grad": "#00A5364A #852B3B",
+        "bottomStart": "# Colourful",
+        "bottomEnd": "#FeelGood",
+        "gifRef" : "",
+        "handle" : "",
+        "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+        "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+        "videoRef": "https://cdn3.sharechat.com/bitrate_h264_867046_385e2dcc_1659455860364_sc_350_360.mp4",
+        "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
+      },
+      "stackItemDataRef": {
+        "top": {
+          "postId": "7763449784",
+          "topStart": "Viral",
+          "topEnd": "4:12",
+          "profileUrl" : "",
+          "handle" : "",
+          "grad": "#00A5364A #852B3B",
+          "bottomStart": "# Colourful",
+          "bottomEnd": "#FeelGood",
+          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80"
+        },
+        "bottom": {
+          "postId": "7763449784",
+          "topStart": "Viral",
+          "topEnd": "4:12",
+          "profileUrl" : "",
+          "handle" : "",
+          "grad": "#00A5364A #852B3B",
+          "bottomStart": "# Colourful",
+          "bottomEnd": "#FeelGood",
+          "url": "https://images.unsplash.com/photo-1610693810632-7e77e5e9039a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGRpd2FsaXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
+        }
+      }
+    },
+    "cssSource": {
+      "bottomEnd4": [],
+      "cardOverlay": [
+        {
+          "type": "gradient",
+          "c": [
+            "#00ff0000",
+            "primary"
+          ],
+          "xr" : [0, 1],
+          "h" : 0
+        }
+      ],
+      "header": [
+        {
+          "type": "fillMaxWidth"
+        },
+        {
+          "type": "padding",
+          "top": 8,
+          "bottom": 8,
+          "start": 16,
+          "end": 16
+        }
+      ],
+      "centerSlotSize": [
+        {
+          "type": "size",
+          "s": 100
+        }
+      ],
+      "webpsize": [
+        {
+          "type": "size",
+          "s": 36
+        }
+      ],
+      "bgGradient4": [
+        {
+          "type": "background",
+          "brush": {
+            "gradient": [
+              "#00A5364A",
+              "#852B3B"
+            ]
+          }
+        }
+      ],
+      "sctvDecor": [
+        {
+          "type": "padding",
+          "top": 4,
+          "start": 16,
+          "end": 16
+        }
+      ],
+      "solidBg": [
+        {
+          "type": "background",
+          "color": "secondaryBg"
+        }
+      ],
+      "background1": [
+        {
+          "type": "background",
+          "color": "link"
+        },
+        {
+          "type": "padding",
+          "all": 14
+        }
+      ]
+    },
+    "eventSource": {
+      "event2" : {
+        "uniId" : "ankit"
+      },
+      "event1": {
+        "eventId": 810,
+        "eventType": 3,
+        "eventName": "topStart",
+        "referrer": "topBottom",
+        "postId": "postId"
+      }
+    },
+    "actionSource": {
+      "click": {
+        "item1Nav": {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "image_immersive",
+            "subType": "generic_widget_feed",
+            "url": "generic_v2/v2/images",
+            "offset": "1,2,3,4,5,6,7,8",
+            "postId": "postId"
+          },
+          "eventRef": "event1"
+        },
+        "item2Nav": {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "video_immersive",
+            "subType": "generic_widget_feed",
+            "url": "anchorUrl",
+            "offset": "asdf",
+            "postId": "postId"
+          },
+          "eventRef": "event2"
+        },
+        "item3Nav": {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "video_immersive",
+            "subType": "generic_widget_feed",
+            "url": "generic_v2/v2/videos",
+            "offset": "3,4,5,6,7,8",
+            "postId": "postId"
+          },
+          "eventRef": "event2"
+        },
+        "item4Nav": {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "video_immersive",
+            "subType": "generic_widget_feed",
+            "url": "generic_v2/v2/videos",
+            "offset": "4,5,6,7,8",
+            "postId": "postId"
+          },
+          "eventRef": "event2"
+        },
+        "clickAction2" : {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "video_immersive",
+            "subType": "generic_widget_feed",
+            "url": "generic_v2/v2/videos",
+            "offset": "4,5,6,7,8",
+            "postId": "@postId"
+          },
+          "eventRef": "event2"
+        },
+        "cAction2" : {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "video_immersive",
+            "subType": "generic_widget_feed",
+            "url": "generic_v2/v2/videos",
+            "offset": "4,5,6,7,8",
+            "postId": "postId"
+          },
+          "eventRef": "event2"
+        }
+      },
+      "view": {
+        "vAction1": {
+          "eventRef": "event1"
+        }
+      }
+    }
+  },
+  "type": "generic_v2",
+  "name": "<Any Name>"
+}

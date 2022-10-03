@@ -1,5 +1,6 @@
 const fs = require('fs');
-const json = JSON.parse(fs.readFileSync("./template.json", "utf8"));
+const feedJson = JSON.parse(fs.readFileSync("./feedItem.json", "utf8"));
+const exploreJson = JSON.parse(fs.readFileSync("./exploreItem.json", "utf8"));
 
 const utils = require('./utils');
 const error = utils.error
@@ -40,10 +41,28 @@ const {
     SLOT_PLAY,
     HEAD,
     ITEM_CARD,
-    ITEM_STACK
+    ITEM_STACK, GENERIC_V2
 } = require('./constants')
 
-validateWidget(json.template)
+validateFeedItem(feedJson)
+
+validateExploreItem(exploreJson)
+
+function validateFeedItem(feedJson) {
+    if (feedJson.t !== GENERIC_V2) {
+        error(feedJson.t + " is not a valid type in Feed. It must be " + GENERIC_V2)
+        return
+    }
+    validateWidget(feedJson.genericWidget)
+}
+
+function validateExploreItem(exploreJson) {
+    if (exploreJson.type !== GENERIC_V2) {
+        error(exploreJson.t + " is not a valid type in Explore Feed. It must be " + GENERIC_V2)
+        return
+    }
+    validateWidget(exploreJson.component)
+}
 
 function validateKeys(keys, validKeys, referrer) {
     keys.forEach(key => {
@@ -60,38 +79,41 @@ function validateItemsConfig(itemsConfig, referrer) {
     validateKeys(Object.keys(itemsConfig), validItemsConfigKeys, referrer)
 }
 
-function validateWidget(template) {
+function validateWidget(widgetJson) {
+    const template = widgetJson.template
+
     validateKeys(Object.keys(template), validTemplateKeys, "template")
     validateTemplateType(template.type)
-    validateTemplateHeader(template.header)
-    validateItems(template.items)
-    validateItemReference(template.sctv, "sctv")
+    validateTemplateHeader(widgetJson, template.header)
+    validateItems(widgetJson, template.items)
+    validateItemReference(widgetJson, template.sctv, "sctv")
+
     validateItemsConfig(template.itemsConfig, "itemsConfig")
     validateItemsConfig(template.sctvConfig, "sctvConfig")
-    validateCssRef(getCssSource(), template.cssRefs, "template")
+    validateCssRef(getCssSource(widgetJson), template.cssRefs, "template")
 }
 
-function validateItemCard(itemDefinition, dataObject, referrer) {
-    validateSlot(itemDefinition.topStart, dataObject, referrer + ".topStart")
-    validateSlot(itemDefinition.topCenter, dataObject, referrer + ".topCenter")
-    validateSlot(itemDefinition.topEnd, dataObject, referrer + ".topEnd")
-    validateSlot(itemDefinition.bottomCenter, dataObject, referrer + ".bottomCenter")
-    validateSlot(itemDefinition.center, dataObject, referrer + ".center")
-    validateSlot(itemDefinition.bottomStart, dataObject, referrer + ".bottomStart")
-    validateSlot(itemDefinition.bottomEnd, dataObject, referrer + ".bottomEnd")
-    validateSlot(itemDefinition.content, dataObject, referrer + ".content")
+function validateItemCard(widgetJson, itemDefinition, dataObject, referrer) {
+    validateSlot(widgetJson, itemDefinition.topStart, dataObject, referrer + ".topStart")
+    validateSlot(widgetJson, itemDefinition.topCenter, dataObject, referrer + ".topCenter")
+    validateSlot(widgetJson, itemDefinition.topEnd, dataObject, referrer + ".topEnd")
+    validateSlot(widgetJson, itemDefinition.bottomCenter, dataObject, referrer + ".bottomCenter")
+    validateSlot(widgetJson, itemDefinition.center, dataObject, referrer + ".center")
+    validateSlot(widgetJson, itemDefinition.bottomStart, dataObject, referrer + ".bottomStart")
+    validateSlot(widgetJson, itemDefinition.bottomEnd, dataObject, referrer + ".bottomEnd")
+    validateSlot(widgetJson, itemDefinition.content, dataObject, referrer + ".content")
 }
 
-function validateItemDefinition(itemDefinition, dataObject, referrer) {
+function validateItemDefinition(widgetJson, itemDefinition, dataObject, referrer) {
     if (itemDefinition.type === ITEM_CARD) {
-        validateItemCard(itemDefinition, dataObject, referrer)
+        validateItemCard(widgetJson, itemDefinition, dataObject, referrer)
     } else if (itemDefinition.type === ITEM_STACK) {
-        validateItemCard(itemDefinition.top, dataObject.top, referrer + ".top")
-        validateItemCard(itemDefinition.bottom, dataObject.bottom, referrer + ".bottom")
+        validateItemCard(widgetJson, itemDefinition.top, dataObject.top, referrer + ".top")
+        validateItemCard(widgetJson, itemDefinition.bottom, dataObject.bottom, referrer + ".bottom")
     }
 }
 
-function validateItemReference(itemReference, referrer) {
+function validateItemReference(widgetJson, itemReference, referrer) {
     if (itemReference === undefined)
         return
 
@@ -102,41 +124,40 @@ function validateItemReference(itemReference, referrer) {
 
     referrer = "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef
 
-    validateItemSource(getItemSource(), itemRef, itemDefinition => {
-        const dataPresent = validateDataRef(getDatasourceObject(), dataRef, referrer)
+    validateItemSource(getItemSource(widgetJson), itemRef, itemDefinition => {
+        const dataPresent = validateDataRef(getDatasourceObject(widgetJson), dataRef, referrer)
         if (dataPresent) {
-            validateItemDefinition(itemDefinition, getDatasourceObject()[dataRef], referrer)
+            validateItemDefinition(widgetJson, itemDefinition, getDatasourceObject(widgetJson)[dataRef], referrer)
         }
     })
 
-    validateViewActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], viewActionRef, referrer)
-    validateClickActionRef(getActionSource(), getEventSource(), getDatasourceObject()[dataRef], clickActionRef, referrer)
+    validateViewActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson)[dataRef], viewActionRef, referrer)
+    validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson)[dataRef], clickActionRef, referrer)
 }
 
-function validateItems(items) {
+function validateItems(widgetJson, items) {
     items.forEach(itemReference => {
-        validateItemReference(itemReference, "items")
+        validateItemReference(widgetJson, itemReference, "items")
     })
 }
 
-
-function getDatasourceObject() {
+function getDatasourceObject(json) {
     return json.dataSource
 }
 
-function getCssSource() {
+function getCssSource(json) {
     return json.cssSource
 }
 
-function getEventSource() {
+function getEventSource(json) {
     return json.eventSource
 }
 
-function getItemSource() {
+function getItemSource(json) {
     return json.template.itemSource
 }
 
-function getActionSource() {
+function getActionSource(json) {
     return json.actionSource
 }
 
@@ -153,47 +174,47 @@ function validDataSourceKey(dataSourceObject, objectKey, referringObject) {
     }
 }
 
-function validateTemplateHeader(header) {
+function validateTemplateHeader(widgetJson, header) {
     validateHeaderType(header.type)
-    validDataSourceKey(getDatasourceObject(), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
-    validateSlot(header.left, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.left")
-    validateSlot(header.right, getDatasourceObject()[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.right")
-    validateCssRef(getCssSource(), header.cssRefs, "header")
-    validateClickActionRef(getActionSource(), getEventSource(), getDatasourceObject()[header.dataRef], header.cActionRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+    validDataSourceKey(getDatasourceObject(widgetJson), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+    validateSlot(widgetJson, header.left, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.left")
+    validateSlot(widgetJson, header.right, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.right")
+    validateCssRef(getCssSource(widgetJson), header.cssRefs, "header")
+    validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson)[header.dataRef], header.cActionRef, "DataSourceKey: " + header.dataRef + " | Node: header")
 }
 
-function validateSlotDefinition(slot, dataObject, referrer) {
+function validateSlotDefinition(widgetJson, slot, dataObject, referrer) {
     switch (slot.type) {
         case SLOT_TXT :
-            validate_SLOT_TXT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_TXT)
+            validate_SLOT_TXT(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_TXT)
             break
         case SLOT_2_LINE :
-            validate_SLOT_2_LINE(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_2_LINE)
+            validate_SLOT_2_LINE(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_2_LINE)
             break
         case SLOT_LOT:
-            validate_SLOT_LOT(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_LOT)
+            validate_SLOT_LOT(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_LOT)
             break
         case SLOT_IMG:
-            validate_SLOT_IMG(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_IMG)
+            validate_SLOT_IMG(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_IMG)
             break
         case SLOT_PLAY:
-            validate_SLOT_PLAY(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_PLAY)
+            validate_SLOT_PLAY(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_PLAY)
             break
         case SLOT_CHIP:
-            validate_SLOT_CHIP(slot, dataObject, getCssSource(), getEventSource(), getActionSource(), referrer + "." + SLOT_CHIP)
+            validate_SLOT_CHIP(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_CHIP)
             break
         default:
             break
     }
 }
 
-function validateSlot(slot, dataObject, referrer) {
+function validateSlot(widgetJson, slot, dataObject, referrer) {
     if (slot === undefined)
         return
 
     const type = slot.type
     validateSlotType(type, referrer)
-    validateSlotDefinition(slot, dataObject, referrer)
+    validateSlotDefinition(widgetJson, slot, dataObject, referrer)
 }
 
 function validateSlotType(slotType, referrer) {
