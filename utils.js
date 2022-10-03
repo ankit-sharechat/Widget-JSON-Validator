@@ -1,5 +1,3 @@
-const {validColors, validTextStyle, WebCardNavigation} = require("./constants");
-
 function error(msg) {
     console.log('\x1b[31m', msg);  //Red
 }
@@ -8,122 +6,42 @@ function ok(msg) {
     console.log('\x1b[32m', msg);  //Green
 }
 
-const colorHexRegex = '^#[A-Fa-f0-9]+$'
 
-function validateColor(color, referrer) {
-    if (color === undefined)
-        return
-
-    if (!(color.match(colorHexRegex) || validColors.includes(color))) {
-        error("InvalidResource: Color " + color + ", It must be a valid color hex, or one of " + validColors + " Info: " + referrer)
-    }
+function getDatasourceObject(json) {
+    return json.dataSource
 }
 
-function validateStyle(style, referrer) {
-    if (style === undefined)
-        return
-
-    if (!(validTextStyle.includes(style))) {
-        error("InvalidResource: TextStyle " + style + ", It must be one of " + validTextStyle + " Info: " + referrer)
-    }
+function getCssSource(json) {
+    return json.cssSource
 }
 
-function validateCssRef(cssSource, cssRefs, referrer) {
-    if (cssRefs !== undefined) {
-        //Validate Css Ref is a list
-        cssRefs.forEach(cssRef => {
-            if (cssSource[cssRef] === undefined) {
-                error("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
-            }
-        })
-    }
+function getEventSource(json) {
+    return json.eventSource
 }
 
-function validateEventRef(eventSource, eventRef, dataObject, referrer) {
-    if (eventRef !== undefined) {
-        //Validate event Ref is a list
-        if (eventSource[eventRef] === undefined) {
-            error("EventNotFound: `" + eventRef + "` in eventSource | Info: "+referrer)
-        } else {
-            //validate placeholder
-            validatePlaceHolder(eventSource[eventRef], dataObject, referrer)
-        }
-    }
+function getItemSource(json) {
+    return json.template.itemSource
 }
 
-function validatePlaceHolder(jsonObject, dataObject, referrer) {
-    const keys = Object.keys(jsonObject)
+function getActionSource(json) {
+    return json.actionSource
+}
+
+function validateKeys(keys, validKeys, referrer) {
     keys.forEach(key => {
-        const isPlaceholder = jsonObject[key].toString().startsWith("@")
-        if (isPlaceholder) {
-            const placeholderKey = jsonObject[key].substring(1)
-            validateDataRef(dataObject, placeholderKey, "(Placehodler cannot be filled for-> "+placeholderKey+") "+referrer)
+        if (!validKeys.includes(key)) {
+            error("Invalid Key: " + key + ", It must be one of [" + validKeys + "] | Info: " + referrer)
         }
     })
-}
-
-function validateEventObject(eventSource, dataObject, eventRef, referrer) {
-    if (eventRef !== undefined) {
-        if (eventSource[eventRef] !== undefined) {
-            validatePlaceHolder(eventSource[eventRef], dataObject, referrer+" | EventNode: eventSource."+eventRef)
-        }
-    }
-}
-
-function validateDataRef(dataSource, dataRef, referrer) {
-    if (dataRef !== undefined) {
-        //Validate Css Ref is a list
-        if (dataSource[dataRef] === undefined) {
-            error("DataNotFound: `" + dataRef + "` in dataSource. Info: " + referrer)
-            return false
-        }
-        return true
-    }
-}
-
-function validateViewActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
-    if (actionRef !== undefined) {
-        //Validate Css Ref is a list
-        if (actionSource.view[actionRef] === undefined) {
-            error("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
-        } else {
-            const actionObject = actionSource.view[actionRef]
-            validateEventObject(eventSource, dataObject, actionObject.eventRef, referrer+"."+actionRef)
-        }
-    }
-}
-
-function validateClickActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
-    if (actionRef !== undefined) {
-        const clickActionObject = actionSource.click[actionRef]
-        if (clickActionObject === undefined) {
-            error("ClickActionNotFound: `" + actionRef + "` in actionSource.click. Info: { " + referrer + " }")
-        } else {
-
-            if (clickActionObject.type !== WebCardNavigation) {
-                error("ActionTypeError: " + clickActionObject.type + ". Required `" + WebCardNavigation + "` | Info: " + referrer)
-            }
-
-            if (clickActionObject.webCard === undefined) {
-                error("MissingObject: webCard | Info: " + referrer)
-            } else {
-                //validate placeholders
-                validatePlaceHolder(clickActionObject.webCard, dataObject, referrer)
-            }
-
-            validateEventRef(eventSource, clickActionObject.eventRef, dataObject, referrer+" | ActionNode: actionSource.click."+actionRef+"."+clickActionObject.eventRef)
-        }
-    }
 }
 
 module.exports = {
     ok,
     error,
-    validateColor,
-    validateStyle,
-    validateDataRef,
-    validateCssRef,
-    validateViewActionRef,
-    validateClickActionRef,
-    validateEventRef
+    getDatasourceObject,
+    getCssSource,
+    getEventSource,
+    getItemSource,
+    getActionSource,
+    validateKeys
 }

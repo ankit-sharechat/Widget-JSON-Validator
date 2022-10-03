@@ -1,4 +1,8 @@
 const {WebCardNavigation} = require("./constants");
+const {error} = require("./utils");
+const {validatePlaceHolder} = require("./dataValidator");
+const { validateEventRef } = require("./eventValidator");
+const { validateEventObject } = require("./eventValidator");
 
 function validateViewActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
     if (actionRef !== undefined) {
@@ -7,7 +11,7 @@ function validateViewActionRef(actionSource, eventSource, dataObject, actionRef,
             error("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
         } else {
             const actionObject = actionSource.view[actionRef]
-            validateEventObject(eventSource, dataObject, actionObject.eventRef, referrer+"."+actionRef)
+            validateEventObject(eventSource, dataObject, actionObject.eventRef, referrer + "." + actionRef)
         }
     }
 }
@@ -30,7 +34,9 @@ function validateClickActionRef(actionSource, eventSource, dataObject, actionRef
                 validatePlaceHolder(clickActionObject.webCard, dataObject, referrer)
             }
 
-            validateEventRef(eventSource, clickActionObject.eventRef, dataObject, referrer+" | ActionNode: actionSource.click."+actionRef+"."+clickActionObject.eventRef)
+            validateEventRef(eventSource, clickActionObject.eventRef, dataObject, referrer + " | ActionNode: actionSource.click." + actionRef + "." + clickActionObject.eventRef)
         }
     }
 }
+
+module.exports = {validateViewActionRef, validateClickActionRef}

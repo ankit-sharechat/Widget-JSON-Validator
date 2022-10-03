@@ -1,37 +1,59 @@
-var {
-    error,
-    validateColor,
-    validateStyle,
-    validateClickActionRef,
-    validateCssRef,
-    validateDataRef
-} = require('./utils')
+const {SLOT_TXT, SLOT_2_LINE, SLOT_LOT, SLOT_IMG, SLOT_PLAY, SLOT_CHIP, validSlotTypes} = require("./constants");
+const {getCssSource, getEventSource, getActionSource, error} = require("./utils");
+const {validateDataRef} = require("./dataValidator");
+const {validateColor} = require("./colorValidator");
+const {validateStyle} = require("./styleValidator");
+const {validateCssRef} = require("./cssValidator");
+const {validateClickActionRef} = require("./actionValidator");
 
-module.exports = {
-    validate_SLOT_2_LINE: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
-        const topText = slot.top
-        const bottomText = slot.bottom
-        if (topText !== undefined) {
-            validateTextWidget(topText, dataObject, cssSource, eventSource, actionSource, referrer + ".top")
-        }
-        if (bottomText !== undefined) {
-            validateTextWidget(bottomText, dataObject, cssSource, eventSource, actionSource, referrer + ".bottom")
-        }
-    },
-    validate_SLOT_TXT: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
-        validateTextWidget(slot.text, dataObject, cssSource, eventSource, actionSource, referrer + ".text")
-    },
-    validate_SLOT_LOT: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
-        validateImageWidget(slot.lottie, dataObject, cssSource, eventSource, actionSource, referrer + ".lottie")
-    },
-    validate_SLOT_IMG: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
-        validateImageWidget(slot.image, dataObject, cssSource, eventSource, actionSource, referrer + ".image")
-    },
-    validate_SLOT_PLAY: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
-        validatePlayableWidget(slot.playable, dataObject, cssSource, eventSource, actionSource, referrer + ".playable")
-    },
-    validate_SLOT_CHIP: function (slot, dataObject, cssSource, eventSource, actionSource, referrer) {
-        validateChipWidget(slot.chip, dataObject, cssSource, eventSource, actionSource, referrer + ".chip")
+function validateSlot(widgetJson, slot, dataObject, referrer) {
+    if (slot === undefined)
+        return
+
+    const type = slot.type
+    validateSlotType(type, referrer)
+    validateSlotDefinition(widgetJson, slot, dataObject, referrer)
+}
+
+function validateSlotType(slotType, referrer) {
+    if (!validSlotTypes.includes(slotType)) {
+        error("Invalid Slot Type:" + slotType + ", It must be one of [" + validSlotTypes + "], Tree: " + referrer)
+    }
+}
+
+function validateSlotDefinition(widgetJson, slot, dataObject, referrer) {
+    switch (slot.type) {
+        case SLOT_TXT :
+            validateTextWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_TXT)
+            break
+        case SLOT_2_LINE :
+            validateSlot2Line(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_2_LINE)
+            break
+        case SLOT_LOT:
+            validateImageWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_LOT)
+            break
+        case SLOT_IMG:
+            validateImageWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_IMG)
+            break
+        case SLOT_PLAY:
+            validatePlayableWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_PLAY)
+            break
+        case SLOT_CHIP:
+            validateChipWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_CHIP)
+            break
+        default:
+            break
+    }
+}
+
+function validateSlot2Line(slot, dataObject, cssSource, eventSource, actionSource, referrer) {
+    const topText = slot.top
+    const bottomText = slot.bottom
+    if (topText !== undefined) {
+        validateTextWidget(topText, dataObject, cssSource, eventSource, actionSource, referrer + ".top")
+    }
+    if (bottomText !== undefined) {
+        validateTextWidget(bottomText, dataObject, cssSource, eventSource, actionSource, referrer + ".bottom")
     }
 }
 
@@ -107,3 +129,5 @@ function validateTextWidget(textWidget, dataObject, cssSource, eventSource, acti
         validateClickActionRef(actionSource, eventSource, dataObject, textWidget.cActionRef, referrer)
     }
 }
+
+module.exports = {validateSlot}
