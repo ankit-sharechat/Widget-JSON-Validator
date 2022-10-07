@@ -72,35 +72,35 @@ function findUnusedSource(widgetJson) {
     const actualActions = getActualActions(widgetJson.actionSource)
     let unusedActions = actualActions.filter(x => !actionsReferred.includes(x));
     if (unusedActions.length !== 0) {
-        error("UnsedActionsFound: [" + unusedActions + "]")
+        error("UnsedActionsFound: [" + unusedActions + "], Remove them optimize JSON Size")
     }
 
     const eventsReferred = getEventsReferred()
     const actualEvents = getActualEvents(widgetJson.eventSource)
     let unusedEvents = actualEvents.filter(x => !eventsReferred.includes(x));
     if (unusedEvents.length !== 0) {
-        error("UnsedEventsFound: [" + unusedEvents + "]")
+        error("UnsedEventsFound: [" + unusedEvents + "], Remove them optimize JSON Size")
     }
 
     const cssReferred = getCssReferred()
     const actualCss = getActualCssSource(widgetJson.cssSource)
     let unusedCss = actualCss.filter(x => !cssReferred.includes(x));
     if (unusedCss.length !== 0) {
-        error("UnsedCssFound: [" + unusedCss + "]")
+        error("UnsedCssFound: [" + unusedCss + "], Remove them optimize JSON Size")
     }
 
     const dataReferred = getDataReferred()
     const actualData = getActualDataSource(widgetJson.dataSource)
     let unusedData = actualData.filter(x => !dataReferred.includes(x));
     if (unusedData.length !== 0) {
-        error("UnsedDataFound: [" + unusedData + "]")
+        error("UnsedDataFound: [" + unusedData + "], Remove them optimize JSON Size")
     }
 
     const itemsReferred = getItemsReferred()
     const actualitems = getActualItemSource(widgetJson.template.itemSource)
     let unusedItems = actualitems.filter(x => !itemsReferred.includes(x));
     if (unusedItems.length !== 0) {
-        error("UnsedItemDefinitionFound: [" + unusedItems + "]")
+        error("UnsedItemDefinitionFound: [" + unusedItems + "], Remove them optimize JSON Size")
     }
 }
 
