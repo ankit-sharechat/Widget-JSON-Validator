@@ -1,3 +1,5 @@
+const {widgetCriticalField} = require("./constants");
+
 function error(msg) {
     console.log('\x1b[31m', msg);  //Red
 }
@@ -35,6 +37,18 @@ function validateKeys(keys, validKeys, referrer) {
     })
 }
 
+function criticalFieldPresent(json) {
+    const keysPresent = Object.keys(json)
+    var allFieldPresent = true
+    widgetCriticalField.forEach(field => {
+        if (!keysPresent.includes(field)) {
+            error("`"+field+"` is missing in genericWidget")
+            allFieldPresent = false
+        }
+    })
+    return allFieldPresent
+}
+
 module.exports = {
     ok,
     error,
@@ -43,5 +57,6 @@ module.exports = {
     getEventSource,
     getItemSource,
     getActionSource,
-    validateKeys
+    validateKeys,
+    criticalFieldPresent
 }

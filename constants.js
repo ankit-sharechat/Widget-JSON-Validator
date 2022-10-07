@@ -15,3 +15,4 @@ exports.WebCardNavigation = 'webCardNav'
 exports.validColors = ['primary', 'secondary', 'systemBg', 'secondaryBg', 'tertiaryBg', 'separator', 'link', 'overlaySc', 'selectionOverlay', 'error', 'success', 'transparent']
 exports.validTextStyle = ['heading', 'subHeader', 'title', 'body', 'bodyBold', 'subhead', 'subheadBold', 'footnote', 'footnoteBold', 'caption', 'captionBold']
 exports.GENERIC_V2 = "generic_v2"
+exports.widgetCriticalField = ['template','dataSource']
