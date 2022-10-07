@@ -1,12 +1,13 @@
 const {WebCardNavigation} = require("./constants");
-const {error} = require("./helpers");
+const {error, onActionSourceReferred} = require("./helpers");
 const {validatePlaceHolder} = require("./dataValidator");
 const { validateEventRef } = require("./eventValidator");
 const { validateEventObject } = require("./eventValidator");
 
 function validateViewActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
     if (actionRef !== undefined && actionSource !== undefined) {
-        //Validate Css Ref is a list
+        onActionSourceReferred(actionRef)
+
         if (actionSource.view[actionRef] === undefined) {
             error("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
         } else {

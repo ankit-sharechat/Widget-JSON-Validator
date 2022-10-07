@@ -1,7 +1,7 @@
 const {ITEM_CARD, ITEM_STACK, validItemsConfigKeys} = require("./constants");
 
 const { error, getActionSource, getEventSource,
-    getDatasourceObject, getItemSource, validateKeys
+    getDatasourceObject, getItemSource, validateKeys, onItemSourceReferred
 } = require("./helpers");
 
 const {validateSlot} = require("./slotValidators");
@@ -15,6 +15,7 @@ function validateItems(widgetJson, items) {
 }
 
 function validateItemSource(itemSource, itemRef, onFound) {
+    onItemSourceReferred(itemRef)
     if (itemSource[itemRef] === undefined) {
         error("ItemDefinitionNotFound: `" + itemRef + "` in itemSource")
         return

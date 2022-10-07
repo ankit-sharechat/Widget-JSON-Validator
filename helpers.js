@@ -1,6 +1,13 @@
 const {widgetCriticalField} = require("./constants");
 
 let errors = []
+let itemsReferred = []
+let dataReferred = []
+let cssReferred = []
+let eventReferred = []
+let actionReferred = []
+
+
 function logError(msg) {
     //console.log('\x1b[31m', msg);  //Red
     errors.push(msg)
@@ -68,6 +75,56 @@ function validateKeys(keys, validKeys, referrer) {
     })
 }
 
+function onItemSourceReferred(key) {
+    if (!itemsReferred.includes(key)) {
+        itemsReferred.push(key)
+    }
+}
+
+function onDataSourceReferred(key) {
+    if (!dataReferred.includes(key)) {
+        dataReferred.push(key)
+    }
+}
+
+function onCssSourceReferred(key) {
+    if (!cssReferred.includes(key)) {
+        cssReferred.push(key)
+    }
+}
+
+function onEventSourceReferred(key) {
+    if (!eventReferred.includes(key)) {
+        eventReferred.push(key)
+    }
+}
+
+function onActionSourceReferred(key) {
+    if (!actionReferred.includes(key)) {
+        actionReferred.push(key)
+    }
+}
+
+function getActionsReferred() {
+    return actionReferred
+}
+
+function getEventsReferred() {
+    return eventReferred
+}
+
+function getCssReferred() {
+    return cssReferred
+}
+
+function getDataReferred() {
+    return dataReferred
+}
+
+function getItemsReferred() {
+    return itemsReferred
+}
+
 function criticalFieldPresent(json) {
     const keysPresent = Object.keys(json)
     let allFieldPresent = true
@@ -96,5 +153,15 @@ module.exports = {
     getAllErrors,
     printErrors,
     printOkMessage,
-    fieldMissing
+    fieldMissing,
+    onItemSourceReferred,
+    onActionSourceReferred,
+    onEventSourceReferred,
+    onDataSourceReferred,
+    onCssSourceReferred,
+    getItemsReferred,
+    getActionsReferred,
+    getEventsReferred,
+    getCssReferred,
+    getDataReferred
 }

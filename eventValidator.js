@@ -1,8 +1,9 @@
-const {error} = require("./helpers");
+const {error, onEventSourceReferred} = require("./helpers");
 const {validatePlaceHolder} = require("./dataValidator");
 
 function validateEventObject(eventSource, dataObject, eventRef, referrer) {
     if (eventRef !== undefined && eventSource !== undefined) {
+        onEventSourceReferred(eventRef)
         if (eventSource[eventRef] !== undefined) {
             validatePlaceHolder(eventSource[eventRef], dataObject, referrer+" | EventNode: eventSource."+eventRef)
         }

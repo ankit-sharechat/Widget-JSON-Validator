@@ -1,4 +1,4 @@
-const {error, validateKeys} = require("./helpers");
+const {error, validateKeys, onCssSourceReferred} = require("./helpers");
 const {
     validCssType, BACKGROUND, PADDING, SIZE, FILLHEIGHT, FILLWIDTH, ALPHA, BORDER, ROTATE, ELEVATION, ASPECT_RATIO,
     GRADIENT, validBackgroundKeys, validPaddingKeys, validSizeKeys, validfillMaxHeightKeys, validfillMaxWidthKeys,
@@ -13,6 +13,7 @@ function validateCssRef(cssSource, cssRefs, referrer) {
     if (cssRefs !== undefined) {
         //Validate Css Ref is a list
         cssRefs.forEach(cssRef => {
+            onCssSourceReferred(cssRef)
             if (cssSource[cssRef] === undefined) {
                 error("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
             } else {
