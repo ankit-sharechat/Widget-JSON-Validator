@@ -1,25 +1,27 @@
 const {validTemplateKeys, validTemplateTypes} = require("./constants");
 const {
-    validateKeys, getCssSource,
-    error, criticalFieldPresent
+    validateKeys, getCssSource, criticalFieldPresent, logError, fieldMissing, error
 } = require("./helpers");
 const {validateTemplateHeader} = require("./headerValidator");
 const {validateItems, validateItemReference, validateItemsConfig} = require("./itemValidator");
 const {validateCssRef} = require("./cssValidator");
 
 function validateWidget(widgetJson) {
-    const template = widgetJson.template
+    if (widgetJson !== undefined) {
+        const template = widgetJson.template
+        if (criticalFieldPresent(widgetJson)) {
+            validateKeys(Object.keys(template), validTemplateKeys, "template")
+            validateTemplateType(template.type)
+            validateTemplateHeader(widgetJson, template.header)
+            validateItems(widgetJson, template.items)
+            validateItemReference(widgetJson, template.sctv, "sctv")
 
-    if (criticalFieldPresent(widgetJson)) {
-        validateKeys(Object.keys(template), validTemplateKeys, "template")
-        validateTemplateType(template.type)
-        validateTemplateHeader(widgetJson, template.header)
-        validateItems(widgetJson, template.items)
-        validateItemReference(widgetJson, template.sctv, "sctv")
-
-        validateItemsConfig(template.itemsConfig, "itemsConfig")
-        validateItemsConfig(template.sctvConfig, "sctvConfig")
-        validateCssRef(getCssSource(widgetJson), template.cssRefs, "template")
+            validateItemsConfig(template.itemsConfig, "itemsConfig")
+            validateItemsConfig(template.sctvConfig, "sctvConfig")
+            validateCssRef(getCssSource(widgetJson), template.cssRefs, "template")
+        }
+    } else {
+        fieldMissing('genericWidget')
     }
 }
 

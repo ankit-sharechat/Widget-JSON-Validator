@@ -1,7 +1,7 @@
 const {error} = require("./helpers");
 
 function validateDataRef(dataSource, dataRef, referrer) {
-    if (dataRef !== undefined) {
+    if (dataRef !== undefined && dataSource !== undefined) {
         //Validate Css Ref is a list
         if (dataSource[dataRef] === undefined) {
             error("DataNotFound: `" + dataRef + "` in dataSource. Info: " + referrer)

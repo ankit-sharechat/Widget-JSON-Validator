@@ -1,9 +1,9 @@
-const {HEAD} = require("./constants");
+const {HEAD, validHeaderObjectKeys} = require("./constants");
 const {
     getDatasourceObject,
     getCssSource,
     getActionSource,
-    getEventSource, error
+    getEventSource, error, validateKeys
 } = require("./helpers");
 const {validateSlot} = require("./slotValidators");
 const {validateCssRef} = require("./cssValidator");
@@ -23,12 +23,15 @@ function validDataSourceKey(dataSourceObject, objectKey, referringObject) {
 }
 
 function validateTemplateHeader(widgetJson, header) {
-    validateHeaderType(header.type)
-    validDataSourceKey(getDatasourceObject(widgetJson), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
-    validateSlot(widgetJson, header.left, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.left")
-    validateSlot(widgetJson, header.right, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.right")
-    validateCssRef(getCssSource(widgetJson), header.cssRefs, "header")
-    validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson)[header.dataRef], header.cActionRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+    if (header !== undefined) {
+        validateHeaderType(header.type)
+        validateKeys(Object.keys(header), validHeaderObjectKeys, "header")
+        validDataSourceKey(getDatasourceObject(widgetJson), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+        validateSlot(widgetJson, header.left, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.left")
+        validateSlot(widgetJson, header.right, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.right")
+        validateCssRef(getCssSource(widgetJson), header.cssRefs, "header")
+        validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson)[header.dataRef], header.cActionRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+    }
 }
 
 module.exports = {validateTemplateHeader}

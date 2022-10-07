@@ -85,7 +85,6 @@ function getAllErrors() {
 }
 
 module.exports = {
-    ok,
     error: logError,
     getDatasourceObject,
     getCssSource,
