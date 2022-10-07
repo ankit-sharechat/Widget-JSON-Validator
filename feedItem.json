@@ -284,7 +284,7 @@
         }
       },
       "cssRefs": [
-        "solidBg"
+        "solidBg1"
       ]
     },
     "dataSource": {
@@ -312,7 +312,7 @@
         "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
         "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
       },
-      "item2": {
+      "item": {
         "postId": "7763449784-item2",
         "topStart": "Viral",
         "topEnd": "4:12",

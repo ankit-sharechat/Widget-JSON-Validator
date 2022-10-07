@@ -1,7 +1,9 @@
 const {widgetCriticalField} = require("./constants");
 
+let errors = []
 function error(msg) {
-    console.log('\x1b[31m', msg);  //Red
+    //console.log('\x1b[31m', msg);  //Red
+    errors.push(msg)
 }
 
 function ok(msg) {
@@ -49,6 +51,10 @@ function criticalFieldPresent(json) {
     return allFieldPresent
 }
 
+function getAllErros() {
+    return errors
+}
+
 module.exports = {
     ok,
     error,
@@ -58,5 +64,6 @@ module.exports = {
     getItemSource,
     getActionSource,
     validateKeys,
-    criticalFieldPresent
+    criticalFieldPresent,
+    getAllErros
 }
