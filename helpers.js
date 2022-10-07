@@ -1,7 +1,7 @@
 const {widgetCriticalField} = require("./constants");
 
 let errors = []
-function error(msg) {
+function logError(msg) {
     //console.log('\x1b[31m', msg);  //Red
     errors.push(msg)
 }
@@ -34,7 +34,7 @@ function getActionSource(json) {
 function validateKeys(keys, validKeys, referrer) {
     keys.forEach(key => {
         if (!validKeys.includes(key)) {
-            error("Invalid Key: " + key + ", It must be one of [" + validKeys + "] | Info: " + referrer)
+            logError("Invalid Key: " + key + ", It must be one of [" + validKeys + "] | Info: " + referrer)
         }
     })
 }
@@ -44,7 +44,7 @@ function criticalFieldPresent(json) {
     var allFieldPresent = true
     widgetCriticalField.forEach(field => {
         if (!keysPresent.includes(field)) {
-            error("`"+field+"` is missing in genericWidget")
+            logError("`"+field+"` is missing in genericWidget")
             allFieldPresent = false
         }
     })
@@ -57,7 +57,7 @@ function getAllErros() {
 
 module.exports = {
     ok,
-    error,
+    error: logError,
     getDatasourceObject,
     getCssSource,
     getEventSource,
