@@ -5,7 +5,7 @@ const { validateEventRef } = require("./eventValidator");
 const { validateEventObject } = require("./eventValidator");
 
 function validateViewActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
-    if (actionRef !== undefined) {
+    if (actionRef !== undefined && actionSource !== undefined) {
         //Validate Css Ref is a list
         if (actionSource.view[actionRef] === undefined) {
             error("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
@@ -17,6 +17,10 @@ function validateViewActionRef(actionSource, eventSource, dataObject, actionRef,
 }
 
 function validateClickActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
+    if (actionSource === undefined) {
+        error("actionSource: missing!")
+        return
+    }
     if (actionRef !== undefined) {
         const clickActionObject = actionSource.click[actionRef]
         if (clickActionObject === undefined) {

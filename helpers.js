@@ -32,10 +32,16 @@ function getDatasourceObject(json) {
 }
 
 function getCssSource(json) {
+    if (json.cssSource === undefined) {
+        fieldMissing('cssSource')
+    }
     return json.cssSource
 }
 
 function getEventSource(json) {
+    if (json.eventSource === undefined) {
+        fieldMissing('eventSource')
+    }
     return json.eventSource
 }
 
@@ -44,7 +50,14 @@ function getItemSource(json) {
 }
 
 function getActionSource(json) {
+    if (json.actionSource === undefined) {
+        fieldMissing('actionSource')
+    }
     return json.actionSource
+}
+
+function fieldMissing(fieldName) {
+    logError("`"+fieldName+"` is Missing!")
 }
 
 function validateKeys(keys, validKeys, referrer) {
@@ -57,10 +70,10 @@ function validateKeys(keys, validKeys, referrer) {
 
 function criticalFieldPresent(json) {
     const keysPresent = Object.keys(json)
-    var allFieldPresent = true
+    let allFieldPresent = true
     widgetCriticalField.forEach(field => {
         if (!keysPresent.includes(field)) {
-            logError("`"+field+"` is missing in genericWidget")
+            fieldMissing(field)
             allFieldPresent = false
         }
     })
@@ -83,5 +96,6 @@ module.exports = {
     criticalFieldPresent,
     getAllErrors,
     printErrors,
-    printOkMessage
+    printOkMessage,
+    fieldMissing
 }

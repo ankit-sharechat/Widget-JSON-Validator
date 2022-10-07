@@ -2,7 +2,7 @@ const {error} = require("./helpers");
 const {validatePlaceHolder} = require("./dataValidator");
 
 function validateEventObject(eventSource, dataObject, eventRef, referrer) {
-    if (eventRef !== undefined) {
+    if (eventRef !== undefined && eventSource !== undefined) {
         if (eventSource[eventRef] !== undefined) {
             validatePlaceHolder(eventSource[eventRef], dataObject, referrer+" | EventNode: eventSource."+eventRef)
         }
@@ -10,7 +10,7 @@ function validateEventObject(eventSource, dataObject, eventRef, referrer) {
 }
 
 function validateEventRef(eventSource, eventRef, dataObject, referrer) {
-    if (eventRef !== undefined) {
+    if (eventRef !== undefined && eventSource !== undefined) {
         //Validate event Ref is a list
         if (eventSource[eventRef] === undefined) {
             error("EventNotFound: `" + eventRef + "` in eventSource | Info: "+referrer)
