@@ -11,6 +11,22 @@ function ok(msg) {
 }
 
 
+function printErrors(errors) {
+    console.log('\x1b[31m', "===========  All Errors ===========");  //Red
+    console.log('\x1b[31m', "Total: "+errors.length);  //Red
+    errors.forEach(error => {
+        console.log('\x1b[31m', error);  //Red
+    })
+}
+
+function printOkMessage() {
+    console.log('\x1b[32m', " =======================================");
+    console.log('\x1b[32m', "|                                       |");
+    console.log('\x1b[32m', "|           All Good! : 👍              |");
+    console.log('\x1b[32m', "|                                       |");
+    console.log('\x1b[32m', " =======================================");
+}
+
 function getDatasourceObject(json) {
     return json.dataSource
 }
@@ -51,7 +67,7 @@ function criticalFieldPresent(json) {
     return allFieldPresent
 }
 
-function getAllErros() {
+function getAllErrors() {
     return errors
 }
 
@@ -65,5 +81,7 @@ module.exports = {
     getActionSource,
     validateKeys,
     criticalFieldPresent,
-    getAllErros
+    getAllErrors,
+    printErrors,
+    printOkMessage
 }
