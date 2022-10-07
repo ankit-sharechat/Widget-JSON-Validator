@@ -29,3 +29,34 @@ exports.validChipSlotKeys = ['type', 'chip']
 exports.validTextSlotKeys = ['type', 'text']
 exports.validLottieSlotKeys = ['type', 'lottie']
 exports.validImageSlotKeys = ['type', 'image']
+
+
+exports.BACKGROUND = 'background'
+exports.PADDING = 'padding'
+exports.SIZE = 'size'
+exports.PADDING = 'padding'
+exports.FILLHEIGHT = 'fillMaxHeight'
+exports.FILLWIDTH = 'fillMaxWidth'
+exports.ALPHA = 'alpha'
+exports.BORDER = 'border'
+exports.ROTATE = 'rotate'
+exports.ELEVATION = 'elevation'
+exports.ASPECT_RATIO = 'aspectRatio'
+exports.GRADIENT = 'gradient'
+
+
+exports.validCssType = [this.BACKGROUND,
+    this.PADDING, this.SIZE, this.FILLHEIGHT, this.FILLWIDTH, this.ALPHA, this.BORDER, this.ROTATE,
+    this.ELEVATION, this.ASPECT_RATIO, this.GRADIENT]
+
+exports.validBackgroundKeys = ['type', 'color', 'shape', 'brush']
+exports.validPaddingKeys = ['type', 'all', 'start', 'top', 'end', 'bottom']
+exports.validSizeKeys = ['type', 's', 'w', 'h']
+exports.validfillMaxHeightKeys = ['type', 'f']
+exports.validfillMaxWidthKeys = ['type', 'f']
+exports.validAlphaKeys = ['type', 'alpha']
+exports.validBorderKeys = ['type', 'width', 'color', 'shape']
+exports.validRotateKeys = ['type', 'angle']
+exports.validElevationKeys = ['type', 'elevation', 'clip', 'shape']
+exports.validAspectRatioKeys = ['type', 'w2hRatio', 'matchHeight']
+exports.validGradientKeys = ['type', 'c', 'xr', 'yr', 'h']
