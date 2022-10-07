@@ -16,5 +16,16 @@ exports.validColors = ['primary', 'secondary', 'systemBg', 'secondaryBg', 'terti
 exports.validTextStyle = ['heading', 'subHeader', 'title', 'body', 'bodyBold', 'subhead', 'subheadBold', 'footnote', 'footnoteBold', 'caption', 'captionBold']
 exports.GENERIC_V2 = "generic_v2"
 exports.widgetCriticalField = ['template', 'dataSource']
-
 exports.validHeaderObjectKeys = ['type', 'dataRef', 'left', 'right', 'cActionRef', 'cssRefs']
+exports.validTextObjectKeys = ['dataRef', 'style', 'color', 'rd', 'ld', 'cActionRef', 'cssRefs']
+exports.validDrawableKeys = ['dataRef', 'cssRefs']
+exports.validPlayableObjectKeys = ['gifRef', 'thumbRef', 'videoRef']
+exports.validChipObjectKeys = ['imageRef', 's', 'b', 'textRef', 'color', 'style', 'cssRefs', 'cActionRef']
+exports.validImageObjectKeys = ['dataRef', 'cssRefs', 'cActionRef']
+
+exports.validTwoLineTextSlotKeys = ['type', 'top', 'bottom', 'cssRefs']
+exports.validPlaySlotKeys = ['type', 'playable']
+exports.validChipSlotKeys = ['type', 'chip']
+exports.validTextSlotKeys = ['type', 'text']
+exports.validLottieSlotKeys = ['type', 'lottie']
+exports.validImageSlotKeys = ['type', 'image']
