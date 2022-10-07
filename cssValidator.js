@@ -22,6 +22,10 @@ function validateCssRef(cssSource, cssRefs, referrer) {
     }
 }
 
+function validateBackgroundValues(cssDefinition, referrer) {
+//todo: fill in
+}
+
 function validateCssDefinition(cssDefinition, referrer) {
     if (!validCssType.includes(cssDefinition.type)) {
         error("InvalidModifierType: `" + cssDefinition.type + "` It must be one of [" + validCssType + "]")
@@ -31,6 +35,8 @@ function validateCssDefinition(cssDefinition, referrer) {
     switch (cssDefinition.type) {
         case BACKGROUND:
             validateKeys(Object.keys(cssDefinition), validBackgroundKeys, referrer + "." + cssDefinition.type)
+            //todo: validate values
+            validateBackgroundValues(cssDefinition, referrer + "." + cssDefinition.type)
             break
         case PADDING:
             validateKeys(Object.keys(cssDefinition), validPaddingKeys, referrer + "." + cssDefinition.type)
