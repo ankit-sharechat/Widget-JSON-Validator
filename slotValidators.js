@@ -1,4 +1,13 @@
-const {SLOT_TXT, SLOT_2_LINE, SLOT_LOT, SLOT_IMG, SLOT_PLAY, SLOT_CHIP, validSlotTypes} = require("./constants");
+const {
+    SLOT_TXT,
+    SLOT_2_LINE,
+    SLOT_LOT,
+    SLOT_IMG,
+    SLOT_PLAY,
+    SLOT_CHIP,
+    validSlotTypes,
+    validTextObjectKeys, validImageObjectKeys, validTwoLineTextSlotKeys, validPlayableObjectKeys, validChipObjectKeys
+} = require("./constants");
 const {getCssSource, getEventSource, getActionSource, error, validateKeys} = require("./helpers");
 const {validateDataRef} = require("./dataValidator");
 const {validateColor} = require("./colorValidator");
@@ -30,16 +39,16 @@ function validateSlotDefinition(widgetJson, slot, dataObject, referrer) {
             validateSlot2Line(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_2_LINE)
             break
         case SLOT_LOT:
-            validateImageWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_LOT)
+            validateLottieWidget(slot.lottie, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_LOT)
             break
         case SLOT_IMG:
-            validateImageWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_IMG)
+            validateImageWidget(slot.image, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_IMG)
             break
         case SLOT_PLAY:
-            validatePlayableWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_PLAY)
+            validatePlayableWidget(slot.playable, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_PLAY)
             break
         case SLOT_CHIP:
-            validateChipWidget(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_CHIP)
+            validateChipWidget(slot.chip, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_CHIP)
             break
         default:
             break
@@ -49,6 +58,7 @@ function validateSlotDefinition(widgetJson, slot, dataObject, referrer) {
 function validateSlot2Line(slot, dataObject, cssSource, eventSource, actionSource, referrer) {
     const topText = slot.top
     const bottomText = slot.bottom
+    validateKeys(Object.keys(slot), validTwoLineTextSlotKeys, referrer)
     if (topText !== undefined) {
         validateTextWidget(topText, dataObject, cssSource, eventSource, actionSource, referrer + ".top")
     }
@@ -58,6 +68,12 @@ function validateSlot2Line(slot, dataObject, cssSource, eventSource, actionSourc
 }
 
 function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
+    if (chipWidget === undefined) {
+        error("`chip` Object is missing " + referrer)
+        return
+    }
+    validateKeys(Object.keys(chipWidget), validChipObjectKeys, referrer)
+
     //Image Data
     validateDataRef(dataObject, chipWidget.imageRef, referrer)
     //Text Data
@@ -73,22 +89,56 @@ function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, acti
 }
 
 function validatePlayableWidget(playableWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
+    if (playableWidget === undefined) {
+        error("`playable` Object is missing " + referrer)
+        return
+    }
+    validateKeys(Object.keys(playableWidget), validPlayableObjectKeys, referrer)
     //DataSources
     validateDataRef(dataObject, playableWidget.gifRef, referrer)
     validateDataRef(dataObject, playableWidget.thumbRef, referrer)
     validateDataRef(dataObject, playableWidget.videoRef, referrer)
 }
 
-function validateImageWidget(imageWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
+function validateImageWidget(imageObject, dataObject, cssSource, eventSource, actionSource, referrer) {
+    if (imageObject === undefined) {
+        error("`image` Object is missing " + referrer)
+        return
+    }
+
+    validateKeys(Object.keys(imageObject), validImageObjectKeys, referrer)
+
     //DataSource
-    validateDataRef(dataObject, imageWidget.dataRef, referrer)
+    validateDataRef(dataObject, imageObject.dataRef, referrer)
     //Css Refs
-    validateCssRef(cssSource, imageWidget.cssRefs, referrer)
+    validateCssRef(cssSource, imageObject.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, dataObject, imageWidget.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, dataObject, imageObject.cActionRef, referrer)
+}
+
+function validateLottieWidget(lottieObject, dataObject, cssSource, eventSource, actionSource, referrer) {
+    if (lottieObject === undefined) {
+        error("`lottie` Object is missing " + referrer)
+        return
+    }
+
+    validateKeys(Object.keys(lottieObject), validImageObjectKeys, referrer)
+
+    //DataSource
+    validateDataRef(dataObject, lottieObject.dataRef, referrer)
+    //Css Refs
+    validateCssRef(cssSource, lottieObject.cssRefs, referrer)
+    //Action Ref
+    validateClickActionRef(actionSource, eventSource, dataObject, lottieObject.cActionRef, referrer)
 }
 
 function validateTextWidget(textObject, dataObject, cssSource, eventSource, actionSource, referrer) {
+    if (textObject === undefined) {
+        error("`text` Object is missing " + referrer)
+        return
+    }
+
+    validateKeys(Object.keys(textObject), validTextObjectKeys, referrer)
     //DataSource
     validateDataRef(dataObject, textObject.dataRef, referrer)
     //Color
