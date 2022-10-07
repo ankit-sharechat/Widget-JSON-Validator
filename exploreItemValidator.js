@@ -1,6 +1,7 @@
 const {GENERIC_V2} = require("./constants");
 const {error} = require("./helpers");
 const {validateWidget} = require("./widgetValidator");
+const {findUnusedSource} = require("./feedValidator");
 
 function validateExploreItem(exploreJson) {
     if (exploreJson.type !== GENERIC_V2) {
@@ -8,6 +9,7 @@ function validateExploreItem(exploreJson) {
         return
     }
     validateWidget(exploreJson.component)
+    findUnusedSource(exploreJson.component)
 }
 
 module.exports = { validateExploreItem }

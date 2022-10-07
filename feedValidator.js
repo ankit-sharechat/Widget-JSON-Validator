@@ -104,4 +104,4 @@ function findUnusedSource(widgetJson) {
     }
 }
 
-module.exports = {validateFeedItem}
+module.exports = {validateFeedItem, findUnusedSource}
