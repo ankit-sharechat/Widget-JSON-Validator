@@ -8,6 +8,7 @@ const {
 const {validateSlot} = require("./slotValidators");
 const {validateCssRef} = require("./cssValidator");
 const {validateClickActionRef} = require("./actionValidator");
+const {validateDataRef} = require("./dataValidator");
 
 function validateHeaderType(type) {
     if (![HEAD].includes(type)) {
@@ -15,18 +16,11 @@ function validateHeaderType(type) {
     }
 }
 
-function validDataSourceKey(dataSourceObject, objectKey, referringObject) {
-    const datasource = dataSourceObject[objectKey]
-    if (datasource === undefined) {
-        error(referringObject + " : " + objectKey + " is Not present in dataSource")
-    }
-}
-
 function validateTemplateHeader(widgetJson, header) {
     if (header !== undefined) {
         validateHeaderType(header.type)
         validateKeys(Object.keys(header), validHeaderObjectKeys, "header")
-        validDataSourceKey(getDatasourceObject(widgetJson), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
+        validateDataRef(getDatasourceObject(widgetJson), header.dataRef, "DataSourceKey: " + header.dataRef + " | Node: header")
         validateSlot(widgetJson, header.left, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.left")
         validateSlot(widgetJson, header.right, getDatasourceObject(widgetJson)[header.dataRef], "DataSourceKey: " + header.dataRef + " | Node: header.right")
         validateCssRef(getCssSource(widgetJson), header.cssRefs, "header")
