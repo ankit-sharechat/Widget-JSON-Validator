@@ -4,7 +4,7 @@ const {validatePlaceHolder} = require("./dataValidator");
 const { validateEventRef } = require("./eventValidator");
 const { validateEventObject } = require("./eventValidator");
 
-function validateViewActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
+function validateViewActionRef(actionSource, eventSource, dataSource, actionRef, referrer, dataNode) {
     if (actionRef !== undefined && actionSource !== undefined) {
         onActionSourceReferred(actionRef)
 
@@ -12,12 +12,12 @@ function validateViewActionRef(actionSource, eventSource, dataObject, actionRef,
             error("ViewActionNotFound: `" + actionRef + "` in actionSource.view{}. Info: { " + referrer + " }")
         } else {
             const actionObject = actionSource.view[actionRef]
-            validateEventObject(eventSource, dataObject, actionObject.eventRef, referrer + "." + actionRef)
+            validateEventObject(eventSource, dataSource, actionObject.eventRef, referrer + "." + actionRef, dataNode)
         }
     }
 }
 
-function validateClickActionRef(actionSource, eventSource, dataObject, actionRef, referrer) {
+function validateClickActionRef(actionSource, eventSource, dataSource, actionRef, referrer, dataNode) {
     if (actionSource === undefined) {
         error("actionSource: missing!")
         return
@@ -36,10 +36,10 @@ function validateClickActionRef(actionSource, eventSource, dataObject, actionRef
                 error("MissingObject: webCard | Info: " + referrer)
             } else {
                 //validate placeholders
-                validatePlaceHolder(clickActionObject.webCard, dataObject, referrer)
+                validatePlaceHolder(clickActionObject.webCard, dataSource, referrer, dataNode)
             }
 
-            validateEventRef(eventSource, clickActionObject.eventRef, dataObject, referrer + " | ActionNode: actionSource.click." + actionRef + "." + clickActionObject.eventRef)
+            validateEventRef(eventSource, clickActionObject.eventRef, dataSource, referrer + " | ActionNode: actionSource.click." + actionRef + "." + clickActionObject.eventRef, dataNode)
         }
     }
 }

@@ -43,15 +43,16 @@ function getDataAtNode(dataSource, dataNode) {
     }
 }
 
-function validatePlaceHolder(jsonObject, dataObject, referrer) {
+function validatePlaceHolder(jsonObject, dataSource, referrer, dataNode) {
     const keys = Object.keys(jsonObject)
     keys.forEach(key => {
         const isPlaceholder = jsonObject[key].toString().startsWith("@")
         if (isPlaceholder) {
             const placeholderKey = jsonObject[key].substring(1)
-            validateDataRef(dataObject, placeholderKey, "(Placehodler cannot be filled for-> " + placeholderKey + ") " + referrer)
+            const newDataNode = dataNode + "." + placeholderKey
+            validateDataNode(dataSource, newDataNode, "(Placehodler cannot be filled for-> " + placeholderKey + ") " + referrer)
         }
     })
 }
 
-module.exports = {validateDataRef, validatePlaceHolder, validateDataNode, getDataAtNode}
+module.exports = {validatePlaceHolder, validateDataNode, getDataAtNode}

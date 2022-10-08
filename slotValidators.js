@@ -9,7 +9,7 @@ const {
     validTextObjectKeys, validImageObjectKeys, validTwoLineTextSlotKeys, validPlayableObjectKeys, validChipObjectKeys
 } = require("./constants");
 const {getCssSource, getEventSource, getActionSource, error, validateKeys} = require("./helpers");
-const {validateDataRef, validateDataNode, getDataAtNode} = require("./dataValidator");
+const {validateDataNode} = require("./dataValidator");
 const {validateColor} = require("./colorValidator");
 const {validateStyle} = require("./styleValidator");
 const {validateCssRef} = require("./cssValidator");
@@ -79,7 +79,7 @@ function validateChipWidget(chipWidget, dataSource, cssSource, eventSource, acti
     //Image Data
     validateDataNode(dataSource, dataNode + "." + chipWidget.imageRef, referrer)
     //Text Data
-    validateDataRef(dataSource, dataNode + "." + chipWidget.textRef, referrer)
+    validateDataNode(dataSource, dataNode + "." + chipWidget.textRef, referrer)
     //Color
     validateColor(chipWidget.color, referrer)
     //Style
@@ -87,7 +87,7 @@ function validateChipWidget(chipWidget, dataSource, cssSource, eventSource, acti
     //Css Refs
     validateCssRef(cssSource, chipWidget.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), chipWidget.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, dataSource, chipWidget.cActionRef, referrer, dataNode)
 }
 
 function validatePlayableWidget(playableWidget, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
@@ -130,7 +130,7 @@ function validateImageWidget(imageObject, dataSource, cssSource, eventSource, ac
     //Css Refs
     validateCssRef(cssSource, imageObject.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), imageObject.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, dataSource, imageObject.cActionRef, referrer, dataNode)
 }
 
 function validateLottieWidget(lottieObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
@@ -147,7 +147,7 @@ function validateLottieWidget(lottieObject, dataSource, cssSource, eventSource, 
     //Css Refs
     validateCssRef(cssSource, lottieObject.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), lottieObject.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, dataSource, lottieObject.cActionRef, referrer, dataNode)
 }
 
 function validateTextWidget(textObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
@@ -192,7 +192,7 @@ function validateTextWidget(textObject, dataSource, cssSource, eventSource, acti
 
     //Action Refs
     if (textObject.cActionRef !== undefined) {
-        validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), textObject.cActionRef, referrer)
+        validateClickActionRef(actionSource, eventSource, dataSource, textObject.cActionRef, referrer, dataNode)
     }
 }
 

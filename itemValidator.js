@@ -6,7 +6,7 @@ const {
 } = require("./helpers");
 
 const {validateSlot} = require("./slotValidators");
-const {validateDataRef, validateDataNode, getDataAtNode} = require("./dataValidator");
+const {validateDataNode} = require("./dataValidator");
 const {validateViewActionRef, validateClickActionRef} = require("./actionValidator");
 
 function validateItems(widgetJson, items) {
@@ -69,8 +69,8 @@ function validateItemReference(widgetJson, itemReference, referrer, dataNode) {
         }
     })
 
-    validateViewActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDataAtNode(getDatasourceObject(widgetJson), newDataNode), viewActionRef, referrer)
-    validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDataAtNode(getDatasourceObject(widgetJson), newDataNode), clickActionRef, referrer)
+    validateViewActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson), viewActionRef, referrer, newDataNode)
+    validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson), clickActionRef, referrer, newDataNode)
 }
 
 function validateItemsConfig(itemsConfig, referrer) {

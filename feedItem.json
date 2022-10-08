@@ -23,12 +23,9 @@
           }
         },
         "right": {
-          "type": "SLOT_LOT",
-          "lottie": {
-            "dataRef": "lotRef",
-            "cssRefs": [
-              "webpsize"
-            ]
+          "type": "SLOT_PLAY",
+          "playable": {
+            "gifRef": "lotRef"
           }
         },
         "cActionRef": "cAction2",
@@ -40,32 +37,38 @@
         "itemRef": "imageItem",
         "dataRef": "item1",
         "cActionRef": "item1Nav",
-        "vActionRef": "vAction1"
+        "vActionRef": "vitem1Nav"
       },
       "items": [
         {
           "itemRef": "imageItem",
           "dataRef": "item1",
           "cActionRef": "item1Nav",
-          "vActionRef": "vAction1"
+          "vActionRef": "vitem1Nav"
+        },
+        {
+          "itemRef": "imageItem",
+          "dataRef": "item1",
+          "cActionRef": "item1Nav",
+          "vActionRef": "vitem1Nav"
         },
         {
           "itemRef": "playItem",
           "dataRef": "item2",
           "cActionRef": "item2Nav",
-          "vActionRef": "vAction1"
+          "vActionRef": "vitem1Nav"
         },
         {
           "itemRef": "stackItem",
           "dataRef": "stackItemDataRef",
           "cActionRef": "item3Nav",
-          "vActionRef": "vAction1"
+          "vActionRef": "vitem1Nav"
         },
         {
           "itemRef": "playItem",
           "dataRef": "item2",
           "cActionRef": "item1Nav",
-          "vActionRef": "vAction1"
+          "vActionRef": "vitem1Nav"
         }
       ],
       "autoPlay": true,
@@ -132,7 +135,7 @@
               "cssRefs": [
                 "bottomEnd4"
               ],
-              "clickActionRef": "action4"
+              "cActionRef": "item1Nav"
             }
           },
           "content": {
@@ -153,7 +156,7 @@
               "dataRef": "topStart",
               "color": "secondaryBg",
               "style": "caption",
-              "cActionRef" : "item1Nav"
+              "cActionRef": "item1Nav"
             }
           },
           "bottomStart": {
@@ -179,7 +182,7 @@
               "cssRefs": [
                 "bottomEnd4"
               ],
-              "clickActionRef": "action4"
+              "cActionRef": "item1Nav"
             }
           },
           "content": {
@@ -227,7 +230,7 @@
                 "cssRefs": [
                   "bottomEnd4"
                 ],
-                "clickActionRef": "action4"
+                "cActionRef": "item1Nav"
               }
             },
             "content": {
@@ -271,7 +274,7 @@
                 "cssRefs": [
                   "bottomEnd4"
                 ],
-                "clickActionRef": "action4"
+                "cActionRef": "item1Nav"
               }
             },
             "content": {
@@ -294,60 +297,82 @@
         "sub-title": "Check them out!!",
         "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json"
       },
-      "item1": {
-        "offset": "2,3,4,5,6,7,8",
-        "anchorUrl": "generic_v2/v2/videos",
-        "postId": "7763449784-item1",
-        "topStart": "Viral",
-        "topEnd": "Trending",
-        "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
-        "handle": " 10M Views",
-        "playIcon": "https://cdn-icons-png.flaticon.com/128/3039/3039386.png",
-        "viewCount": "",
-        "grad": "#00A5364A #852B3B",
-        "bottomStart": "# Colourful",
-        "bottomEnd": "# Test Image",
-        "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json",
-        "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
-        "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
-        "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
-      },
-      "item2": {
-        "postId": "7763449784-item2",
-        "topStart": "Viral",
-        "topEnd": "4:12",
-        "grad": "#00A5364A #852B3B",
-        "bottomStart": "# Colourful",
-        "bottomEnd": "#FeelGood",
-        "gifRef" : "",
-        "handle" : "",
-        "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
-        "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
-        "videoRef": "https://cdn3.sharechat.com/bitrate_h264_867046_385e2dcc_1659455860364_sc_350_360.mp4",
-        "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
-      },
-      "stackItemDataRef": {
-        "top": {
-          "postId": "7763449784",
+      "items": {
+        "item1": {
+          "offset": "2,3,4,5,6,7,8",
+          "anchorUrl": "generic_v2/v2/videos",
+          "postId": "7763449784-item1",
           "topStart": "Viral",
-          "topEnd": "4:12",
-          "profileUrl" : "",
-          "handle" : "",
+          "topEnd": "Trending",
+          "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+          "handle": " 10M Views",
+          "playIcon": "https://cdn-icons-png.flaticon.com/128/3039/3039386.png",
+          "viewCount": "",
           "grad": "#00A5364A #852B3B",
           "bottomStart": "# Colourful",
-          "bottomEnd": "#FeelGood",
-          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80"
+          "bottomEnd": "# Test Image",
+          "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json",
+          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+          "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
+          "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
         },
-        "bottom": {
-          "postId": "7763449784",
+        "item2": {
+          "postId": "7763449784-item2",
           "topStart": "Viral",
           "topEnd": "4:12",
-          "profileUrl" : "",
-          "handle" : "",
           "grad": "#00A5364A #852B3B",
           "bottomStart": "# Colourful",
           "bottomEnd": "#FeelGood",
-          "url": "https://images.unsplash.com/photo-1610693810632-7e77e5e9039a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGRpd2FsaXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
+          "gifRef": "",
+          "handle": "",
+          "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+          "videoRef": "https://cdn3.sharechat.com/bitrate_h264_867046_385e2dcc_1659455860364_sc_350_360.mp4",
+          "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
+        },
+        "stackItemDataRef": {
+          "top": {
+            "dpostId": "top-item",
+            "topStart": "Viral",
+            "topEnd": "4:12",
+            "profileUrl": "",
+            "handle": "",
+            "grad": "#00A5364A #852B3B",
+            "bottomStart": "# Colourful",
+            "bottomEnd": "#FeelGood",
+            "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80"
+          },
+          "bottom": {
+            "postId": "7763449784",
+            "topStart": "Viral",
+            "topEnd": "4:12",
+            "profileUrl": "",
+            "handle": "",
+            "grad": "#00A5364A #852B3B",
+            "bottomStart": "# Colourful",
+            "bottomEnd": "#FeelGood",
+            "url": "https://images.unsplash.com/photo-1610693810632-7e77e5e9039a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGRpd2FsaXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
+          }
+        }
+      },
+      "sctv" : {
+        "item1": {
+          "offset": "2,3,4,5,6,7,8",
+          "anchorUrl": "generic_v2/v2/videos",
+          "postId": "7763449784-item1",
+          "topStart": "Viral",
+          "topEnd": "Trending",
+          "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+          "handle": " 10M Views",
+          "playIcon": "https://cdn-icons-png.flaticon.com/128/3039/3039386.png",
+          "viewCount": "",
+          "grad": "#00A5364A #852B3B",
+          "bottomStart": "# Colourful",
+          "bottomEnd": "# Test Image",
+          "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json",
+          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+          "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
+          "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
         }
       }
     },
@@ -360,8 +385,11 @@
             "#00ff0000",
             "primary"
           ],
-          "xr" : [0, 1],
-          "h" : 0
+          "xr": [
+            0,
+            1
+          ],
+          "h": 0
         }
       ],
       "header": [
@@ -410,6 +438,10 @@
       "solidBg": [
         {
           "type": "background",
+          "color": "link"
+        },
+        {
+          "type": "background",
           "color": "secondaryBg"
         }
       ],
@@ -425,8 +457,8 @@
       ]
     },
     "eventSource": {
-      "event2" : {
-        "uniId" : "ankit"
+      "event2": {
+        "uniId": "ankit"
       },
       "event1": {
         "eventId": 810,
@@ -482,7 +514,7 @@
           },
           "eventRef": "event2"
         },
-        "clickAction2" : {
+        "clickAction2": {
           "type": "webCardNav",
           "webCard": {
             "type": "video_immersive",
@@ -493,7 +525,7 @@
           },
           "eventRef": "event2"
         },
-        "cAction2" : {
+        "cAction2": {
           "type": "webCardNav",
           "webCard": {
             "type": "video_immersive",
@@ -506,7 +538,7 @@
         }
       },
       "view": {
-        "vAction1": {
+        "vitem1Nav": {
           "eventRef": "event1"
         }
       }

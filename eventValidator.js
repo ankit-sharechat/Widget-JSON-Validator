@@ -1,25 +1,25 @@
 const {error, onEventSourceReferred} = require("./helpers");
 const {validatePlaceHolder} = require("./dataValidator");
 
-function validateEventObject(eventSource, dataObject, eventRef, referrer) {
+function validateEventObject(eventSource, dataSource, eventRef, referrer, dataNode) {
     if (eventRef !== undefined && eventSource !== undefined) {
         onEventSourceReferred(eventRef)
         if (eventSource[eventRef] !== undefined) {
-            validatePlaceHolder(eventSource[eventRef], dataObject, referrer+" | EventNode: eventSource."+eventRef)
+            validatePlaceHolder(eventSource[eventRef], dataSource, referrer + " | EventNode: eventSource." + eventRef, dataNode)
         }
     }
 }
 
-function validateEventRef(eventSource, eventRef, dataObject, referrer) {
+function validateEventRef(eventSource, eventRef, dataSource, referrer, dataNode) {
     if (eventRef !== undefined && eventSource !== undefined) {
         //Validate event Ref is a list
         if (eventSource[eventRef] === undefined) {
-            error("EventNotFound: `" + eventRef + "` in eventSource | Info: "+referrer)
+            error("EventNotFound: `" + eventRef + "` in eventSource | Info: " + referrer)
         } else {
             //validate placeholder
-            validatePlaceHolder(eventSource[eventRef], dataObject, referrer)
+            validatePlaceHolder(eventSource[eventRef], dataSource, referrer, dataNode)
         }
     }
 }
 
-module.exports = { validateEventObject, validateEventRef }
+module.exports = {validateEventObject, validateEventRef}

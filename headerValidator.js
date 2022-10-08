@@ -8,7 +8,7 @@ const {
 const {validateSlot} = require("./slotValidators");
 const {validateCssRef} = require("./cssValidator");
 const {validateClickActionRef} = require("./actionValidator");
-const {validateDataRef, validateDataNode, getDataAtNode} = require("./dataValidator");
+const {validateDataNode} = require("./dataValidator");
 
 function validateHeaderType(type) {
     if (![HEAD].includes(type)) {
@@ -26,7 +26,7 @@ function validateTemplateHeader(widgetJson, header) {
         validateSlot(widgetJson, header.left, getDatasourceObject(widgetJson), dataSourceReferrerFormatter(header.dataRef) + "Node: header.left", dataNode)
         validateSlot(widgetJson, header.right, getDatasourceObject(widgetJson), dataSourceReferrerFormatter(header.dataRef) + "Node: header.right", dataNode)
         validateCssRef(getCssSource(widgetJson), header.cssRefs, "header")
-        validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDataAtNode(getDatasourceObject(widgetJson), dataNode), header.cActionRef, dataSourceReferrerFormatter(header.dataRef) + "| Node: header")
+        validateClickActionRef(getActionSource(widgetJson), getEventSource(widgetJson), getDatasourceObject(widgetJson), header.cActionRef, dataSourceReferrerFormatter(header.dataRef) + "| Node: header", dataNode)
     }
 }
 

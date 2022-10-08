@@ -130,7 +130,7 @@
               "cssRefs": [
                 "bottomEnd4"
               ],
-              "clickActionRef": "action4"
+              "cActionRef": "item1Nav"
             }
           },
           "content": {
@@ -177,7 +177,7 @@
               "cssRefs": [
                 "bottomEnd4"
               ],
-              "clickActionRef": "action4"
+              "cActionRef": "item1Nav"
             }
           },
           "content": {
@@ -225,7 +225,7 @@
                 "cssRefs": [
                   "bottomEnd4"
                 ],
-                "clickActionRef": "action4"
+                "cActionRef": "item1Nav"
               }
             },
             "content": {
@@ -269,7 +269,7 @@
                 "cssRefs": [
                   "bottomEnd4"
                 ],
-                "clickActionRef": "action4"
+                "cActionRef": "item1Nav"
               }
             },
             "content": {
