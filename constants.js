@@ -2,6 +2,7 @@ exports.validSlotTypes = ['SLOT_TXT', 'SLOT_2_LINE', 'SLOT_LOT', 'SLOT_IMG', 'SL
 exports.validTemplateKeys = ['type', 'header', 'sctv', 'items', 'autoPlay', 'sctvConfig', 'itemsConfig', 'itemSource', 'cssRefs']
 exports.validItemsConfigKeys = ['s', 'sp', 'tp', 'ep', 'bp', 'wp', 'w2hr', 'c']
 exports.validTemplateTypes = ['SctvTemplate', 'VideoTemplate']
+exports.DataSourceKey = 'DataSourceKey'
 exports.SLOT_TXT = 'SLOT_TXT'
 exports.SLOT_2_LINE = 'SLOT_2_LINE'
 exports.SLOT_LOT = 'SLOT_LOT'

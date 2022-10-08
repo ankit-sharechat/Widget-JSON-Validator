@@ -1,4 +1,4 @@
-const {widgetCriticalField} = require("./constants");
+const {widgetCriticalField, DataSourceKey} = require("./constants");
 
 let errors = []
 let itemsReferred = []
@@ -20,7 +20,7 @@ function ok(msg) {
 
 function printErrors(errors) {
     console.log('\x1b[31m', "===========  All Errors ===========");  //Red
-    console.log('\x1b[31m', "Total: "+errors.length);  //Red
+    console.log('\x1b[31m', "Total: " + errors.length);  //Red
     errors.forEach(error => {
         console.log('\x1b[31m', error);  //Red
     })
@@ -64,7 +64,7 @@ function getActionSource(json) {
 }
 
 function fieldMissing(fieldName) {
-    logError("`"+fieldName+"` is Missing!")
+    logError("`" + fieldName + "` is Missing!")
 }
 
 function validateKeys(keys, validKeys, referrer) {
@@ -81,10 +81,20 @@ function onItemSourceReferred(key) {
     }
 }
 
-function onDataSourceReferred(key) {
-    if (!dataReferred.includes(key)) {
-        dataReferred.push(key)
-    }
+function extractParent(referrer) {
+    const startIndex = referrer.indexOf(":") + 1
+    const endIndex = referrer.indexOf(" |")
+    const parent = referrer.substring(startIndex, endIndex)
+    console.log("["+parent+"]")
+}
+
+function dataSourceReferrerFormatter(dataRef) {
+    return DataSourceKey + ": "+dataRef+" |"
+}
+
+function onDataSourceReferred(key, referrer) {
+    extractParent(referrer)
+    dataReferred.push(key)
 }
 
 function onCssSourceReferred(key) {
@@ -163,5 +173,6 @@ module.exports = {
     getActionsReferred,
     getEventsReferred,
     getCssReferred,
-    getDataReferred
+    getDataReferred,
+    dataSourceReferrerFormatter
 }

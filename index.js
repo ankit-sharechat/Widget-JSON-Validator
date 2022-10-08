@@ -6,7 +6,7 @@ const feedJson = JSON.parse(fs.readFileSync("./feedItem.json", "utf8"));
 const exploreJson = JSON.parse(fs.readFileSync("./exploreItem.json", "utf8"));
 
 validateFeedItem(feedJson)
-validateExploreItem(exploreJson)
+//validateExploreItem(exploreJson)
 
 const allError = getAllErrors()
 if (allError.length === 0) {

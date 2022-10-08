@@ -1,7 +1,8 @@
 const {ITEM_CARD, ITEM_STACK, validItemsConfigKeys} = require("./constants");
 
-const { error, getActionSource, getEventSource,
-    getDatasourceObject, getItemSource, validateKeys, onItemSourceReferred
+const {
+    error, getActionSource, getEventSource,
+    getDatasourceObject, getItemSource, validateKeys, onItemSourceReferred, dataSourceReferrerFormatter
 } = require("./helpers");
 
 const {validateSlot} = require("./slotValidators");
@@ -34,12 +35,19 @@ function validateItemCard(widgetJson, itemDefinition, dataObject, referrer) {
     validateSlot(widgetJson, itemDefinition.content, dataObject, referrer + ".content")
 }
 
-function validateItemDefinition(widgetJson, itemDefinition, dataObject, referrer) {
+function validateItemDefinition(widgetJson, itemDefinition, dataSource, dataRef, referrer) {
     if (itemDefinition.type === ITEM_CARD) {
-        validateItemCard(widgetJson, itemDefinition, dataObject, referrer)
+        if (validateDataRef(dataSource, dataRef, dataSourceReferrerFormatter(dataRef) + referrer)) {
+            validateItemCard(widgetJson, itemDefinition, dataSource[dataRef], referrer)
+        }
     } else if (itemDefinition.type === ITEM_STACK) {
-        validateItemCard(widgetJson, itemDefinition.top, dataObject.top, referrer + ".top")
-        validateItemCard(widgetJson, itemDefinition.bottom, dataObject.bottom, referrer + ".bottom")
+        if (validateDataRef(dataSource[dataRef], 'top', dataSourceReferrerFormatter(dataRef+".top") + referrer + ".top")) {
+            validateItemCard(widgetJson, itemDefinition.top, dataSource.top, referrer + ".top")
+        }
+
+        if (validateDataRef(dataSource[dataRef], 'bottom', dataSourceReferrerFormatter(dataRef+".bottom") + referrer + ".bottom")) {
+            validateItemCard(widgetJson, itemDefinition.bottom, dataSource.bottom, referrer + ".bottom")
+        }
     }
 }
 
@@ -52,12 +60,12 @@ function validateItemReference(widgetJson, itemReference, referrer) {
     const clickActionRef = itemReference.cActionRef
     const viewActionRef = itemReference.vActionRef
 
-    referrer = "DataSourceKey: " + dataRef + " | Node: " + referrer + "." + itemRef
+    referrer = dataSourceReferrerFormatter(dataRef) + "Node: " + referrer + "." + itemRef
 
     validateItemSource(getItemSource(widgetJson), itemRef, itemDefinition => {
         const dataPresent = validateDataRef(getDatasourceObject(widgetJson), dataRef, referrer)
         if (dataPresent) {
-            validateItemDefinition(widgetJson, itemDefinition, getDatasourceObject(widgetJson)[dataRef], referrer)
+            validateItemDefinition(widgetJson, itemDefinition, getDatasourceObject(widgetJson), dataRef, referrer)
         }
     })
 
