@@ -20,7 +20,8 @@ function ok(msg) {
 
 function printErrors(errors) {
     console.log('\x1b[31m', "===========  All Errors ===========");  //Red
-    console.log('\x1b[31m', "Total: " + errors.length);  //Red
+    console.log('\x1b[31m', "Total Errors: " + errors.length);  //Red
+    console.log('\x1b[31m', "===================================");  //Red
     errors.forEach(error => {
         console.log('\x1b[31m', error);  //Red
     })

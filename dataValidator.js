@@ -1,16 +1,4 @@
 const {error, onDataSourceReferred} = require("./helpers");
-
-function validateDataRef(dataSource, dataRef, referrer) {
-    if (dataRef !== undefined && dataSource !== undefined) {
-        onDataSourceReferred(dataRef)
-        if (dataSource[dataRef] === undefined) {
-            error("DataNotFound: `" + dataRef + "` in dataSource. Info: " + referrer)
-            return false
-        }
-        return true
-    }
-}
-
 function validateDataNode(dataSource, dataNode, referrer) {
     const nodes = dataNode.split(".")
     if (dataSource !== undefined) {
