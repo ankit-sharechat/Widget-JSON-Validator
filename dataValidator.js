@@ -2,7 +2,7 @@ const {error, onDataSourceReferred} = require("./helpers");
 
 function validateDataRef(dataSource, dataRef, referrer) {
     if (dataRef !== undefined && dataSource !== undefined) {
-        onDataSourceReferred(dataRef, referrer)
+        onDataSourceReferred(dataRef)
         if (dataSource[dataRef] === undefined) {
             error("DataNotFound: `" + dataRef + "` in dataSource. Info: " + referrer)
             return false

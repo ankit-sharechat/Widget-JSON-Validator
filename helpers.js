@@ -81,19 +81,11 @@ function onItemSourceReferred(key) {
     }
 }
 
-function extractParent(referrer) {
-    const startIndex = referrer.indexOf(":") + 1
-    const endIndex = referrer.indexOf(" |")
-    const parent = referrer.substring(startIndex, endIndex)
-    console.log("["+parent+"]")
-}
-
 function dataSourceReferrerFormatter(dataRef) {
     return DataSourceKey + ": "+dataRef+" |"
 }
 
-function onDataSourceReferred(key, referrer) {
-    extractParent(referrer)
+function onDataSourceReferred(key) {
     dataReferred.push(key)
 }
 
