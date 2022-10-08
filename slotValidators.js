@@ -9,19 +9,20 @@ const {
     validTextObjectKeys, validImageObjectKeys, validTwoLineTextSlotKeys, validPlayableObjectKeys, validChipObjectKeys
 } = require("./constants");
 const {getCssSource, getEventSource, getActionSource, error, validateKeys} = require("./helpers");
-const {validateDataRef} = require("./dataValidator");
+const {validateDataRef, validateDataNode, getDataAtNode} = require("./dataValidator");
 const {validateColor} = require("./colorValidator");
 const {validateStyle} = require("./styleValidator");
 const {validateCssRef} = require("./cssValidator");
 const {validateClickActionRef} = require("./actionValidator");
 
-function validateSlot(widgetJson, slot, dataObject, referrer) {
+//todo:
+function validateSlot(widgetJson, slot, dataSource, referrer, dataNode) {
     if (slot === undefined)
         return
 
     const type = slot.type
     validateSlotType(type, referrer)
-    validateSlotDefinition(widgetJson, slot, dataObject, referrer)
+    validateSlotDefinition(widgetJson, slot, dataSource, referrer, dataNode)
 }
 
 function validateSlotType(slotType, referrer) {
@@ -30,54 +31,55 @@ function validateSlotType(slotType, referrer) {
     }
 }
 
-function validateSlotDefinition(widgetJson, slot, dataObject, referrer) {
+function validateSlotDefinition(widgetJson, slot, dataSource, referrer, dataNode) {
     switch (slot.type) {
         case SLOT_TXT :
-            validateTextWidget(slot.text, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_TXT)
+            validateTextWidget(slot.text, dataSource, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_TXT, dataNode)
             break
         case SLOT_2_LINE :
-            validateSlot2Line(slot, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_2_LINE)
+            validateSlot2Line(slot, dataSource, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_2_LINE, dataNode)
             break
         case SLOT_LOT:
-            validateLottieWidget(slot.lottie, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_LOT)
+            validateLottieWidget(slot.lottie, dataSource, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_LOT, dataNode)
             break
         case SLOT_IMG:
-            validateImageWidget(slot.image, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_IMG)
+            validateImageWidget(slot.image, dataSource, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_IMG, dataNode)
             break
         case SLOT_PLAY:
-            validatePlayableWidget(slot.playable, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_PLAY)
+            validatePlayableWidget(slot.playable, dataSource, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_PLAY, dataNode)
             break
         case SLOT_CHIP:
-            validateChipWidget(slot.chip, dataObject, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_CHIP)
+            validateChipWidget(slot.chip, dataSource, getCssSource(widgetJson), getEventSource(widgetJson), getActionSource(widgetJson), referrer + "." + SLOT_CHIP, dataNode)
             break
         default:
             break
     }
 }
 
-function validateSlot2Line(slot, dataObject, cssSource, eventSource, actionSource, referrer) {
+function validateSlot2Line(slot, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     const topText = slot.top
     const bottomText = slot.bottom
     validateKeys(Object.keys(slot), validTwoLineTextSlotKeys, referrer)
     if (topText !== undefined) {
-        validateTextWidget(topText, dataObject, cssSource, eventSource, actionSource, referrer + ".top")
+        validateTextWidget(topText, dataSource, cssSource, eventSource, actionSource, referrer + ".top", dataNode)
     }
     if (bottomText !== undefined) {
-        validateTextWidget(bottomText, dataObject, cssSource, eventSource, actionSource, referrer + ".bottom")
+        validateTextWidget(bottomText, dataSource, cssSource, eventSource, actionSource, referrer + ".bottom", dataNode)
     }
 }
 
-function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
+function validateChipWidget(chipWidget, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (chipWidget === undefined) {
         error("`chip` Object is missing " + referrer)
         return
     }
     validateKeys(Object.keys(chipWidget), validChipObjectKeys, referrer)
 
+
     //Image Data
-    validateDataRef(dataObject, chipWidget.imageRef, referrer)
+    validateDataNode(dataSource, dataNode + "." + chipWidget.imageRef, referrer)
     //Text Data
-    validateDataRef(dataObject, chipWidget.textRef, referrer)
+    validateDataRef(dataSource, dataNode + "." + chipWidget.textRef, referrer)
     //Color
     validateColor(chipWidget.color, referrer)
     //Style
@@ -85,22 +87,36 @@ function validateChipWidget(chipWidget, dataObject, cssSource, eventSource, acti
     //Css Refs
     validateCssRef(cssSource, chipWidget.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, dataObject, chipWidget.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), chipWidget.cActionRef, referrer)
 }
 
-function validatePlayableWidget(playableWidget, dataObject, cssSource, eventSource, actionSource, referrer) {
+function validatePlayableWidget(playableWidget, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (playableWidget === undefined) {
         error("`playable` Object is missing " + referrer)
         return
     }
     validateKeys(Object.keys(playableWidget), validPlayableObjectKeys, referrer)
+
+    //todo: fix validation for playable slots
+
     //DataSources
-    validateDataRef(dataObject, playableWidget.gifRef, referrer)
-    validateDataRef(dataObject, playableWidget.thumbRef, referrer)
-    validateDataRef(dataObject, playableWidget.videoRef, referrer)
+    if (playableWidget.gifRef !== undefined) {
+        const newGifDataNode = dataNode + "." + playableWidget.gifRef
+        validateDataNode(dataSource, newGifDataNode, referrer)
+    }
+
+    if (playableWidget.videoRef !== undefined) {
+        const newVideoDataNode = dataNode + "." + playableWidget.videoRef
+        validateDataNode(dataSource, newVideoDataNode, referrer)
+    }
+
+    if (playableWidget.thumbRef !== undefined) {
+        const newThumbDataNode = dataNode + "." + playableWidget.thumbRef
+        validateDataNode(dataSource, newThumbDataNode, referrer)
+    }
 }
 
-function validateImageWidget(imageObject, dataObject, cssSource, eventSource, actionSource, referrer) {
+function validateImageWidget(imageObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (imageObject === undefined) {
         error("`image` Object is missing " + referrer)
         return
@@ -109,14 +125,15 @@ function validateImageWidget(imageObject, dataObject, cssSource, eventSource, ac
     validateKeys(Object.keys(imageObject), validImageObjectKeys, referrer)
 
     //DataSource
-    validateDataRef(dataObject, imageObject.dataRef, referrer)
+    const newDataNode = dataNode + "." + imageObject.dataRef
+    validateDataNode(dataSource, newDataNode, referrer)
     //Css Refs
     validateCssRef(cssSource, imageObject.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, dataObject, imageObject.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), imageObject.cActionRef, referrer)
 }
 
-function validateLottieWidget(lottieObject, dataObject, cssSource, eventSource, actionSource, referrer) {
+function validateLottieWidget(lottieObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (lottieObject === undefined) {
         error("`lottie` Object is missing " + referrer)
         return
@@ -125,22 +142,23 @@ function validateLottieWidget(lottieObject, dataObject, cssSource, eventSource, 
     validateKeys(Object.keys(lottieObject), validImageObjectKeys, referrer)
 
     //DataSource
-    validateDataRef(dataObject, lottieObject.dataRef, referrer)
+    const newDataNode = dataNode + "." + lottieObject.dataRef
+    validateDataNode(dataSource, newDataNode, referrer)
     //Css Refs
     validateCssRef(cssSource, lottieObject.cssRefs, referrer)
     //Action Ref
-    validateClickActionRef(actionSource, eventSource, dataObject, lottieObject.cActionRef, referrer)
+    validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), lottieObject.cActionRef, referrer)
 }
 
-function validateTextWidget(textObject, dataObject, cssSource, eventSource, actionSource, referrer) {
+function validateTextWidget(textObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (textObject === undefined) {
         error("`text` Object is missing " + referrer)
         return
     }
-
+    const newDataNode = dataNode + "." + textObject.dataRef
     validateKeys(Object.keys(textObject), validTextObjectKeys, referrer)
     //DataSource
-    validateDataRef(dataObject, textObject.dataRef, referrer)
+    validateDataNode(dataSource, newDataNode, referrer)
     //Color
     validateColor(textObject.color, referrer)
     //Style
@@ -152,7 +170,7 @@ function validateTextWidget(textObject, dataObject, cssSource, eventSource, acti
             error("EmptyObject | " + referrer + ".ld")
             return
         }
-        validateDataRef(dataObject, textObject.ld.dataRef, referrer + ".ld")
+        validateDataNode(dataSource, dataNode + "." + textObject.ld.dataRef, referrer + ".ld")
         validateCssRef(cssSource, textObject.ld.cssRefs, referrer + ".ld")
     }
 
@@ -162,7 +180,7 @@ function validateTextWidget(textObject, dataObject, cssSource, eventSource, acti
             error("EmptyObject | " + referrer + ".rd")
             return
         }
-        validateDataRef(dataObject, textObject.rd.dataRef, referrer + ".rd")
+        validateDataNode(dataSource, dataNode + "." + textObject.rd.dataRef, referrer + ".rd")
         validateCssRef(cssSource, textObject.rd.cssRefs, referrer + ".rd")
     }
 
@@ -174,7 +192,7 @@ function validateTextWidget(textObject, dataObject, cssSource, eventSource, acti
 
     //Action Refs
     if (textObject.cActionRef !== undefined) {
-        validateClickActionRef(actionSource, eventSource, dataObject, textObject.cActionRef, referrer)
+        validateClickActionRef(actionSource, eventSource, getDataAtNode(dataSource, dataNode), textObject.cActionRef, referrer)
     }
 }
 

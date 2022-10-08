@@ -13,9 +13,10 @@ function validateWidget(widgetJson) {
             validateKeys(Object.keys(template), validTemplateKeys, "template")
             validateTemplateType(template.type)
             validateTemplateHeader(widgetJson, template.header)
+            if (template.sctv !== undefined) {
+                validateItemReference(widgetJson, template.sctv, "sctv",'sctv')
+            }
             validateItems(widgetJson, template.items)
-            validateItemReference(widgetJson, template.sctv, "sctv")
-
             validateItemsConfig(template.itemsConfig, "itemsConfig")
             validateItemsConfig(template.sctvConfig, "sctvConfig")
             validateCssRef(getCssSource(widgetJson), template.cssRefs, "template")

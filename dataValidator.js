@@ -11,6 +11,38 @@ function validateDataRef(dataSource, dataRef, referrer) {
     }
 }
 
+function validateDataNode(dataSource, dataNode, referrer) {
+    const nodes = dataNode.split(".")
+    if (dataSource !== undefined) {
+        onDataSourceReferred(dataNode)
+
+        let dataObject = dataSource
+        let foundTill = ""
+        nodes.forEach(node => {
+            if (dataObject[node] !== undefined) {
+                dataObject = dataObject[node]
+                foundTill = (foundTill.length === 0 ? "" : foundTill + ".") + node
+            } else {
+                error("DataNotFound: `" + foundTill + "." + node + "` in dataSource. Info: " + referrer)
+            }
+        })
+        return foundTill === dataNode
+    }
+}
+
+function getDataAtNode(dataSource, dataNode) {
+    const nodes = dataNode.split(".")
+    if (dataSource !== undefined) {
+        let dataObject = dataSource
+        nodes.forEach(node => {
+            if (dataObject[node] !== undefined) {
+                dataObject = dataObject[node]
+            }
+        })
+        return dataObject
+    }
+}
+
 function validatePlaceHolder(jsonObject, dataObject, referrer) {
     const keys = Object.keys(jsonObject)
     keys.forEach(key => {
@@ -22,4 +54,4 @@ function validatePlaceHolder(jsonObject, dataObject, referrer) {
     })
 }
 
-module.exports = {validateDataRef, validatePlaceHolder}
+module.exports = {validateDataRef, validatePlaceHolder, validateDataNode, getDataAtNode}
