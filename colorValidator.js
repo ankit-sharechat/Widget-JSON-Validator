@@ -1,5 +1,6 @@
-const { validColors } = require("./constants");
+const {validColors} = require("./constants");
 const {error} = require("./helpers");
+const {InvalidColor} = require("./errorMessage");
 
 const colorHexRegex = '^#[A-Fa-f0-9]+$'
 
@@ -8,8 +9,8 @@ function validateColor(color, referrer) {
         return
 
     if (!(color.match(colorHexRegex) || validColors.includes(color))) {
-        error("InvalidResource: Color " + color + ", It must be a valid color hex, or one of " + validColors + " Info: " + referrer)
+        error(InvalidColor.title + ": " + color + ", It must be a valid color hex, or one of " + validColors + " Info: " + referrer)
     }
 }
 
-module.exports = { validateColor }
+module.exports = {validateColor}

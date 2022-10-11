@@ -1,4 +1,5 @@
 const {error, onDataSourceReferred} = require("./helpers");
+const {DataFieldNotFound} = require("./errorMessage");
 function validateDataNode(dataSource, dataNode, referrer) {
     const nodes = dataNode.split(".")
     if (dataSource !== undefined) {
@@ -11,7 +12,7 @@ function validateDataNode(dataSource, dataNode, referrer) {
                 dataObject = dataObject[node]
                 foundTill = (foundTill.length === 0 ? "" : foundTill + ".") + node
             } else {
-                error("DataNotFound: `" + foundTill + "." + node + "` in dataSource. Info: " + referrer)
+                error(DataFieldNotFound.title+": `" + foundTill + "." + node + "` in dataSource. Info: " + referrer)
             }
         })
         return foundTill === dataNode

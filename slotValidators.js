@@ -14,6 +14,7 @@ const {validateColor} = require("./colorValidator");
 const {validateStyle} = require("./styleValidator");
 const {validateCssRef} = require("./cssValidator");
 const {validateClickActionRef} = require("./actionValidator");
+const {InvalidSlotType, MissingField, EmptyObject} = require("./errorMessage");
 
 //todo:
 function validateSlot(widgetJson, slot, dataSource, referrer, dataNode) {
@@ -27,7 +28,7 @@ function validateSlot(widgetJson, slot, dataSource, referrer, dataNode) {
 
 function validateSlotType(slotType, referrer) {
     if (!validSlotTypes.includes(slotType)) {
-        error("Invalid Slot Type:" + slotType + ", It must be one of [" + validSlotTypes + "], Tree: " + referrer)
+        error(InvalidSlotType.title+":" + slotType + ", It must be one of [" + validSlotTypes + "], Tree: " + referrer)
     }
 }
 
@@ -70,7 +71,7 @@ function validateSlot2Line(slot, dataSource, cssSource, eventSource, actionSourc
 
 function validateChipWidget(chipWidget, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (chipWidget === undefined) {
-        error("`chip` Object is missing " + referrer)
+        error(MissingField.title+": `chip`, Info: " + referrer)
         return
     }
     validateKeys(Object.keys(chipWidget), validChipObjectKeys, referrer)
@@ -92,7 +93,7 @@ function validateChipWidget(chipWidget, dataSource, cssSource, eventSource, acti
 
 function validatePlayableWidget(playableWidget, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (playableWidget === undefined) {
-        error("`playable` Object is missing " + referrer)
+        error(MissingField.title+": `playable`, Info: " + referrer)
         return
     }
     validateKeys(Object.keys(playableWidget), validPlayableObjectKeys, referrer)
@@ -118,7 +119,7 @@ function validatePlayableWidget(playableWidget, dataSource, cssSource, eventSour
 
 function validateImageWidget(imageObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (imageObject === undefined) {
-        error("`image` Object is missing " + referrer)
+        error(MissingField.title+": `image`, Info: " + referrer)
         return
     }
 
@@ -135,7 +136,7 @@ function validateImageWidget(imageObject, dataSource, cssSource, eventSource, ac
 
 function validateLottieWidget(lottieObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (lottieObject === undefined) {
-        error("`lottie` Object is missing " + referrer)
+        error(MissingField.title+": `lottie`,Info: " + referrer)
         return
     }
 
@@ -152,7 +153,7 @@ function validateLottieWidget(lottieObject, dataSource, cssSource, eventSource, 
 
 function validateTextWidget(textObject, dataSource, cssSource, eventSource, actionSource, referrer, dataNode) {
     if (textObject === undefined) {
-        error("`text` Object is missing " + referrer)
+        error(MissingField.title+": `text`, Info: " + referrer)
         return
     }
     const newDataNode = dataNode + "." + textObject.dataRef
@@ -167,7 +168,7 @@ function validateTextWidget(textObject, dataSource, cssSource, eventSource, acti
     //Left Drawable
     if (textObject.ld !== undefined) {
         if (Object.keys(textObject.ld).length === 0) {
-            error("EmptyObject | " + referrer + ".ld")
+            error(EmptyObject.title+": " + referrer + ".ld")
             return
         }
         validateDataNode(dataSource, dataNode + "." + textObject.ld.dataRef, referrer + ".ld")
@@ -177,7 +178,7 @@ function validateTextWidget(textObject, dataSource, cssSource, eventSource, acti
     //Right Drawable
     if (textObject.rd !== undefined) {
         if (Object.keys(textObject.rd).length === 0) {
-            error("EmptyObject | " + referrer + ".rd")
+            error(EmptyObject.title+": " + referrer + ".rd")
             return
         }
         validateDataNode(dataSource, dataNode + "." + textObject.rd.dataRef, referrer + ".rd")

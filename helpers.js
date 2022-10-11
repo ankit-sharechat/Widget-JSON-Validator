@@ -1,4 +1,5 @@
 const {widgetCriticalField, DataSourceKey} = require("./constants");
+const {InvalidFieldName, MissingField} = require("./errorMessage");
 
 let errors = []
 let itemsReferred = []
@@ -65,13 +66,13 @@ function getActionSource(json) {
 }
 
 function fieldMissing(fieldName) {
-    logError("`" + fieldName + "` is Missing!")
+    logError(MissingField.title+": `" + fieldName + "`")
 }
 
 function validateKeys(keys, validKeys, referrer) {
     keys.forEach(key => {
         if (!validKeys.includes(key)) {
-            logError("Invalid Key: " + key + ", It must be one of [" + validKeys + "] | Info: " + referrer)
+            logError(InvalidFieldName.title+": " + key + ", It must be one of [" + validKeys + "] | Info: " + referrer)
         }
     })
 }

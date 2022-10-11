@@ -5,6 +5,7 @@ const {
 const {validateTemplateHeader} = require("./headerValidator");
 const {validateItems, validateItemReference, validateItemsConfig} = require("./itemValidator");
 const {validateCssRef} = require("./cssValidator");
+const {InvalidTemplateType} = require("./errorMessage");
 
 function validateWidget(widgetJson) {
     if (widgetJson !== undefined) {
@@ -14,7 +15,7 @@ function validateWidget(widgetJson) {
             validateTemplateType(template.type)
             validateTemplateHeader(widgetJson, template.header)
             if (template.sctv !== undefined) {
-                validateItemReference(widgetJson, template.sctv, "sctv",'sctv')
+                validateItemReference(widgetJson, template.sctv, "sctv", 'sctv')
             }
             validateItems(widgetJson, template.items)
             validateItemsConfig(template.itemsConfig, "itemsConfig")
@@ -28,7 +29,7 @@ function validateWidget(widgetJson) {
 
 function validateTemplateType(type) {
     if (!validTemplateTypes.includes(type)) {
-        error("Invalid Template Type: " + type)
+        error(InvalidTemplateType.title + ": `" + type + "`, It must be one of [" + validTemplateTypes + "]")
     }
 }
 

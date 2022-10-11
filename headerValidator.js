@@ -9,10 +9,11 @@ const {validateSlot} = require("./slotValidators");
 const {validateCssRef} = require("./cssValidator");
 const {validateClickActionRef} = require("./actionValidator");
 const {validateDataNode} = require("./dataValidator");
+const {InvalidHeaderType} = require("./errorMessage");
 
 function validateHeaderType(type) {
     if (![HEAD].includes(type)) {
-        error("Invalid Header Type")
+        error(InvalidHeaderType.title)
     }
 }
 

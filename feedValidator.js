@@ -8,6 +8,7 @@ const {
     getItemsReferred
 } = require("./helpers");
 const {validateWidget} = require("./widgetValidator");
+const {UnusedItemSource, UnusedDataFound, UnusedCssFound, UnusedEventFound, UnusedActionFound} = require("./errorMessage");
 
 function validateFeedItem(feedJson) {
     if (feedJson.t !== GENERIC_V2) {
@@ -76,35 +77,35 @@ function findUnusedSource(widgetJson) {
     const actualActions = getActualActions(widgetJson.actionSource)
     let unusedActions = actualActions.filter(x => !actionsReferred.includes(x));
     if (unusedActions.length !== 0) {
-        error("================\n Unsed Actions Found: Count " + unusedActions.length + "\n " + unusedActions.join(" \n "))
+        error(UnusedActionFound.title+": Count " + unusedActions.length + "\n " + unusedActions.join(" \n "))
     }
 
     const eventsReferred = getEventsReferred()
     const actualEvents = getActualEvents(widgetJson.eventSource)
     let unusedEvents = actualEvents.filter(x => !eventsReferred.includes(x));
     if (unusedEvents.length !== 0) {
-        error("================\n Unsed Events Found: Count " + unusedEvents.length + " \n " + unusedEvents.join(" \n "))
+        error(UnusedEventFound.title+": Count " + unusedEvents.length + " \n " + unusedEvents.join(" \n "))
     }
 
     const cssReferred = getCssReferred()
     const actualCss = getActualCssSource(widgetJson.cssSource)
     let unusedCss = actualCss.filter(x => !cssReferred.includes(x));
     if (unusedCss.length !== 0) {
-        error("================\n Unsed Css Found: Count " + unusedCss.length + "\n " + unusedCss.join(" \n "))
+        error(UnusedCssFound.title+": Count " + unusedCss.length + "\n " + unusedCss.join(" \n "))
     }
 
     const dataReferred = getDataReferred()
     const actualData = getDataSourceTree(widgetJson.dataSource)
     let unusedData = actualData.filter(x => !dataReferred.includes(x));
     if (unusedData.length !== 0) {
-        error("================\n Unsed Data Found: Count " + unusedData.length + "\n " + unusedData.join(" \n "))
+        error(UnusedDataFound.title+": Count " + unusedData.length + "\n " + unusedData.join(" \n "))
     }
 
     const itemsReferred = getItemsReferred()
     const actualitems = getActualItemSource(widgetJson.template.itemSource)
     let unusedItems = actualitems.filter(x => !itemsReferred.includes(x));
     if (unusedItems.length !== 0) {
-        error("================\n Unsed ItemDefinition Found: Count " + unusedItems.length + "\n " + unusedItems.join(" \n "))
+        error(UnusedItemSource.title+": Count " + unusedItems.length + "\n " + unusedItems.join(" \n "))
     }
 }
 

@@ -4,10 +4,11 @@ const {
     GRADIENT, validBackgroundKeys, validPaddingKeys, validSizeKeys, validfillMaxHeightKeys, validfillMaxWidthKeys,
     validAlphaKeys, validBorderKeys, validRotateKeys, validElevationKeys, validAspectRatioKeys, validGradientKeys
 } = require("./constants");
+const {MissingField, CssNotFound, InvalidModifierType} = require("./errorMessage");
 
 function validateCssRef(cssSource, cssRefs, referrer) {
     if (cssSource === undefined) {
-        error("cssSource: missing!")
+        error(MissingField.title+": `cssSource`")
         return
     }
     if (cssRefs !== undefined) {
@@ -15,7 +16,7 @@ function validateCssRef(cssSource, cssRefs, referrer) {
         cssRefs.forEach(cssRef => {
             onCssSourceReferred(cssRef)
             if (cssSource[cssRef] === undefined) {
-                error("CssNotFound: `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
+                error(CssNotFound.title+": `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
             } else {
                 validateCssDefinitionList(cssSource[cssRef], "Check: cssSource." + cssRef)
             }
@@ -29,7 +30,7 @@ function validateBackgroundValues(cssDefinition, referrer) {
 
 function validateCssDefinition(cssDefinition, referrer) {
     if (!validCssType.includes(cssDefinition.type)) {
-        error("InvalidModifierType: `" + cssDefinition.type + "` It must be one of [" + validCssType + "]")
+        error(InvalidModifierType.title+": `" + cssDefinition.type + "` It must be one of [" + validCssType + "]")
         return
     }
 

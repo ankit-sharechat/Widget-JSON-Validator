@@ -8,6 +8,7 @@ const {
 const {validateSlot} = require("./slotValidators");
 const {validateDataNode} = require("./dataValidator");
 const {validateViewActionRef, validateClickActionRef} = require("./actionValidator");
+const {ItemSourceNotFound} = require("./errorMessage");
 
 function validateItems(widgetJson, items) {
     items.forEach(itemReference => {
@@ -18,7 +19,7 @@ function validateItems(widgetJson, items) {
 function validateItemSource(itemSource, itemRef, onFound) {
     onItemSourceReferred(itemRef)
     if (itemSource[itemRef] === undefined) {
-        error("ItemDefinitionNotFound: `" + itemRef + "` in itemSource")
+        error(ItemSourceNotFound.title+": `" + itemRef + "` in itemSource")
         return
     }
     onFound(itemSource[itemRef])
