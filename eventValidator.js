@@ -14,6 +14,7 @@ function validateEventObject(eventSource, dataSource, eventRef, referrer, dataNo
 function validateEventRef(eventSource, eventRef, dataSource, referrer, dataNode) {
     if (eventRef !== undefined && eventSource !== undefined) {
         //Validate event Ref is a list
+        onEventSourceReferred(eventRef)
         if (eventSource[eventRef] === undefined) {
             error(EventNotFound.title+": `" + eventRef + "` in eventSource | Info: " + referrer)
         } else {

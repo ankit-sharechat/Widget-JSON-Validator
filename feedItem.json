@@ -28,47 +28,29 @@
             "gifRef": "lotRef"
           }
         },
-        "cActionRef": "cAction2",
+        "cActionRef": "openListing",
         "cssRefs": [
-          "header"
+          "headerStyle"
         ]
       },
       "sctv": {
-        "itemRef": "imageItem",
-        "dataRef": "item1",
-        "cActionRef": "item1Nav",
-        "vActionRef": "vitem1Nav"
+        "itemRef": "sctvBannerUi",
+        "dataRef": "sctvBannerData",
+        "cActionRef": "openDetailPlayer",
+        "vActionRef": "sctvViewed"
       },
       "items": [
         {
-          "itemRef": "imageItem",
-          "dataRef": "item1",
-          "cActionRef": "item1Nav",
-          "vActionRef": "vitem1Nav"
+          "itemRef": "imageUi",
+          "dataRef": "imageData1",
+          "cActionRef": "openImageMlt",
+          "vActionRef": "imageViewed"
         },
         {
-          "itemRef": "imageItem",
-          "dataRef": "item1",
-          "cActionRef": "item1Nav",
-          "vActionRef": "vitem1Nav"
-        },
-        {
-          "itemRef": "playItem",
-          "dataRef": "item2",
-          "cActionRef": "item2Nav",
-          "vActionRef": "vitem1Nav"
-        },
-        {
-          "itemRef": "stackItem",
-          "dataRef": "stackItemDataRef",
-          "cActionRef": "item3Nav",
-          "vActionRef": "vitem1Nav"
-        },
-        {
-          "itemRef": "playItem",
-          "dataRef": "item2",
-          "cActionRef": "item1Nav",
-          "vActionRef": "vitem1Nav"
+          "itemRef": "imageUi",
+          "dataRef": "imageData2",
+          "cActionRef": "openImageMlt",
+          "vActionRef": "imageViewed"
         }
       ],
       "autoPlay": true,
@@ -93,14 +75,14 @@
         "c": 4
       },
       "itemSource": {
-        "imageItem": {
+        "imageUi": {
           "type": "ITEM_CARD",
           "topStart": {
-            "type": "SLOT_LOT",
-            "lottie": {
-              "dataRef": "lotRef",
+            "type": "SLOT_TXT",
+            "text": {
+              "dataRef": "meta",
               "cssRefs": [
-                "webpsize"
+                "metaStyle"
               ]
             }
           },
@@ -120,24 +102,6 @@
               }
             }
           },
-          "bottomEnd": {
-            "type": "SLOT_CHIP",
-            "chip": {
-              "imageRef": "profileUrl",
-              "b": {
-                "width": 0.5,
-                "color": "secondaryBg"
-              },
-              "textRef": "handle",
-              "s": 20,
-              "color": "secondaryBg",
-              "style": "footnoteBold",
-              "cssRefs": [
-                "bottomEnd4"
-              ],
-              "cActionRef": "item1Nav"
-            }
-          },
           "content": {
             "type": "SLOT_IMG",
             "image": {
@@ -148,146 +112,45 @@
             }
           }
         },
-        "playItem": {
+        "sctvBannerUi": {
           "type": "ITEM_CARD",
           "topStart": {
             "type": "SLOT_TXT",
             "text": {
-              "dataRef": "topStart",
-              "color": "secondaryBg",
-              "style": "caption",
-              "cActionRef": "item1Nav"
+              "dataRef": "meta",
+              "cssRefs": [
+                "metaStyle"
+              ]
             }
           },
           "bottomStart": {
-            "type": "SLOT_TXT",
-            "text": {
-              "dataRef": "bottomStart",
+            "type": "SLOT_2_LINE",
+            "top": {
+              "dataRef": "viewCount",
               "color": "secondaryBg",
               "style": "caption"
-            }
-          },
-          "bottomEnd": {
-            "type": "SLOT_CHIP",
-            "chip": {
-              "imageRef": "profileUrl",
-              "b": {
-                "width": 0.5,
-                "color": "secondaryBg"
-              },
-              "textRef": "handle",
-              "s": 20,
-              "color": "secondaryBg",
-              "style": "footnoteBold",
-              "cssRefs": [
-                "bottomEnd4"
-              ],
-              "cActionRef": "item1Nav"
+            },
+            "bottom": {
+              "dataRef": "handle",
+              "color": "#009988",
+              "style": "subheadBold",
+              "ld": {
+                "dataRef": "playIcon"
+              }
             }
           },
           "content": {
             "type": "SLOT_PLAY",
             "playable": {
-              "gifRef": "gifRef",
-              "thumbRef": "thumbRef",
-              "videoRef": "videoRef"
-            }
-          }
-        },
-        "stackItem": {
-          "type": "ITEM_STACK",
-          "top": {
-            "type": "ITEM_CARD",
-            "topStart": {
-              "type": "SLOT_TXT",
-              "text": {
-                "dataRef": "topStart",
-                "color": "secondaryBg",
-                "style": "caption"
-              }
-            },
-            "bottomStart": {
-              "type": "SLOT_TXT",
-              "text": {
-                "dataRef": "bottomStart",
-                "color": "secondaryBg",
-                "style": "caption",
-                "cssRefs": []
-              }
-            },
-            "bottomEnd": {
-              "type": "SLOT_CHIP",
-              "chip": {
-                "imageRef": "profileUrl",
-                "b": {
-                  "width": 0.5,
-                  "color": "secondaryBg"
-                },
-                "textRef": "handle",
-                "s": 20,
-                "color": "secondaryBg",
-                "style": "footnoteBold",
-                "cssRefs": [
-                  "bottomEnd4"
-                ],
-                "cActionRef": "item1Nav"
-              }
-            },
-            "content": {
-              "type": "SLOT_IMG",
-              "image": {
-                "dataRef": "url"
-              }
-            }
-          },
-          "bottom": {
-            "type": "ITEM_CARD",
-            "topStart": {
-              "type": "SLOT_TXT",
-              "text": {
-                "dataRef": "topStart",
-                "color": "secondaryBg",
-                "style": "caption"
-              }
-            },
-            "bottomStart": {
-              "type": "SLOT_TXT",
-              "text": {
-                "dataRef": "bottomStart",
-                "color": "secondaryBg",
-                "style": "caption",
-                "cssRefs": []
-              }
-            },
-            "bottomEnd": {
-              "type": "SLOT_CHIP",
-              "chip": {
-                "imageRef": "profileUrl",
-                "b": {
-                  "width": 0.5,
-                  "color": "secondaryBg"
-                },
-                "textRef": "handle",
-                "s": 20,
-                "color": "secondaryBg",
-                "style": "footnoteBold",
-                "cssRefs": [
-                  "bottomEnd4"
-                ],
-                "cActionRef": "item1Nav"
-              }
-            },
-            "content": {
-              "type": "SLOT_IMG",
-              "image": {
-                "dataRef": "url"
-              }
+              "videoRef": "videoUrl",
+              "gifRef": "gifUrl",
+              "thumbRef": "thumbnail"
             }
           }
         }
       },
       "cssRefs": [
-        "solidBg"
+        "widgetStyle"
       ]
     },
     "dataSource": {
@@ -298,167 +161,81 @@
         "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json"
       },
       "items": {
-        "item1": {
-
-          "topStart": "Viral",
-          "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+        "imageData1": {
+          "meta": "Most Shared",
+          "viewCount": "103M",
           "handle": " 10M Views",
           "playIcon": "https://cdn-icons-png.flaticon.com/128/3039/3039386.png",
-          "viewCount": "",
-          "grad": "#00A5364A #852B3B",
-          "bottomStart": "# Colourful",
-          "bottomEnd": "# Test Image",
-          "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json",
-          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
-          "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
-          "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
+          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80"
         },
-        "item2": {
-          "postId": "7763449784-item2",
-          "topStart": "Viral",
-          "topEnd": "4:12",
-          "grad": "#00A5364A #852B3B",
-          "bottomStart": "# Colourful",
-          "bottomEnd": "#FeelGood",
-          "gifRef": "",
+        "imageData2": {
+          "meta": "Most Viewed",
+          "playIcon": "https://cdn-icons-png.flaticon.com/128/3039/3039386.png",
+          "viewCount": "3B+",
           "handle": "",
-          "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
-          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
-          "videoRef": "https://cdn3.sharechat.com/bitrate_h264_867046_385e2dcc_1659455860364_sc_350_360.mp4",
-          "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
-        },
-        "stackItemDataRef": {
-          "top": {
-            "dpostId": "top-item",
-            "topStart": "Viral",
-            "topEnd": "4:12",
-            "profileUrl": "",
-            "handle": "",
-            "grad": "#00A5364A #852B3B",
-            "bottomStart": "# Colourful",
-            "bottomEnd": "#FeelGood",
-            "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80"
-          },
-          "bottom": {
-            "postId": "7763449784",
-            "topStart": "Viral",
-            "topEnd": "4:12",
-            "profileUrl": "",
-            "handle": "",
-            "grad": "#00A5364A #852B3B",
-            "bottomStart": "# Colourful",
-            "bottomEnd": "#FeelGood",
-            "url": "https://images.unsplash.com/photo-1610693810632-7e77e5e9039a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGRpd2FsaXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
-          }
+          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80"
         }
       },
-      "sctv" : {
-        "item1": {
-          "offset": "2,3,4,5,6,7,8",
-          "anchorUrl": "generic_v2/v2/videos",
-          "postId": "7763449784-item1",
-          "topStart": "Viral",
-          "topEnd": "Trending",
-          "profileUrl": "https://randomuser.me/api/portraits/thumb/women/75.jpg",
+      "sctv": {
+        "sctvBannerData": {
+          "meta": "Viral",
           "handle": " 10M Views",
           "playIcon": "https://cdn-icons-png.flaticon.com/128/3039/3039386.png",
-          "viewCount": "",
-          "grad": "#00A5364A #852B3B",
-          "bottomStart": "# Colourful",
-          "bottomEnd": "# Test Image",
-          "lotRef": "https://assets5.lottiefiles.com/packages/lf20_EA9IKh.json",
-          "url": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
-          "1gifRef": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
-          "thumbRef": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
+          "viewCount": "392k",
+          "videoUrl": "https://images.unsplash.com/photo-1564462359902-aac1dd602e5b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80",
+          "gifUrl": "https://cdn.sharechat.com/346f8438_1661293961370_sc.webp",
+          "thumbnail": "https://cdn-cf.sharechat.com/cv-3342a4f8_1660233267032_sc_new_compressed_thumb.jpeg"
         }
       }
     },
     "cssSource": {
-      "bottomEnd4": [],
       "cardOverlay": [
         {
           "type": "gradient",
           "c": [
-            "#00ff0000",
-            "primary"
+            "link",
+            "#00ffffff"
           ],
           "xr": [
-            0,
-            1
+            1,
+            0.5
           ],
-          "h": 0
+          "yr": [
+            1,
+            0.5
+          ],
+          "h": 1
         }
       ],
-      "header": [
-        {
-          "type": "fillMaxWidth"
-        },
-        {
-          "type": "padding",
-          "top": 8,
-          "bottom": 8,
-          "start": 16,
-          "end": 16
-        }
-      ],
-      "centerSlotSize": [
-        {
-          "type": "size",
-          "s": 100
-        }
-      ],
-      "webpsize": [
-        {
-          "type": "size",
-          "s": 36
-        }
-      ],
-      "bgGradient4": [
-        {
-          "type": "background",
-          "brush": {
-            "gradient": [
-              "#00A5364A",
-              "#852B3B"
-            ]
-          }
-        }
-      ],
-      "sctvDecor": [
-        {
-          "type": "padding",
-          "top": 4,
-          "start": 16,
-          "end": 16
-        }
-      ],
-      "solidBg": [
-        {
-          "type": "background",
-          "color": "link"
-        },
+      "widgetStyle": [
         {
           "type": "background",
           "color": "secondaryBg"
         }
       ],
-      "background1": [
+      "headerStyle": [
+        {
+          "type": "padding",
+          "all": 4
+        }
+      ],
+      "metaStyle": [
         {
           "type": "background",
           "color": "link"
-        },
-        {
-          "type": "padding",
-          "all": 14
         }
       ]
     },
     "eventSource": {
-      "event2": {
-        "uniId": "ankit"
-      },
-      "event1": {
+      "viewEventPayload": {
         "eventId": 810,
+        "eventType": 3,
+        "eventName": "topStart",
+        "referrer": "topBottom",
+        "postId": "postId"
+      },
+      "clickEventPayload": {
+        "eventId": 811,
         "eventType": 3,
         "eventName": "topStart",
         "referrer": "topBottom",
@@ -467,7 +244,29 @@
     },
     "actionSource": {
       "click": {
-        "item1Nav": {
+        "openListing": {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "detailPage",
+            "subType": "generic_widget_feed",
+            "url": "generic_v2/v2/images",
+            "offset": "1,2,3,4,5,6,7,8",
+            "postId": "postId"
+          },
+          "eventRef": "clickEventPayload"
+        },
+        "openDetailPlayer": {
+          "type": "webCardNav",
+          "webCard": {
+            "type": "video_immersive",
+            "subType": "generic_widget_feed",
+            "url": "generic_v2/v2/images",
+            "offset": "1,2,3,4,5,6,7,8",
+            "postId": "postId"
+          },
+          "eventRef": "clickEventPayload"
+        },
+        "openImageMlt": {
           "type": "webCardNav",
           "webCard": {
             "type": "image_immersive",
@@ -476,67 +275,15 @@
             "offset": "1,2,3,4,5,6,7,8",
             "postId": "postId"
           },
-          "eventRef": "event1"
-        },
-        "item2Nav": {
-          "type": "webCardNav",
-          "webCard": {
-            "type": "video_immersive",
-            "subType": "generic_widget_feed",
-            "url": "anchorUrl",
-            "offset": "asdf",
-            "postId": "postId"
-          },
-          "eventRef": "event2"
-        },
-        "item3Nav": {
-          "type": "webCardNav",
-          "webCard": {
-            "type": "video_immersive",
-            "subType": "generic_widget_feed",
-            "url": "generic_v2/v2/videos",
-            "offset": "3,4,5,6,7,8",
-            "postId": "postId"
-          },
-          "eventRef": "event2"
-        },
-        "item4Nav": {
-          "type": "webCardNav",
-          "webCard": {
-            "type": "video_immersive",
-            "subType": "generic_widget_feed",
-            "url": "generic_v2/v2/videos",
-            "offset": "4,5,6,7,8",
-            "postId": "postId"
-          },
-          "eventRef": "event2"
-        },
-        "clickAction2": {
-          "type": "webCardNav",
-          "webCard": {
-            "type": "video_immersive",
-            "subType": "generic_widget_feed",
-            "url": "generic_v2/v2/videos",
-            "offset": "4,5,6,7,8",
-            "postId": "@postId"
-          },
-          "eventRef": "event2"
-        },
-        "cAction2": {
-          "type": "webCardNav",
-          "webCard": {
-            "type": "video_immersive",
-            "subType": "generic_widget_feed",
-            "url": "generic_v2/v2/videos",
-            "offset": "4,5,6,7,8",
-            "postId": "postId"
-          },
-          "eventRef": "event2"
+          "eventRef": "clickEventPayload"
         }
       },
       "view": {
-        "vitem1Nav": {
-          "eventRef": "event1"
+        "imageViewed": {
+          "eventRef": "viewEventPayload"
+        },
+        "sctvViewed": {
+          "eventRef": "viewEventPayload"
         }
       }
     }

@@ -98,6 +98,7 @@ function onCssSourceReferred(key) {
 }
 
 function onEventSourceReferred(key) {
+    console.log(key)
     if (!eventReferred.includes(key)) {
         eventReferred.push(key)
     }
