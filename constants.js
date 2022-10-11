@@ -61,3 +61,13 @@ exports.validRotateKeys = ['type', 'angle']
 exports.validElevationKeys = ['type', 'elevation', 'clip', 'shape']
 exports.validAspectRatioKeys = ['type', 'w2hRatio', 'matchHeight']
 exports.validGradientKeys = ['type', 'c', 'xr', 'yr', 'h']
+
+exports.validRoundedShapeKeys = ['type', 'all', 'topStart', 'topEnd', 'bottomStart', 'bottomEnd']
+exports.validCutCornerShapeKeys = ['type', 'topStart', 'topEnd', 'bottomStart', 'bottomEnd']
+exports.validCircleShapeKeys = ['type']
+exports.validShapeType = ['roundedCorner', 'cutCorner', 'circleShape']
+exports.ROUNDED_CORNER = 'roundedCorner'
+exports.CUT_CORNER = 'cutCorner'
+exports.CIRCLE = 'circleShape'
+
+exports.validBrushKeys = ['gradient', 'horizontalGradient']

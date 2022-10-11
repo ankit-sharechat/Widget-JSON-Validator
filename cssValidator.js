@@ -2,13 +2,16 @@ const {error, validateKeys, onCssSourceReferred} = require("./helpers");
 const {
     validCssType, BACKGROUND, PADDING, SIZE, FILLHEIGHT, FILLWIDTH, ALPHA, BORDER, ROTATE, ELEVATION, ASPECT_RATIO,
     GRADIENT, validBackgroundKeys, validPaddingKeys, validSizeKeys, validfillMaxHeightKeys, validfillMaxWidthKeys,
-    validAlphaKeys, validBorderKeys, validRotateKeys, validElevationKeys, validAspectRatioKeys, validGradientKeys
+    validAlphaKeys, validBorderKeys, validRotateKeys, validElevationKeys, validAspectRatioKeys, validGradientKeys,
+    validShapeType, ROUNDED_CORNER, CUT_CORNER, CIRCLE, validRoundedShapeKeys, validCutCornerShapeKeys,
+    validCircleShapeKeys, validBrushKeys
 } = require("./constants");
-const {MissingField, CssNotFound, InvalidModifierType} = require("./errorMessage");
+const {MissingField, CssNotFound, InvalidModifierType, InvalidShapeType} = require("./errorMessage");
+const {validateColor} = require("./colorValidator");
 
 function validateCssRef(cssSource, cssRefs, referrer) {
     if (cssSource === undefined) {
-        error(MissingField.title+": `cssSource`")
+        error(MissingField.title + ": `cssSource`")
         return
     }
     if (cssRefs !== undefined) {
@@ -16,7 +19,7 @@ function validateCssRef(cssSource, cssRefs, referrer) {
         cssRefs.forEach(cssRef => {
             onCssSourceReferred(cssRef)
             if (cssSource[cssRef] === undefined) {
-                error(CssNotFound.title+": `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
+                error(CssNotFound.title + ": `" + cssRef + "` in cssSource, Info: { " + referrer + " }")
             } else {
                 validateCssDefinitionList(cssSource[cssRef], "Check: cssSource." + cssRef)
             }
@@ -24,21 +27,60 @@ function validateCssRef(cssSource, cssRefs, referrer) {
     }
 }
 
-function validateBackgroundValues(cssDefinition, referrer) {
-//todo: fill in
+function validateShape(shape, referrer) {
+    if (!validShapeType.includes(shape.type)) {
+        error(InvalidShapeType.title + " `" + shape.type + "`, it must one of [" + validShapeType + "] | Info: " + referrer)
+        return
+    }
+    const keys = Object.keys(shape)
+    switch (shape.type) {
+        case ROUNDED_CORNER:
+            validateKeys(keys, validRoundedShapeKeys, referrer)
+            break
+        case CUT_CORNER:
+            validateKeys(keys, validCutCornerShapeKeys, referrer)
+            break
+        case CIRCLE:
+            validateKeys(keys, validCircleShapeKeys, referrer)
+            break
+    }
+}
+
+function validateBrush(brush, referrer) {
+    if (brush.gradient === undefined) {
+        error(MissingField + " `gradient` | Info: " + referrer)
+        return
+    }
+
+    brush.gradient.forEach(color => {
+        validateColor(color, referrer)
+    })
+
+    validateKeys(Object.keys(brush), validBrushKeys, referrer)
+}
+
+function validateBackground(cssDefinition, referrer) {
+    if (cssDefinition.color !== undefined) {
+        validateColor(cssDefinition.color, referrer)
+    }
+    if (cssDefinition.shape !== undefined) {
+        validateShape(cssDefinition.shape, referrer)
+    }
+    if (cssDefinition.brush !== undefined) {
+        validateBrush(cssDefinition.brush, referrer)
+    }
 }
 
 function validateCssDefinition(cssDefinition, referrer) {
     if (!validCssType.includes(cssDefinition.type)) {
-        error(InvalidModifierType.title+": `" + cssDefinition.type + "` It must be one of [" + validCssType + "]")
+        error(InvalidModifierType.title + ": `" + cssDefinition.type + "` It must be one of [" + validCssType + "]")
         return
     }
 
     switch (cssDefinition.type) {
         case BACKGROUND:
             validateKeys(Object.keys(cssDefinition), validBackgroundKeys, referrer + "." + cssDefinition.type)
-            //todo: validate values
-            validateBackgroundValues(cssDefinition, referrer + "." + cssDefinition.type)
+            validateBackground(cssDefinition, referrer + "." + cssDefinition.type)
             break
         case PADDING:
             validateKeys(Object.keys(cssDefinition), validPaddingKeys, referrer + "." + cssDefinition.type)
@@ -76,7 +118,7 @@ function validateCssDefinition(cssDefinition, referrer) {
 function validateCssDefinitionList(cssDefinitionList, referrer) {
     let index = 0
     cssDefinitionList.forEach(cssDefinition => {
-        validateCssDefinition(cssDefinition, "Index:"+index+", "+referrer)
+        validateCssDefinition(cssDefinition, "Index:" + index + ", " + referrer)
         index++
     })
 }

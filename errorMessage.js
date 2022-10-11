@@ -102,3 +102,8 @@ exports.InvalidTemplateType = {
     'title' : "InvalidTemplateType",
     'detail' : "Template type is not supported!"
 }
+
+exports.InvalidShapeType = {
+    'title' : "InvalidShapeType",
+    'detail' : "Shape type is not supported!"
+}

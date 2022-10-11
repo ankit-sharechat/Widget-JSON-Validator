@@ -222,7 +222,13 @@
       "metaStyle": [
         {
           "type": "background",
-          "color": "link"
+          "color": "link",
+          "shape" : {
+            "type" : "roundedCorner"
+          },
+          "brush" : {
+            "gradient" : ["link"]
+          }
         }
       ]
     },
