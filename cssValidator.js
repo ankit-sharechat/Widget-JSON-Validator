@@ -1,4 +1,4 @@
-const {error, validateKeys, onCssSourceReferred, fieldMissing} = require("./helpers");
+const {error, validateKeys, onCssSourceReferred} = require("./helpers");
 const {
     validCssType, BACKGROUND, PADDING, SIZE, FILLHEIGHT, FILLWIDTH, ALPHA, BORDER, ROTATE, ELEVATION, ASPECT_RATIO,
     GRADIENT, validBackgroundKeys, validPaddingKeys, validSizeKeys, validfillMaxHeightKeys, validfillMaxWidthKeys,
