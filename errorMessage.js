@@ -68,6 +68,11 @@ exports.InvalidModifierType = {
     'detail' : "Modifier is not in supported types."
 }
 
+exports.InvalidValue = {
+    'title' : "InvalidValue",
+    'detail' : "Value is not in supported."
+}
+
 exports.UnusedActionFound = {
     'title' : "UnusedActionFound",
     'detail' : "Declared action is never referred!"

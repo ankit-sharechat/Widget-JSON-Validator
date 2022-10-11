@@ -1,4 +1,4 @@
-const {error, validateKeys, onCssSourceReferred} = require("./helpers");
+const {error, validateKeys, onCssSourceReferred, fieldMissing} = require("./helpers");
 const {
     validCssType, BACKGROUND, PADDING, SIZE, FILLHEIGHT, FILLWIDTH, ALPHA, BORDER, ROTATE, ELEVATION, ASPECT_RATIO,
     GRADIENT, validBackgroundKeys, validPaddingKeys, validSizeKeys, validfillMaxHeightKeys, validfillMaxWidthKeys,
@@ -6,7 +6,7 @@ const {
     validShapeType, ROUNDED_CORNER, CUT_CORNER, CIRCLE, validRoundedShapeKeys, validCutCornerShapeKeys,
     validCircleShapeKeys, validBrushKeys
 } = require("./constants");
-const {MissingField, CssNotFound, InvalidModifierType, InvalidShapeType} = require("./errorMessage");
+const {MissingField, CssNotFound, InvalidModifierType, InvalidShapeType, InvalidValue} = require("./errorMessage");
 const {validateColor} = require("./colorValidator");
 
 function validateCssRef(cssSource, cssRefs, referrer) {
@@ -48,7 +48,7 @@ function validateShape(shape, referrer) {
 
 function validateBrush(brush, referrer) {
     if (brush.gradient === undefined) {
-        error(MissingField + " `gradient` | Info: " + referrer)
+        error(MissingField.title + " `gradient` | Info: " + referrer)
         return
     }
 
@@ -68,6 +68,52 @@ function validateBackground(cssDefinition, referrer) {
     }
     if (cssDefinition.brush !== undefined) {
         validateBrush(cssDefinition.brush, referrer)
+    }
+}
+
+function validateBorder(border, referrer) {
+    if (border.color !== undefined) {
+        validateColor(border.color, referrer)
+    }
+    if (border.shape !== undefined) {
+        validateShape(border.shape, referrer)
+    }
+}
+
+function validateElevation(elevation, referrer) {
+    if (elevation.shape !== undefined) {
+        validateShape(elevation.shape, referrer)
+    }
+}
+
+function validateGradient(gradient, referrer) {
+    if (gradient.c === undefined) {
+        error(MissingField.title + ": `c` (Colors) | Info: " + referrer)
+        return
+    } else {
+        gradient.c.forEach(color => {
+            validateColor(color, referrer)
+        })
+    }
+
+    if (gradient.h === undefined || gradient.h === 0) {
+        //yr must be present
+        if (gradient.yr === undefined) {
+            error(MissingField.title + ": `yr`| Info: " + referrer)
+        } else {
+            if (gradient.yr.length != 2) {
+                error(InvalidValue.title + ": `yr` must be a list of size 2, " + referrer)
+            }
+        }
+    } else {
+        //xr must be present
+        if (gradient.xr === undefined) {
+            error(MissingField.title + ": `xr`| Info: " + referrer)
+        } else {
+            if (gradient.xr.length != 2) {
+                error(InvalidValue.title + ": `xr` must be a list of size 2, " + referrer)
+            }
+        }
     }
 }
 
@@ -99,18 +145,21 @@ function validateCssDefinition(cssDefinition, referrer) {
             break
         case BORDER:
             validateKeys(Object.keys(cssDefinition), validBorderKeys, referrer + "." + cssDefinition.type)
+            validateBorder(cssDefinition, referrer + "." + cssDefinition.type)
             break
         case ROTATE:
             validateKeys(Object.keys(cssDefinition), validRotateKeys, referrer + "." + cssDefinition.type)
             break
         case ELEVATION:
             validateKeys(Object.keys(cssDefinition), validElevationKeys, referrer + "." + cssDefinition.type)
+            validateElevation(cssDefinition, referrer + "." + cssDefinition.type)
             break
         case ASPECT_RATIO:
             validateKeys(Object.keys(cssDefinition), validAspectRatioKeys, referrer + "." + cssDefinition.type)
             break
         case GRADIENT:
             validateKeys(Object.keys(cssDefinition), validGradientKeys, referrer + "." + cssDefinition.type)
+            validateGradient(cssDefinition, referrer + "." + cssDefinition.type)
             break
     }
 }
