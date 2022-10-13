@@ -50,7 +50,7 @@ exports.validCssType = [this.BACKGROUND,
     this.PADDING, this.SIZE, this.FILLHEIGHT, this.FILLWIDTH, this.ALPHA, this.BORDER, this.ROTATE,
     this.ELEVATION, this.ASPECT_RATIO, this.GRADIENT]
 
-exports.validBackgroundKeys = ['type', 'color', 'shape', 'brush']
+exports.validBackgroundKeys = ['type', 'color', 'shape', 'brush', 'imageUrl', 'scale']
 exports.validPaddingKeys = ['type', 'all', 'start', 'top', 'end', 'bottom']
 exports.validSizeKeys = ['type', 's', 'w', 'h']
 exports.validfillMaxHeightKeys = ['type', 'f']
