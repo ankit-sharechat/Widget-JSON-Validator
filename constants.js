@@ -1,5 +1,5 @@
 exports.validSlotTypes = ['SLOT_TXT', 'SLOT_2_LINE', 'SLOT_LOT', 'SLOT_IMG', 'SLOT_PLAY', 'SLOT_CHIP']
-exports.validTemplateKeys = ['type', 'header', 'sctv', 'items', 'autoPlay', 'sctvConfig', 'itemsConfig', 'itemSource', 'cssRefs']
+exports.validTemplateKeys = ['type', 'header', 'sctv', 'items', 'autoPlay','maxBuf', 'sctvConfig', 'itemsConfig', 'itemSource', 'cssRefs']
 exports.validItemsConfigKeys = ['s', 'sp', 'tp', 'ep', 'bp', 'wp', 'w2hr', 'c']
 exports.validTemplateTypes = ['SctvTemplate', 'VideoTemplate']
 exports.DataSourceKey = 'DataSourceKey'
@@ -22,7 +22,7 @@ exports.validTextObjectKeys = ['dataRef', 'style', 'color', 'rd', 'ld', 'cAction
 exports.validDrawableKeys = ['dataRef', 'cssRefs']
 exports.validPlayableObjectKeys = ['gifRef', 'thumbRef', 'videoRef']
 exports.validChipObjectKeys = ['imageRef', 's', 'b', 'textRef', 'color', 'style', 'cssRefs', 'cActionRef']
-exports.validImageObjectKeys = ['dataRef', 'cssRefs', 'cActionRef']
+exports.validImageObjectKeys = ['dataRef', 'cssRefs', 'cActionRef', 'cs']
 
 exports.validTwoLineTextSlotKeys = ['type', 'top', 'bottom', 'cssRefs']
 exports.validPlaySlotKeys = ['type', 'playable']
